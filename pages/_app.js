@@ -1,5 +1,15 @@
-import '../styles/global.css'
+import GlobalStyle from '../styles/GlobalStyle'
+import Default from '../layouts/default'
 
-export default function App({ Component, pageProps }) {
-    return <Component {...pageProps} />
+function MyApp({ Component, pageProps }) {
+    return (
+        <div>
+            <GlobalStyle />
+                <Default>
+                    <Component {...pageProps} />
+                </Default>
+        </div>
+    );
 }
+
+export default MyApp;
