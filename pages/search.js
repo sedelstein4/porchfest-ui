@@ -1,13 +1,13 @@
 import Head from "next/head";
 import Header from "../components/Browse/Heading";
 
-export default function Home() {
+export default function Search() {
     return (
         <div>
             <Head>
-                <title>Porchfest</title>
+                <title>Search</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header/>
+            <h1>Search</h1>
         </div>
     );}

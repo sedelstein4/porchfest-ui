@@ -1,15 +1,19 @@
 import GlobalStyle from '../styles/GlobalStyle'
 import Default from '../layouts/default'
+// import { useStore } from '../store/index'
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
+    // const store = useStore(pageProps.initialReduxState)
+
     return (
-        <div>
+        <>
             <GlobalStyle />
                 <Default>
                     <Component {...pageProps} />
                 </Default>
-        </div>
-    );
+        </>
+    )
 }
 
-export default MyApp;
+export default MyApp
+

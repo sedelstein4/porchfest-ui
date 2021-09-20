@@ -1,18 +1,16 @@
 import styled from 'styled-components'
 
-export const NavContainer = styled.div`
+export const Title = styled.div`
   display: flex;
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  justify-content: space-between;
-  align-items: center;
   z-index: 100;
   background: var(--main);
 `
 
-export const NavLink = styled.a`
+export const PageBtn = styled.a`
   flex: 1;
   padding: 10px 0;
   color: var(--white);
@@ -21,10 +19,6 @@ export const NavLink = styled.a`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  
-  :hover {
-    color: var(--black);
-  }
 `
 
 export const backToHome = styled.div` 

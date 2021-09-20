@@ -1,24 +1,22 @@
 import React, { Component } from 'react'
 import * as Styles from './styles'
-import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Navigation({ children, home }) {
     return (
         <Styles.NavContainer>
-            <Styles.PageBtn>
-                Browse
-            </Styles.PageBtn>
-            <Styles.PageBtn>
+            <Link href={"/browse"} passHref>
+                <Styles.NavLink>Browse</Styles.NavLink>
+            </Link>
+            <Styles.NavLink>
                 Search
-            </Styles.PageBtn>
-            <Styles.PageBtn>
+            </Styles.NavLink>
+            <Styles.NavLink>
                 Saved
-            </Styles.PageBtn>
-            <Styles.PageBtn>
+            </Styles.NavLink>
+            <Styles.NavLink>
                 Events
-            </Styles.PageBtn>
+            </Styles.NavLink>
         </Styles.NavContainer>
     )
         }
