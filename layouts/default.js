@@ -1,5 +1,5 @@
-// import Header from '../components/Site/Header/Header'
 import Navigation from '../components/Navigation/Navigation'
+import Header from "../components/Navigation/Header";
 
 export default function Default(props) {
     return (
