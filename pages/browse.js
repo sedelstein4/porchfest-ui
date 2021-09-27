@@ -12,4 +12,4 @@ export default function Browse() {
             </Head>
             <h1>Artists and Genres go here</h1>
         </div>
-    );}
+    )}
