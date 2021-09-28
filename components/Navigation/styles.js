@@ -15,15 +15,21 @@ export const NavContainer = styled.div`
 export const NavLink = styled.a`
   flex: 1;
   padding: 10px 0;
-  color: var(--white);
+  color: var(--black);
   font-size: 1em;
   line-height: 1em;
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   
-  :hover {
-    color: var(--black);
+  &.active{
+    color: var(--secondary);
+  }
+  
+  svg{
+    width: 30px;
+    margin-bottom: 5px;
   }
   
 `

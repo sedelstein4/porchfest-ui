@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "../components/Navigation/Header";
 
 export default function Browse(data) {
+    console.log(data)
     return (
         <div>
             <Header title={"Browse Artists"}>
@@ -11,6 +12,7 @@ export default function Browse(data) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <h1>Artists and Genres go here</h1>
+            <p>{data.data.status}</p>
         </div>
     )}
 
