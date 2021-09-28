@@ -1,65 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-    @font-face {
-        font-family: 'palanquinlight';
-        src: url('/fonts/palanquin/palanquin-light-webfont.woff2') format('woff2'),
-            url('/fonts/palanquin/palanquin-light-webfont.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-    }
-    
-    @font-face {
-        font-family: 'palanquinmedium';
-        src: url('/fonts/palanquin/palanquin-medium-webfont.woff2') format('woff2'),
-            url('/fonts/palanquin/palanquin-medium-webfont.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-    }
-    
-    @font-face {
-        font-family: 'palanquinbold';
-        src: url('/fonts/palanquin/palanquin-bold-webfont.woff2') format('woff2'),
-            url('/fonts/palanquin/palanquin-bold-webfont.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-    }
-    
-    @font-face {
-        font-family: 'playfair-black-italic';
-        src: url('/fonts/playfair-display/PlayfairDisplay-BlackItalic.woff2') format('woff2'),
-            url('/fonts/playfair-display/PlayfairDisplay-BlackItalic.woff') format('woff');
-        font-weight: 900;
-        font-style: italic;
-        font-display: swap;
-    }
-    
-    @font-face {
-        font-family: 'playfair-italic';
-        src: url('/fonts/playfair-display/PlayfairDisplay-Italic.woff2') format('woff2'),
-            url('/fonts/playfair-display/PlayfairDisplay-Italic.woff') format('woff');
-        font-weight: normal;
-        font-style: italic;
-        font-display: swap;
-    }
-    
-    @font-face {
-        font-family: 'playfair-black';
-        src: url('/fonts/playfair-display/PlayfairDisplay-Black.woff2') format('woff2'),
-            url('/fonts/playfair-display/PlayfairDisplay-Black.woff') format('woff');
-        font-weight: 900;
-        font-style: normal;
-        font-display: swap;
-    }
-    
-    @font-face {
-        font-family: 'playfair-regular';
-        src: url('/fonts/playfair-display/PlayfairDisplay-Regular.woff2') format('woff2'),
-            url('/fonts/playfair-display/PlayfairDisplay-Regular.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-    }
     
     html {
         min-height: 100%;

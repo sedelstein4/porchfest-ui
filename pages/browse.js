@@ -5,10 +5,9 @@ export default function Browse(data) {
     console.log(data)
     return (
         <div>
-            <Header title={"Browse Artists"}>
-            </Header>
+            <Header title={"Browse Artists"}/>
             <Head>
-                <title>Porchfest</title>
+                <title>Browse Artists</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <h1>Artists and Genres go here</h1>
@@ -19,7 +18,6 @@ export default function Browse(data) {
 export async function getStaticProps(context) {
     const res = await fetch(`http://localhost:5000/`)
     const data = await res.json()
-    console.log(data)
 
     if (!data) {
         return {
