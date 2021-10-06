@@ -21,13 +21,16 @@ export default function Browse(data) {
 
 export function componentLoop(){
     let genres =["Rock","Indie","Pop"];
-    let artists =["The Rockstars","Gladiators","Tom and the Boys"];
+    let artistNames =["The Rockstars","Gladiators","Tom and the Boys", "The Candlesticks", "Blue Days", "The Sunspots" ];
+    let artistGenres =["Rock", "Rock", "Rock", "Indie", "Indie", "Indie"]
     let rowList =[];
 
-    genres.forEach((genre, index)=>{
+    genres.forEach((genre)=>{
         let cardList =[];
-        artists.forEach((artist, index)=>{
-            cardList.push(<ArtistCard imgPath={'/images/profile.jpeg'} name={artist}/>)
+        artistNames.forEach((name, index)=>{
+            if (artistGenres[index] === genre){
+                cardList.push(<ArtistCard imgPath={'/images/profile.jpeg'} name={name}/>)
+            }
         })
         rowList.push( <CardRow genre={genre}>{cardList}</CardRow>)
     })
