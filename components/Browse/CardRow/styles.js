@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const rowContainer = styled.div`
   margin-left:5px;
+  margin-bottom: 20%;
 `
 
 export const row = styled.div`
