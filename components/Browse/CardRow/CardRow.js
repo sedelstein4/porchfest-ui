@@ -5,7 +5,7 @@ export default function CardRow(props) {
     return (
         <Styles.rowContainer>
             <Styles.genre>
-                <p>{props.genre}</p>
+                {props.genre}
             </Styles.genre>
             <Styles.row>
                 {props.children}

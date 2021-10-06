@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const rowContainer = styled.div`
   margin-left:5px;
-  margin-bottom: 20%;
+  margin-bottom: 100px;
 `
 
 export const row = styled.div`
@@ -14,7 +14,7 @@ export const row = styled.div`
   margin-left:15px;
 `
 
-export const genre = styled.div`
+export const genre = styled.h1`
   margin-top:15px;
   margin-left:15px;
   text-align: left;
