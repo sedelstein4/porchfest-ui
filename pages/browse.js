@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Header from "../components/Navigation/Header";
+import ArtistCard from "../components/Browse/ArtistCard";
+import CardRow from "../components/Browse/CardRow";
 
 export default function Browse(data) {
     console.log(data)
@@ -10,7 +12,21 @@ export default function Browse(data) {
                 <title>Browse Artists</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <h1>Artists and Genres go here</h1>
+            <CardRow genre={"Rock"}>
+                <ArtistCard imgPath={'/images/profile.jpeg'} name={"The Rockstars"}/>
+                <ArtistCard imgPath={'/images/profile.jpeg'} name={"Gladiators"}/>
+                <ArtistCard imgPath={'/images/profile.jpeg'} name={"Tom and the Boys"}/>
+            </CardRow>
+
+            <CardRow genre={"Indie"}>
+                <ArtistCard imgPath={'/images/profile.jpeg'} name={"The Candlesticks"}/>
+                <ArtistCard imgPath={'/images/profile.jpeg'} name={"Blue Days"}/>
+                <ArtistCard imgPath={'/images/profile.jpeg'} name={"The Sunspots"}/>
+            </CardRow>
+
+            <CardRow genre={"Pop"}>
+            </CardRow>
+
             <p>{data.data.status}</p>
         </div>
     )}
