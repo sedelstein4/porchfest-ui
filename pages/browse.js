@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Navigation/Header";
-import ArtistCard from "../components/Browse/ArtistCard";
+import ArtistCard from "../components/Browse/ArtistCard/ArtistCard";
 import CardRow from "../components/Browse/CardRow/CardRow";
 
 export default function Browse(data) {
