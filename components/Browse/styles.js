@@ -26,12 +26,13 @@ export const backToHome = styled.div`
 `
 
 export const cardContainer = styled.div`
-  //align-items: center;
+  width: 100px;
+  height: 100px;
 
   img {
-    max-width: 75%;
     border-radius: 3px;
     border: 1.5px solid #939393;
+    object-fit: cover;
   }
 
 `
@@ -43,24 +44,4 @@ export const name = styled.div`
   text-align: left;
   font-size:1.1em;
   max-width:90%;
-`
-export const rowContainer = styled.div`
-  margin-left:5px;
-`
-
-export const row = styled.div`
-  width:100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-content: space-evenly;
-  margin-left:15px;
-`
-
-export const genre = styled.div`
-  margin-top:15px;
-  margin-left:15px;
-  text-align: left;
-  font-size: x-large;
-  font-weight: bold;
 `
