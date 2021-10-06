@@ -12,24 +12,29 @@ export default function Browse(data) {
                 <title>Browse Artists</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <CardRow genre={"Rock"}>
-                <ArtistCard imgPath={'/images/profile.jpeg'} name={"The Rockstars"}/>
-                <ArtistCard imgPath={'/images/profile.jpeg'} name={"Gladiators"}/>
-                <ArtistCard imgPath={'/images/profile.jpeg'} name={"Tom and the Boys"}/>
-            </CardRow>
-
-            <CardRow genre={"Indie"}>
-                <ArtistCard imgPath={'/images/profile.jpeg'} name={"The Candlesticks"}/>
-                <ArtistCard imgPath={'/images/profile.jpeg'} name={"Blue Days"}/>
-                <ArtistCard imgPath={'/images/profile.jpeg'} name={"The Sunspots"}/>
-            </CardRow>
-
-            <CardRow genre={"Pop"}>
-            </CardRow>
+            {componentLoop()}
 
             <p>{data.data.status}</p>
         </div>
     )}
+
+
+
+export function componentLoop(){
+    let genres =["Rock","Indie","Pop"];
+    let artists =["The Rockstars","Gladiators","Tom and the Boys"];
+    let rowList =[];
+
+    genres.forEach((genre, index)=>{
+        let cardList =[];
+        artists.forEach((artist, index)=>{
+            cardList.push(<ArtistCard imgPath={'/images/profile.jpeg'} name={artist}/>)
+        })
+        rowList.push( <CardRow genre={genre}>{cardList}</CardRow>)
+    })
+    return rowList;
+
+}
 
 export async function getStaticProps(context) {
     const res = await fetch(`http://localhost:5000/`)
