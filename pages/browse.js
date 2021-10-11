@@ -12,16 +12,16 @@ export default function Browse(data) {
                 <title>Browse Artists</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            {componentLoop()}
+            {componentLoop(data)}
             <p>{data.data.status}</p>
         </div>
     )}
 
 
 
-export function componentLoop(){
+export function componentLoop(data){
     let genres =["Rock","Indie","Pop"];
-    let artistNames =["The Rockstars","Gladiators","Tom and the Boys", "The Candlesticks", "Blue Days", "The Sunspots" ];
+    let artistNames =[data.data.name,"Gladiators","Tom and the Boys", "The Candlesticks", "Blue Days", "The Sunspots" ];
     let artistGenres =["Rock", "Rock", "Rock", "Indie", "Indie", "Indie"]
     let rowList =[];
 
@@ -29,7 +29,7 @@ export function componentLoop(){
         let cardList =[];
         artistNames.forEach((name, index)=>{
             if (artistGenres[index] === genre){
-                cardList.push(<ArtistCard imgPath={'/images/profile.jpeg'} name={name}/>)
+                cardList.push(<ArtistCard imgPath={data.data.photo} name={name}/>)
             }
         })
         rowList.push( <CardRow genre={genre}>{cardList}</CardRow>)
