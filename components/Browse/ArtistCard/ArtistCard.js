@@ -13,7 +13,7 @@ const StyledImage = styled(Image)`
 export default function ArtistCard(props) {
     return (
         <Styles.cardContainer>
-            <Link href="/">
+            <Link href="/artist/[slug]" as={`/artist/${props.url}`} passHref>
                 <a>
                     <img
                         src={props.imgPath}

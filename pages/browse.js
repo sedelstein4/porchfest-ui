@@ -29,7 +29,7 @@ export function componentLoop(data){
         let cardList =[];
         artistNames.forEach((name, index)=>{
             if (artistGenres[index] === genre){
-                cardList.push(<ArtistCard imgPath={data.data.photo} name={name}/>)
+                cardList.push(<ArtistCard imgPath={data.data.photo} name={name} url={data.data.slug}/>)
             }
         })
         rowList.push( <CardRow genre={genre}>{cardList}</CardRow>)
