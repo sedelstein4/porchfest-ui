@@ -6,7 +6,7 @@ import CardRow from "../components/Browse/CardRow/CardRow";
 export default function Browse(data) {
     console.log(data)
     return (
-        <div>
+        <div className="content">
             <Header title={"Browse Artists"}/>
             <Head>
                 <title>Browse Artists</title>

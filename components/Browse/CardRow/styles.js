@@ -1,23 +1,20 @@
 import styled from "styled-components";
 
 export const rowContainer = styled.div`
-  margin-left:5px;
   margin-bottom: 100px;
 `
 
 export const row = styled.div`
   width:100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-content: space-evenly;
-  margin-left:15px;
+  display: grid;
+  grid-row: auto;
+  grid-template-columns: auto auto auto;
+  justify-content: space-between;
 `
 
 export const genre = styled.h1`
-  margin-top:15px;
-  margin-left:15px;
   text-align: left;
-  font-size: x-large;
-  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 0;
+  margin-bottom: 10px;
 `

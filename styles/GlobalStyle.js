@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        --margin: 130px;
+        --margin: 40px;
         --mobile-margin: 20px;
         
         --font-sans: 'palanquinlight', sans-serif;
@@ -51,7 +51,7 @@ const GlobalStyle = createGlobalStyle`
         
         h1 {
             font-size: 4.5em;
-            line-height: 100px;
+            line-height: 1em;
         }
         
         a {
@@ -72,16 +72,8 @@ const GlobalStyle = createGlobalStyle`
         display: none;
     }
     
-    .grid {
-        margin: 0 var(--margin);
-        grid-template-columns: repeat(4, 1fr);
-        grid-column-gap: 100px;
-        grid-row-gap: 0;
-        display: grid; 
-
-      .split-image{
-        margin: 0;
-      }
+    .content {
+        margin: 80px var(--margin) 0;
       
     }
     .overlay {
@@ -92,35 +84,13 @@ const GlobalStyle = createGlobalStyle`
         right: 0;
         background: rgb(0, 0, 0, 0.4);
     }
-    .coral-bg-text {
-        background: var(--main);
-        color: var(--white);
-        font-family: var(--font-sans-bold);
-        padding: 0 10px;
-        display: inline;
-        text-align: center;
-        border: none;
-    }
-    .spotify-bg-text {
-      background: var(--spotify);
-      color: var(--white);
-      font-family: var(--font-sans-bold);
-      padding: 0 10px;
-      display: inline;
-      text-align: center;
-      border: none;
-      
-      :hover{
-        background: var(--spotify-hover);
-      }
-    }
     
     @media only screen and (max-width: 1024px) {
         body {
-            min-width: 0;
-            width: 100vw;
-            overflow-x: hidden;
-            font-size: 14px;
+          min-width: 0;
+          width: 100vw;
+          overflow-x: hidden;
+          font-size: 14px;
             
             h1 {
                 font-size: 40px;
@@ -137,10 +107,8 @@ const GlobalStyle = createGlobalStyle`
         .mobile-only {
             display: block;
         }
-        .grid {
-          margin: 0 var(--mobile-margin);
-          grid-template-columns: repeat(4, 1fr);
-          grid-column-gap: 10px;
+        .content {
+          margin: 80px var(--mobile-margin) 0;
       }
     }
 `

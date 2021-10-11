@@ -5,7 +5,7 @@ export default function Default(props) {
     return (
         <>
             {/*<Header />*/}
-            <main style={{marginTop:"80px"}}>{props.children}</main>
+            <main>{props.children}</main>
             <Navigation />
         </>
     )

@@ -15,8 +15,8 @@ export const img = styled.div`
   //margin:5px;
     
 `
-export const name = styled.div`
+export const name = styled.p`
   text-align: left;
-  font-size:1.1em;
-  max-width:90%;
+  font-size: 1rem;
+  margin-top: 10px;
 `

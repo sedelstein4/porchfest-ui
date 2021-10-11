@@ -4,7 +4,7 @@ import Header from "../components/Navigation/Header";
 export default function Saved(data) {
     console.log(data)
     return (
-        <div>
+        <div className="content">
             <Header title={"Saved Artists"}/>
             <Head>
                 <title>Saved Artists</title>

@@ -24,7 +24,7 @@ export default function ArtistCard(props) {
                 </a>
             </Link>
             <Styles.name>
-                 <p>{props.name}</p>
+                 {props.name}
             </Styles.name>
         </Styles.cardContainer>
     )

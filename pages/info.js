@@ -4,7 +4,7 @@ import Header from "../components/Navigation/Header";
 export default function Info(data) {
     console.log(data)
     return (
-        <div>
+        <div className="content">
             <Header title={"Event Information"}/>
             <Head>
                 <title>Porchfest 2021</title>

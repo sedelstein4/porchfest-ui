@@ -4,7 +4,7 @@ import Header from "../components/Navigation/Header";
 export default function Search(data) {
     console.log(data)
     return (
-        <div>
+        <div className="content">
             <Header title={"Search"}/>
             <Head>
                 <title>Search</title>
