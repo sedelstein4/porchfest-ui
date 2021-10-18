@@ -6,8 +6,6 @@ export default function Info(data) {
     console.log(data)
     let nameFromBackend = "Porchfest 2021"; //temp
 
-    //need to change header or make new component to allow subheader (city name), also repurpose later for artist pages
-        //and also changing the icon
     return (
         <div>
             <EventHeader
