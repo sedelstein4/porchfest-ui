@@ -38,6 +38,7 @@ export const IconBtn = styled(NavLink)`
   align-items: end;
   margin-right:15px;
   margin-top:7px;
+  color:white;
 `
 
 export const backToHome = styled.div` 
@@ -58,9 +59,10 @@ export const header = styled.div`
    flex: 1;
   padding: 20px 15px;
   color: var(--white);
-  font-size: 1.5em;
+  font-size: 1.7em;
   line-height: 1em;
   display:inline-flex;
   justify-content: left;
   font-weight: bold;
+  white-space: nowrap;
   `

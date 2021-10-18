@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Header from "../components/Navigation/Header";
-import EventInfo from "../components/Browse/EventInfo/EventInfo";
+import EventInfo from "../components/Event/Info/EventInfo";
+import EventHeader from "../components/Event/Info/EventHeader";
 
 export default function Info(data) {
     console.log(data)
@@ -9,8 +9,11 @@ export default function Info(data) {
     //need to change header or make new component to allow subheader (city name), also repurpose later for artist pages
         //and also changing the icon
     return (
-        <div className="content">
-            <Header title={nameFromBackend}/>
+        <div>
+            <EventHeader
+                title={nameFromBackend}
+                city={"Ithaca, NY"}
+            />
             <Head>
                 <title>{nameFromBackend}</title>
                 <link rel="icon" href="/favicon.ico" />
