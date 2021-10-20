@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Navigation/Header";
+import SearchBar from "../components/Search/SearchBar"
 
 export default function Search(data) {
     console.log(data)
@@ -10,6 +11,6 @@ export default function Search(data) {
                 <title>Search</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <h1>Search go here</h1>
+            <SearchBar/>
         </div>
     )}
