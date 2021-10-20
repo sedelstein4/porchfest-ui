@@ -56,14 +56,12 @@ export async function getStaticPaths() {
 
     const paths = names.map(name => `/artist/${name}`)
 
-    return { paths, fallback: false }
+    return { paths, fallback: true }
 }
 
-export async function getStaticProps({ context }) {
-    const slug = context.params
-    const res = fetch(`http://localhost:5000/api/${slug}`)
-    // return { props }
-    // const res = await fetch(`http://localhost:5000/artist/${params.id}`)
+export async function getStaticProps({ params }) {
+    const { slug } = params
+    const res = await fetch(`http://localhost:5000/api/${slug}`)
     const data = await res.json()
 
     // Pass post data to the page via props
