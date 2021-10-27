@@ -5,8 +5,8 @@ export const cardContainer = styled.div`
   height: 100px;
 
   img {
-    border-radius: 3px;
-    border: 1.5px solid #939393;
+    border-radius: 4px;
+    border: 1px solid var(--grey-dark);
     object-fit: cover;
   }
 

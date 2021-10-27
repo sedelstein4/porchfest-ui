@@ -3,13 +3,21 @@ import * as Styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
 
+function showSortPicker() {
+    //TODO
+    //https://flaviocopes.com/react-show-different-component-on-click/
+}
+
 export default function Header(props) {
-    if (props.title === "Search"){ //no icon on search pages
+    if (props.title === "Browse Artists"){ //only show sort icon on browse page
         return (
             <Styles.TopContainer>
                 <Styles.header>
                     {props.title}
                 </Styles.header>
+                <Styles.IconBtn onClick={showSortPicker}>
+                    <FontAwesomeIcon icon={faSortAmountDown}/>
+                </Styles.IconBtn>
             </Styles.TopContainer>
         )
     }
@@ -19,9 +27,6 @@ export default function Header(props) {
                 <Styles.header>
                     {props.title}
                 </Styles.header>
-                <Styles.IconBtn>
-                    <FontAwesomeIcon icon={faSortAmountDown}/>
-                </Styles.IconBtn>
             </Styles.TopContainer>
         )
     }

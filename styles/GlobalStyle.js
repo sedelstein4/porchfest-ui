@@ -22,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
         --main-hover: #D6425D;
         --secondary: #D4AFCD;
         --secondary-hover: #E06C81;
+        --link: #007AFF;
         --black: #000;
         --grey-dark: #707070;
         --grey-middark: #939393;

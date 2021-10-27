@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const rowContainer = styled.div`
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 `
 
 export const row = styled.div`
