@@ -1,58 +1,63 @@
 import styled from 'styled-components'
 import Header from "../../components/Navigation/Header";
 import Head from "next/head";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React from "react";
+import {faApple, faFacebookSquare, faInstagramSquare, faSpotify} from "@fortawesome/free-brands-svg-icons";
 
 const ArtistImage = styled.img`
-    grid-column: span 4;
-    margin: 20px 0;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    @media (max-width: 1024px) {
-        padding-top: 40px;
-        flex-direction: column;
-    }
+  display: block;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  width: 75%;
 `
 
-const AuthorImage = styled.img`
-    width: 175px;
-    height: 175px;
-    object-fit: cover;
-    margin-right: 20px;
+const SocialMediaGrid = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+  
+  svg {
+    width: 45px !important;
+    height: 45px !important;
+    margin-left: 7px;
+    margin-right: 7px;
+  }
 `
 
-const AuthorName = styled.h1`
-    margin: -10px 0 0 0;
-
-    @media (max-width: 1024px) {
-        margin: 0;
-        text-align: center;
-    }
+const ArtistAbout = styled.p`
+  margin: 0;
+  text-align: center;
+  font-size: 1.25em;
 `
 
-const City = styled.p`
-    font-size: 34px;
-    padding: 0 15px;
-`
-
-const Artist = ({ post }) => {
+const Artist = ({ data }) => {
+    console.log(data)
     return (
         <div className="content">
             <Head>
-                <title>Artist Name</title>
+                <title>Porchfest - {data.artist.name}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header title={"Artist Name"}/>
-            <ArtistImage src={data.data.photo}
-                         alt={data.data.name}/>
+            <Header title={data.artist.name}/>
+                <ArtistImage src={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"}
+                             alt={data.artist.name}/>
+            <SocialMediaGrid>
+                <FontAwesomeIcon icon={faFacebookSquare} />
+                <FontAwesomeIcon icon={faInstagramSquare} />
+                <FontAwesomeIcon icon={faSpotify} />
+                <FontAwesomeIcon icon={faApple} />
+            </SocialMediaGrid>
+            <ArtistAbout>{data.artist.about}</ArtistAbout>
         </div>
     )
 }
 
 export async function getStaticPaths() {
     // get all artist names here in array
-    const names = ['post-malone', 'artist-two']
+    const names = [await fetch(`http://localhost:5000/artists`)]
 
     const paths = names.map(name => `/artist/${name}`)
 
@@ -61,11 +66,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const { slug } = params
-    const res = await fetch(`http://localhost:5000/api/${slug}`)
+    const res = await fetch(`http://localhost:5000/artist/${slug}`)
     const data = await res.json()
 
     // Pass post data to the page via props
-    return { props: { data } }
+    return {
+        props: { data }, // will be passed to the page component as props
+    }
 }
 
 export default Artist
