@@ -34,19 +34,13 @@ export const NavLink = styled.a`
   
 `
 
-export const IconBtn = styled(NavLink)`
-  align-items: end;
-  margin-right:15px;
-  margin-top:7px;
-  color:white;
-`
-
 export const backToHome = styled.div` 
     margin: 3rem 0 0;
 `
 export const TopContainer = styled.div`
   display: flex;
   position: fixed;
+  padding: 20px 10px;
   top: 0;
   left: 0;
   width: 100%;
@@ -55,14 +49,38 @@ export const TopContainer = styled.div`
   margin:auto;
   `
 
-export const header = styled.div`
-   flex: 1;
-  padding: 20px 15px;
+export const PageTitle = styled.div`
+  flex: 1;
   color: var(--white);
   font-size: 1.7em;
-  line-height: 1em;
+  //line-height: 1em;
   display:inline-flex;
   justify-content: left;
   font-weight: bold;
   white-space: nowrap;
+  align-items: center;
   `
+
+export const IconBtn = styled.div`
+  display: ${(props) => (props.show ? 'inline-flex' : 'none')};
+  align-items: center;
+  color:white;
+  margin-right: 20px;
+
+  svg{
+    width: 30px;
+    height: 30px;
+  }
+`
+
+export const BackBtn = styled.div`
+  display: ${(props) => (props.show ? 'inline-flex' : 'none')};
+  align-items: center;
+  color: white;
+  margin-right: 10px;
+
+  svg{
+    width: 30px;
+    height: 30px;
+  }
+`

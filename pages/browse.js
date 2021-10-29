@@ -1,20 +1,21 @@
 import Head from "next/head";
 import Header from "../components/Navigation/Header";
-import Sort from "../components/Browse/Sort/sort";
 import * as Styles from "../components/Browse/styles";
 import Link from "next/link";
+import {useRouter} from "next/router";
 
 export default function Browse(data) {
+    const router = useRouter()
     let genres = ["Rock", "Indie", "Pop"];
     console.log(data)
     if (data.data[0].name) {
         return (
             <div className="content">
-                {/*<Header title={"Browse Artists"}/>*/}
-                {/*<Head>*/}
-                {/*    <title>Browse Artists</title>*/}
-                {/*    <link rel="icon" href="/favicon.ico" />*/}
-                {/*</Head>*/}
+                <Header title={"Browse Artists"} pageType={"browse"}/>
+                <Head>
+                    <title>Browse Artists</title>
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
                 {genres.slice(0, 3).map((genre, i) => {
                         return (
                             <Styles.rowContainer key={data.data.id}>

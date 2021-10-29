@@ -41,7 +41,7 @@ const Artist = ({ data }) => {
                 <title>Porchfest - {data.artist.name}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header title={data.artist.name}/>
+            <Header pageType={"artist"} title={data.artist.name}/>
                 <ArtistImage src={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"}
                              alt={data.artist.name}/>
             <SocialMediaGrid>

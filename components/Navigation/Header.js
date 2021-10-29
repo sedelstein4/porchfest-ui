@@ -1,7 +1,8 @@
 import React from 'react'
 import * as Styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
+import {useRouter} from "next/router";
 
 function showSortPicker() {
     //TODO
@@ -9,25 +10,18 @@ function showSortPicker() {
 }
 
 export default function Header(props) {
-    if (props.title === "Browse Artists"){ //only show sort icon on browse page
+    const router = useRouter()
         return (
             <Styles.TopContainer>
-                <Styles.header>
+                <Styles.BackBtn show={props.pageType === "artist"} onClick={() => router.back()}>
+                    <FontAwesomeIcon icon={faArrowLeft}/>
+                </Styles.BackBtn>
+                <Styles.PageTitle>
                     {props.title}
-                </Styles.header>
-                <Styles.IconBtn onClick={showSortPicker}>
+                </Styles.PageTitle>
+                <Styles.IconBtn show={props.pageType === "browse"} onClick={showSortPicker}>
                     <FontAwesomeIcon icon={faSortAmountDown}/>
                 </Styles.IconBtn>
             </Styles.TopContainer>
         )
-    }
-    else {
-        return (
-            <Styles.TopContainer>
-                <Styles.header>
-                    {props.title}
-                </Styles.header>
-            </Styles.TopContainer>
-        )
-    }
 }
