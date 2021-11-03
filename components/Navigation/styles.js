@@ -49,12 +49,16 @@ export const TopContainer = styled.div`
   margin: auto;
   `
 
+export const PageInfo = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  margin-right: 20px;
+`
+
 export const PageTitle = styled.h1`
   flex: 1;
   color: var(--white);
-  font-size: 1.7em;
   margin: 0;
-  margin-right: 20px;
   //line-height: 1em;
   display:inline-flex;
   justify-content: left;
@@ -62,11 +66,19 @@ export const PageTitle = styled.h1`
   align-items: center;
   `
 
+export const Hometown = styled.h3`
+  margin: 0;
+  color: var(--white);
+
+`
+
 export const IconBtn = styled.div`
   display: ${(props) => (props.show ? 'inline-flex' : 'none')};
   align-items: center;
   color:white;
   margin-right: 20px;
+  flex: 1;
+  justify-content: flex-end;
 
   svg{
     width: 30px;

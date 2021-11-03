@@ -94,11 +94,11 @@ const GlobalStyle = createGlobalStyle`
           font-size: 14px;
             
             h1 {
-                font-size: 40px;
+                font-size: 1.7em;
                 line-height: 1;
             }
             h3 {
-                font-size: 24px;
+                font-size: 1.2em;
             }
         }
         

@@ -57,6 +57,7 @@ export const cardContainer = styled.div`
     border-radius: 3px;
     border: 1.5px solid #939393;
     object-fit: cover;
+    object-position: top center;
   }
 
 `

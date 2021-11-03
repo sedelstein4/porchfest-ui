@@ -52,14 +52,14 @@ const ArtistAbout = styled.p`
 `
 
 const Artist = ({ data }) => {
-    console.log(data)
+    console.log(data.artist.name)
     return (
         <div className="content">
             <Head>
                 <title>Porchfest - {data.artist.name}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header pageType={"artist"} title={data.artist.name}/>
+            <Header pageType={"artist"} title={data.artist.name} hometown={data.artist.hometown}/>
             <ArtistImageDiv imageSrc={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"}>
                 {/*<ArtistImage src={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"} alt={data.artist.name}/>*/}
             </ArtistImageDiv>

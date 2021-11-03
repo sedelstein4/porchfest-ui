@@ -14,9 +14,12 @@ export default function Header(props) {
                 <Styles.BackBtn show={props.pageType === "artist"} onClick={() => router.back()}>
                     <FontAwesomeIcon icon={faArrowLeft}/>
                 </Styles.BackBtn>
-                <Styles.PageTitle>
-                    {props.title}
-                </Styles.PageTitle>
+                <Styles.PageInfo>
+                    <Styles.PageTitle>
+                        {props.title}
+                    </Styles.PageTitle>
+                    {props.pageType === "artist" ? <Styles.Hometown>{props.hometown}</Styles.Hometown> : null}
+                </Styles.PageInfo>
                 <Styles.IconBtn show={props.pageType === "browse"} onClick={showSortPicker}>
                     <FontAwesomeIcon icon={faSortAmountDown}/>
                 </Styles.IconBtn>
