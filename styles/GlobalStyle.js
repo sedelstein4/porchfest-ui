@@ -110,6 +110,7 @@ const GlobalStyle = createGlobalStyle`
         }
         .content {
           margin: 80px var(--mobile-margin) 0;
+          padding-bottom: 50px;
       }
     }
 `

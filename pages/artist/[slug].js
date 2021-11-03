@@ -59,7 +59,7 @@ export async function getStaticPaths() {
     // get all artist names here in array
     const names = [await fetch(`http://localhost:5000/artists`)]
 
-    const paths = names.map(name => `/artist/${name}`)
+    const paths = names.map(url_slug => `/artist/${url_slug}`)
 
     return { paths, fallback: true }
 }

@@ -2,13 +2,9 @@ import Head from "next/head";
 import Header from "../components/Navigation/Header";
 import * as Styles from "../components/Browse/styles";
 import Link from "next/link";
-import {useRouter} from "next/router";
 
 export default function Browse(data) {
-    const router = useRouter()
-    let genres = ["Rock", "Indie", "Pop"];
-    console.log(data)
-    if (data.data[0].name) {
+    if (data.artistData[0].name) {
         return (
             <div className="content">
                 <Header title={"Browse Artists"} pageType={"browse"}/>
@@ -16,17 +12,17 @@ export default function Browse(data) {
                     <title>Browse Artists</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                {genres.slice(0, 3).map((genre, i) => {
+                {data.genreData.slice(0, 6).map((genre, i) => {
                         return (
-                            <Styles.rowContainer key={data.data.id}>
+                            <Styles.rowContainer key={data.artistData.id}>
                                 <Styles.genre>
                                     {genre}
                                 </Styles.genre>
                                 <Styles.row>
-                                    {data.data.slice(0, 3).map((artist, i) => {
+                                    {data.artistData.filter((item) => item.genre[0] === genre).slice(0, 3).map((artist, i) => {
                                         return (
                                             <Styles.cardContainer key={artist.id}>
-                                                <Link href="/artist/[slug]" as={`/artist/${artist.name}`} passHref>
+                                                <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`} passHref>
                                                     <a>
                                                         <img
                                                             src={artist.photo ? artist.photo : "/images/profile.jpeg"}
@@ -37,7 +33,12 @@ export default function Browse(data) {
                                                     </a>
                                                 </Link>
                                                 <Styles.name>
-                                                    {artist.name}
+                                                    <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`} passHref>
+                                                        <a>
+                                                            {artist.name}
+                                                        </a>
+                                                    </Link>
+
                                                 </Styles.name>
                                             </Styles.cardContainer>
                                         )
@@ -54,36 +55,36 @@ export default function Browse(data) {
 }
 
 
-        export function componentLoop(data) {
-            let genres = ["Rock", "Indie", "Pop"];
-            let artistNames = [data.data.name, "Gladiators", "Tom and the Boys", "The Candlesticks", "Blue Days", "The Sunspots"];
-            let artistGenres = ["Rock", "Rock", "Rock", "Indie", "Indie", "Indie"]
-            let rowList = [];
+        // export function componentLoop(data) {
+        //     let genres = ["Rock", "Indie", "Pop"];
+        //     let artistNames = [data.data.name, "Gladiators", "Tom and the Boys", "The Candlesticks", "Blue Days", "The Sunspots"];
+        //     let artistGenres = ["Rock", "Rock", "Rock", "Indie", "Indie", "Indie"]
+        //     let rowList = [];
+        //
+        //     genres.forEach((genre) => {
+        //         let cardList = [];
+        //         artistNames.forEach((name, index) => {
+        //             if (artistGenres[index] === genre) {
+        //                 cardList.push(<ArtistCard imgPath={data.data.photo} name={name} slug={data.data.slug}/>)
+        //             }
+        //         })
+        //         rowList.push(<CardRow genre={genre}>{cardList}</CardRow>)
+        //     })
+        //     return rowList;
+        //
+        // }
 
-            genres.forEach((genre) => {
-                let cardList = [];
-                artistNames.forEach((name, index) => {
-                    if (artistGenres[index] === genre) {
-                        cardList.push(<ArtistCard imgPath={data.data.photo} name={name} slug={data.data.slug}/>)
-                    }
-                })
-                rowList.push(<CardRow genre={genre}>{cardList}</CardRow>)
-            })
-            return rowList;
+        export async function getStaticProps( context ) {
+            const artistRes = await fetch(`http://localhost:5000/artists`)
+            const genreRes = await fetch(`http://localhost:5000/genres`)
 
-        }
-
-        export async function getStaticProps(context) {
-            const res = await fetch(`http://localhost:5000/`)
-            const data = await res.json()
-
-            if (!data) {
-                return {
-                    notFound: true,
-                }
-            }
+            const artistData = await artistRes.json()
+            const genreData = await genreRes.json()
 
             return {
-                props: {data}, // will be passed to the page component as props
+                props: {
+                    artistData,
+                    genreData
+                }
             }
         }

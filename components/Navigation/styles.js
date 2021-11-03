@@ -46,18 +46,19 @@ export const TopContainer = styled.div`
   width: 100%;
   z-index: 100;
   background: var(--main);
-  margin:auto;
+  margin: auto;
   `
 
-export const PageTitle = styled.div`
+export const PageTitle = styled.h1`
   flex: 1;
   color: var(--white);
   font-size: 1.7em;
+  margin: 0;
+  margin-right: 20px;
   //line-height: 1em;
   display:inline-flex;
   justify-content: left;
   font-weight: bold;
-  white-space: nowrap;
   align-items: center;
   `
 
