@@ -38,7 +38,6 @@ export default function Browse(data) {
                                                             {artist.name}
                                                         </a>
                                                     </Link>
-
                                                 </Styles.name>
                                             </Styles.cardContainer>
                                         )
