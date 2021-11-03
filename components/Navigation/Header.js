@@ -5,8 +5,6 @@ import {faArrowLeft, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
 import {useRouter} from "next/router";
 
 function showSortPicker() {
-    //TODO
-    //https://flaviocopes.com/react-show-different-component-on-click/
 }
 
 export default function Header(props) {

@@ -5,7 +5,9 @@ export const barContainer = styled.div`
     width: 100%;
     margin-top: -12px;
     padding:1px;
-    background: rgba(212, 175, 205, 0.25); //var(--secondary) at 25% opacity
+    background: none;
+    //background: rgba(212, 175, 205, 0.25); //var(--secondary) at 25% opacity
+  
 `
 
 export const searchBar = styled.div`

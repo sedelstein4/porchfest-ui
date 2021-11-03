@@ -87,8 +87,3 @@ export default function Browse(data) {
                 props: {data}, // will be passed to the page component as props
             }
         }
-
-//TODO sorter methods, get events or data from components to handle showing/hiding sort picker & sorting
-// look into state hooks more,
-//maybe https://stackoverflow.com/questions/54264486/pass-props-to-another-component-onclick-of-a-button
-    //and https://nextjs.org/docs/basic-features/data-fetching - incremental static regeneration?
