@@ -7,7 +7,7 @@ import Image from 'next/image'
 const StyledImage = styled(Image)`
     max-width: 75%;
     border-radius: 3px;
-    border: 1.5px solid #939393;
+    border: 1px solid #939393;
 `
 
 export default function ArtistCard(props) {

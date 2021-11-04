@@ -7,8 +7,7 @@ import {faApple, faFacebookSquare, faInstagramSquare, faSpotify} from "@fortawes
 
 const ArtistImageDiv = styled.div`
   display: inline-block;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   width: 100%;
   height: 20vw;
   min-height: 300px;

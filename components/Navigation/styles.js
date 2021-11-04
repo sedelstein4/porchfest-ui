@@ -73,10 +73,26 @@ export const Hometown = styled.h3`
 `
 
 export const IconBtn = styled.div`
-  display: ${(props) => (props.show ? 'inline-flex' : 'none')};
+  display: inline-flex;
   align-items: center;
   color:white;
   margin-right: 20px;
+  flex: 1;
+  justify-content: flex-end;
+  width: 25px;
+  height: 25px;
+
+  svg{
+    width: 30px;
+    height: 30px;
+  }
+`
+
+export const LikeBtn = styled.div`
+  display: inline-flex;
+  align-items: center;
+  color:white;
+  margin-right: 30px;
   flex: 1;
   justify-content: flex-end;
 
