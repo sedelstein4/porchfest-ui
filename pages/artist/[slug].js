@@ -4,6 +4,7 @@ import Head from "next/head";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
 import {faApple, faFacebookSquare, faInstagramSquare, faSpotify} from "@fortawesome/free-brands-svg-icons";
+import {faGlobe} from "@fortawesome/free-solid-svg-icons";
 
 const ArtistImageDiv = styled.div`
   display: inline-block;
@@ -63,10 +64,11 @@ const Artist = ({ data }) => {
                 {/*<ArtistImage src={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"} alt={data.artist.name}/>*/}
             </ArtistImageDiv>
             <SocialMediaGrid>
-                <FontAwesomeIcon icon={faFacebookSquare} />
-                <FontAwesomeIcon icon={faInstagramSquare} />
-                <FontAwesomeIcon icon={faSpotify} />
-                <FontAwesomeIcon icon={faApple} />
+                {data.artist.facebook ? <FontAwesomeIcon icon={faFacebookSquare} /> : null}
+                {data.artist.instagram ? <FontAwesomeIcon icon={faInstagramSquare} /> : null}
+                {data.artist.spotify ? <FontAwesomeIcon icon={faSpotify} /> : null}
+                {data.artist.apple ?  <FontAwesomeIcon icon={faApple} /> : null}
+                <FontAwesomeIcon icon={faGlobe} />
             </SocialMediaGrid>
             <ArtistAbout>{data.artist.about}</ArtistAbout>
         </div>

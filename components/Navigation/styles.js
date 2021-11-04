@@ -95,6 +95,10 @@ export const LikeBtn = styled.div`
   margin-right: 30px;
   flex: 1;
   justify-content: flex-end;
+  
+  .filled-heart{
+    color: #F85858;
+  }
 
   svg{
     width: 30px;

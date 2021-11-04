@@ -32,7 +32,7 @@ export default function Header(props) {
                     </Styles.IconBtn>
                     : props.pageType === "artist" ?
                     <Styles.LikeBtn onClick={() => handleLikeClick()}>
-                        {heartOutline ? <FontAwesomeIcon icon={faHeart}/> : <FontAwesomeIcon icon={farHeart}/>}
+                        {heartOutline ? <FontAwesomeIcon icon={faHeart} className="filled-heart"/> : <FontAwesomeIcon icon={farHeart}/>}
                     </Styles.LikeBtn>
                         : null}
             </Styles.TopContainer>
