@@ -72,7 +72,7 @@ export const Hometown = styled.h3`
 
 `
 
-export const IconBtn = styled.div`
+export const SortBtn = styled.div`
   display: inline-flex;
   align-items: center;
   color:white;
@@ -86,6 +86,10 @@ export const IconBtn = styled.div`
     width: 30px;
     height: 30px;
   }
+`
+
+export const SortDropdown = styled.div`
+  display: ${(props) => (props.show ? 'inline-flex' : 'none')};
 `
 
 export const LikeBtn = styled.div`

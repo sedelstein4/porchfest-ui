@@ -52,7 +52,6 @@ const ArtistAbout = styled.p`
 `
 
 const Artist = ({ data }) => {
-    console.log(data.artist.name)
     return (
         <div className="content">
             <Head>

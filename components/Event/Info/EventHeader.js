@@ -15,9 +15,9 @@ export default function EventHeader(props) {
                     {props.city}
                 </localStyles.city>
             </div>
-            <mainStyles.IconBtn>
+            <mainStyles.SortBtn>
                 <FontAwesomeIcon icon={faUserAlt} />
-            </mainStyles.IconBtn>
+            </mainStyles.SortBtn>
 
         </mainStyles.TopContainer>
     )

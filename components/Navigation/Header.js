@@ -1,20 +1,25 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import * as Styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import {useRouter} from "next/router";
 
-function showSortPicker() {
-}
-
 export default function Header(props) {
     const router = useRouter()
     const [heartOutline, heartFilled] = useState(false);
+    const [noDropdown, dropdown] = useState(0);
+
+    useEffect(() => {}, [noDropdown]);
+
+    function sortHandler(){
+        dropdown(current => !current)
+    }
 
     function handleLikeClick(){
         heartFilled(!heartOutline);
     }
+
         return (
             <Styles.TopContainer>
                 <Styles.BackBtn show={props.pageType === "artist"} onClick={() => router.back()}>
@@ -27,9 +32,10 @@ export default function Header(props) {
                     {props.pageType === "artist" ? <Styles.Hometown>{props.hometown}</Styles.Hometown> : null}
                 </Styles.PageInfo>
                 {props.pageType === "browse" ?
-                    <Styles.IconBtn onClick={showSortPicker}>
+                    <Styles.SortBtn onClick={() => sortHandler()}>
                         <FontAwesomeIcon icon={faSortAmountDown}/>
-                    </Styles.IconBtn>
+                        <Styles.SortDropdown show={noDropdown}>TEST</Styles.SortDropdown>
+                    </Styles.SortBtn>
                     : props.pageType === "artist" ?
                     <Styles.LikeBtn onClick={() => handleLikeClick()}>
                         {heartOutline ? <FontAwesomeIcon icon={faHeart} className="filled-heart"/> : <FontAwesomeIcon icon={farHeart}/>}
