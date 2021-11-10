@@ -9,8 +9,8 @@ export default function Login() {
             <Head>
                 <title>Sign in</title>
                 <link rel="icon" href="/favicon.ico" />
-                <SignIn/>
             </Head>
+            <SignIn/>
         </div>
     )
 }

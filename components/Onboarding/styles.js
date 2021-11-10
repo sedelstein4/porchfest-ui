@@ -57,3 +57,12 @@ export const backBtn = styled.div`
   }
 `
 
+export const forgotLink = styled.a`
+  text-align: right;
+  float: right;
+  font-size: small;
+  color: var(--link);
+  margin: -8px -15px 22px 0;
+
+`
+
