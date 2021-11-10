@@ -17,7 +17,7 @@ export default function Info(data) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
         <EventInfo
-            imgPath={"/images/profile.jpeg"}
+            imgPath={"/images/coverphoto.png"}
             name={nameFromBackend}
             dateStr={"September 22nd, 2021"}
             timeStr={"Noon-6pm"}

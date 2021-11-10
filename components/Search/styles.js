@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const barContainer = styled.div`
     display: block;
     width: 100%;
-    margin-top: -12px;
+    margin-top: -62px;
     padding:1px;
     background: none;
     //background: rgba(212, 175, 205, 0.25); //var(--secondary) at 25% opacity
