@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import * as Styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import {useRouter} from "next/router";
 
 export default function Header(props) {
