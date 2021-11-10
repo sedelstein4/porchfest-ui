@@ -5,7 +5,7 @@ export const infoContainer = styled.div`
   align-items: center;
   margin-top: 62px;
 `
-export const imgDiv = styled.div`
+export const fullWidthImgDiv = styled.div`
     height:250px;
     img{
     object-fit: fill;
