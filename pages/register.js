@@ -1,16 +1,18 @@
 import Head from "next/head";
 import React from "react";
-import SignIn from "../components/Onboarding/SignIn"
+import SignUp from "../components/Onboarding/SignUp"
 import Header from "../components/Navigation/Header";
 
-export default function Login() {
+export default function Register() {
     return (
         <div>
             <Head>
-                <title>Sign in</title>
+                <title>Sign Up</title>
                 <link rel="icon" href="/favicon.ico" />
-                <SignIn/>
             </Head>
+            <SignUp/>
         </div>
     )
+
+
 }
