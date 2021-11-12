@@ -89,7 +89,41 @@ export const SortBtn = styled.div`
 `
 
 export const SortDropdown = styled.div`
-  display: ${(props) => (props.show ? 'inline-flex' : 'none')};
+  display: ${(props) => (props.show ? 'block' : 'none')};
+  position: absolute;
+  box-shadow: var(--shadow);
+  margin-top: 108px;
+  background: var(--white);
+  z-index: 100;
+  text-align: left;
+  color: black;
+  padding: 5px;
+
+  input[type='radio'] {
+    opacity: 0;
+    position: fixed;
+  }
+
+  input[type='radio']:checked + label {
+    background: var(--main);
+    color: white;
+  }
+
+  input[type='radio']:checked + label:hover {
+    background: var(--main-hover);
+    color: white;
+  }
+`
+
+export const ButtonLabel = styled.label`
+    display: block;
+    background: var(--white);
+    padding: 5px 10px;
+    font-size: 16px;
+
+    :hover {
+        cursor: pointer;
+        background: var(--grey-light);
 `
 
 export const LikeBtn = styled.div`

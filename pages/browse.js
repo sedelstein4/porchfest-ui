@@ -4,6 +4,7 @@ import * as Styles from "../components/Browse/styles";
 import Link from "next/link";
 
 export default function Browse(data) {
+    console.log(data.artistData)
     if (data.artistData[0].name) {
         return (
             <div className="content">
@@ -12,7 +13,7 @@ export default function Browse(data) {
                     <title>Browse Artists</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                {data.genreData.slice(0, 6).map((genre, i) => {
+                {data.genreData.slice(0).map((genre, i) => {
                         return (
                             <Styles.rowContainer key={data.artistData.id}>
                                 <Styles.genre>
@@ -20,6 +21,7 @@ export default function Browse(data) {
                                 </Styles.genre>
                                 <Styles.row>
                                     {data.artistData.filter((item) => item.genre[0] === genre).slice(0, 3).map((artist, i) => {
+                                    // {data.artistData.slice(0, 3).map((artist, i) => {
                                         return (
                                             <Styles.cardContainer key={artist.id}>
                                                 <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`} passHref>
