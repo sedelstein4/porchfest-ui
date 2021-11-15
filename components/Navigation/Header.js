@@ -18,7 +18,7 @@ export default function Header(props) {
                     Accept: 'application/json',
                     Authorization: 'Bearer ',
                 },
-                body: JSON.stringify({genre: type}),
+                body: JSON.stringify({sort: type}),
             })
                 // .then((response) => {
                 //     if (response.status === 401) {
