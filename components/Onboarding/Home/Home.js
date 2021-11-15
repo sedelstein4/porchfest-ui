@@ -6,11 +6,11 @@ export default function Home(props) {
     return (
         <Styles.homeContainer>
             <Styles.title>Porchfest</Styles.title>
-            <Link href={"/register"} passHref>
+            <Link href={"/login"} passHref>
                 <Styles.btn>SIGN IN</Styles.btn>
             </Link>
             <br/>
-            <Link href={"/login"} passHref>
+            <Link href={"/register"} passHref>
                 <Styles.btn>SIGN UP</Styles.btn>
             </Link>
             <br/>
