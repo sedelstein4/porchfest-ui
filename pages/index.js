@@ -3,6 +3,7 @@ import Head from "next/head";
 import React from "react";
 import * as Styles from "../components/Event/Info/styles";
 import HomeComponent from "../components/Onboarding/Home/Home";
+import Onboarding from "../layouts/onboarding";
 
 export default function Home() {
     return (
@@ -23,3 +24,11 @@ export default function Home() {
             <HomeComponent/>
         </div>
     );}
+
+Home.getLayout = function getLayout(page) {
+    return (
+        <Onboarding>
+            {page}
+        </Onboarding>
+    )
+}

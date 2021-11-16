@@ -5,6 +5,7 @@ import * as Styles from "../components/Search/styles"
 import {faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
+import Default from "../layouts/default";
 
 
 export default function Search(data) {
@@ -12,7 +13,6 @@ export default function Search(data) {
     return (
         <div>
             <div className="content">
-                <Header title={"Search"} pageType={"search"}/>
                 <Head>
                     <title>Search</title>
                     <link rel="icon" href="/favicon.ico" />
@@ -35,3 +35,11 @@ export default function Search(data) {
 
         </div>
     )}
+
+Search.getLayout = function getLayout(page) {
+    return (
+        <Default title={"Search"} pageType={"search"}>
+            {page}
+        </Default>
+    )
+}

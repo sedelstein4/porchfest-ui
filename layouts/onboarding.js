@@ -1,12 +1,10 @@
 import Navigation from '../components/Navigation/Navigation'
 import Header from "../components/Navigation/Header";
 
-export default function Default(props) {
+export default function Onboarding(props) {
     return (
         <>
-            <Header title={props.title} pageType={props.pageType} />
             <main>{props.children}</main>
-            <Navigation />
         </>
     )
 }

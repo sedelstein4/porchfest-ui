@@ -1,6 +1,8 @@
 import Head from "next/head";
 import EventInfo from "../components/Event/Info/EventInfo";
 import EventHeader from "../components/Event/Info/EventHeader";
+import Default from "../layouts/default";
+import Saved from "./saved";
 
 export default function Info(data) {
     console.log(data)
@@ -25,3 +27,11 @@ export default function Info(data) {
         />
         </div>
     )}
+
+Info.getLayout = function getLayout(page) {
+    return (
+        <Default>
+            {page}
+        </Default>
+    )
+}

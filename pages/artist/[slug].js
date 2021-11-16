@@ -5,6 +5,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
 import {faApple, faFacebookSquare, faInstagramSquare, faSpotify} from "@fortawesome/free-brands-svg-icons";
 import {faGlobe} from "@fortawesome/free-solid-svg-icons";
+import Default from "../../layouts/default";
+import Saved from "../saved";
 
 const ArtistImageDiv = styled.div`
   display: inline-block;
@@ -76,7 +78,17 @@ const Artist = ({ data }) => {
 
 export async function getStaticPaths() {
     // get all artist names here in array
-    const res = await fetch(`http://localhost:5000/artists`)
+    const type = "alphabetical"
+    const res = await fetch('http://localhost:5000/artists', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Accept: 'application/json',
+            Authorization: 'Bearer ',
+        },
+        body: JSON.stringify({type: type}),
+    });
     const names = await res.json()
 
     // const paths = names.map(url_slug => `/artist/${url_slug}`)
@@ -94,6 +106,14 @@ export async function getStaticProps({ params }) {
     return {
         props: { data }, // will be passed to the page component as props
     }
+}
+
+Artist.getLayout = function getLayout(page) {
+    return (
+        <Default title={"Saved Artists"}>
+            {page}
+        </Default>
+    )
 }
 
 export default Artist

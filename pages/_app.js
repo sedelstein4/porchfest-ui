@@ -1,17 +1,16 @@
 import GlobalStyle from '../styles/GlobalStyle'
-import Default from '../layouts/default'
 // import { useStore } from '../store/index'
 
 const MyApp = ({ Component, pageProps }) => {
     // const store = useStore(pageProps.initialReduxState)
 
-    return (
+    const getLayout = Component.getLayout || ((page) => page)
+
+    return getLayout(
         <>
-            <GlobalStyle />
-                <Default>
-                    <Component {...pageProps} />
-                </Default>
-        </>
+        <GlobalStyle />
+            <Component {...pageProps} />
+    </>
     )
 }
 
