@@ -14,7 +14,9 @@ export default function Home(props) {
                 <Styles.btn>SIGN UP</Styles.btn>
             </Link>
             <br/>
-            <Styles.btn>CONTINUE AS GUEST</Styles.btn>
+            <Link href={"/browse"} passHref>
+                <Styles.btn>CONTINUE AS GUEST</Styles.btn>
+            </Link>
         </Styles.homeContainer>
     )
 }
