@@ -17,7 +17,7 @@ export const Header = styled.div`
 
 export const Checklist = styled.div`
   padding-top:5px;
-    text-align: left;
+  text-align: left;
 `
 
 //based on https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
@@ -42,11 +42,12 @@ export const checkmark = styled.span`
 export const selection = styled.label`
   display: block;
   position: relative;
-  font-size:1.8em;
+  font-size:1.75em;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   padding-left:55px;
   padding-top:3px;
+  
   input{ //hide default checkbox
     position: absolute;
     opacity: 0;
@@ -74,12 +75,26 @@ export const selection = styled.label`
 `
 
 export const buttonBar = styled.div`
-    
-    input[type="submit"]{
-      
-    }
-`
-
-export const Button = styled.button`
-    
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: var(--main);
+  
+  button, input[type="submit"]{
+    padding: 15px 0px;
+    width:40%;
+    border: 2px solid var(--grey-middark);
+    border-radius: 4px;
+    margin: 12px 0;
+    font-weight: bold;
+    font-size: smaller;
+  }
+  button{
+    margin-right: 20px;
+  }
 `

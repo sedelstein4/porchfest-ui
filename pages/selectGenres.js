@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import * as Styles from "../components/Onboarding/Interests/styles"
+import Link from "next/link";
 
 export default function selectGenres(data) {
     console.log(data.genreData)
@@ -22,6 +23,17 @@ export default function selectGenres(data) {
                                 </Styles.selection>
                             )
                         })}
+                        <Styles.buttonBar>
+                            <Link href={"selectArtists"} passHref>
+                                <button>SKIP</button>
+                            </Link>
+                            <input
+                                type={"submit"}
+                                id={"submit"}
+                                name={"continue"}
+                                value={"CONTINUE"}
+                            />
+                        </Styles.buttonBar>
                     </form>
                 </Styles.Checklist>
             </div>
