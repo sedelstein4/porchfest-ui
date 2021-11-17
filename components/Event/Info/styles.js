@@ -33,12 +33,41 @@ export const header = styled.div`
   flex: 1;
   padding: 10px 0 0 15px;
   color: var(--white);
-  font-size: 1.7em;
+  font-size: 1.8em;
   line-height: 1em;
   display:inline-flex;
   justify-content: left;
   font-weight: bold;
   white-space: nowrap;
+`
+
+export const TopContainer = styled.div`
+  display: flex;
+  position: fixed;
+  padding: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: var(--main);
+  margin: auto;
+  `
+
+export const profileBtn = styled.div`
+  display: inline-flex;
+  align-items: center;
+  color:white;
+  margin-right: 30px;
+  margin-top: 15px;
+  flex: 1;
+  justify-content: flex-end;
+  width: 25px;
+  height: 25px;
+
+  svg{
+    width: 30px;
+    height: 30px;
+  }
 `
 
 export const city = styled(header)`

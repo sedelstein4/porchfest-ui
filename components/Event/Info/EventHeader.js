@@ -1,24 +1,24 @@
 import React from 'react'
-import * as localStyles from './styles'
-import * as mainStyles from "../../Navigation/styles";
+import * as Styles from './styles'
+//import * as mainStyles from "../../Navigation/styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faUserAlt} from "@fortawesome/free-solid-svg-icons";
 
 export default function EventHeader(props) {
     return (
-        <mainStyles.TopContainer>
+        <Styles.TopContainer>
             <div>
-                <localStyles.header>
+                <Styles.header>
                     {props.title}
-                </localStyles.header>
-                <localStyles.city>
+                </Styles.header>
+                <Styles.city>
                     {props.city}
-                </localStyles.city>
+                </Styles.city>
             </div>
-            <mainStyles.SortBtn>
+            <Styles.profileBtn>
                 <FontAwesomeIcon icon={faUserAlt} />
-            </mainStyles.SortBtn>
+            </Styles.profileBtn>
 
-        </mainStyles.TopContainer>
+        </Styles.TopContainer>
     )
 }
