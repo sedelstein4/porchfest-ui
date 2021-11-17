@@ -110,7 +110,7 @@ export const SortDropdown = styled.div`
   }
 
   input[type='radio']:checked + label:hover {
-    background: var(--main-hover);
+    //background: var(--main-hover);
     color: white;
   }
 `

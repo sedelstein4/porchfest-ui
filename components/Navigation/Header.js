@@ -7,31 +7,6 @@ import {useRouter} from "next/router";
 
 export default function Header(props) {
 
-    const sortAPI = {
-        getSort(type) {
-            console.log("clicked")
-            return fetch('http://localhost:5000/artists', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    Accept: 'application/json',
-                    Authorization: 'Bearer ',
-                },
-                body: JSON.stringify({sort: type}),
-            })
-                // .then((response) => {
-                //     if (response.status === 401) {
-                //         window.location.href = 'http://localhost:3000'
-                //     }
-                //     return response.json()
-                // })
-                // .catch((error) => {
-                //         window.location.href = 'http://localhost:3000'
-                // })
-        }
-    }
-
     const router = useRouter()
     const [heartOutline, heartFilled] = useState(false);
     const [noDropdown, dropdown] = useState(0);
@@ -46,7 +21,7 @@ export default function Header(props) {
         heartFilled(!heartOutline);
     }
 
-        return (
+    return (
             <Styles.TopContainer>
                 <Styles.BackBtn show={props.pageType === "artist"} onClick={() => router.back()}>
                     <FontAwesomeIcon icon={faArrowLeft}/>
@@ -61,7 +36,7 @@ export default function Header(props) {
                     <Styles.SortBtn onClick={() => sortHandler()}>
                         <FontAwesomeIcon icon={faSortAmountDown}/>
                         <Styles.SortDropdown show={noDropdown}>
-                            <div onClick={() => sortAPI.getSort("alphabetical")}>
+                            <div onClick={() => getStaticProps("alphabetical")}>
                                 <input
                                     type="radio"
                                     value="Alphabetical"
@@ -70,7 +45,7 @@ export default function Header(props) {
                                     // defaultChecked={this.context.selectedFilter === 'Local Artists Only'}
                                     // onClick={this.context.setFilter}
                                 />
-                                <Styles.ButtonLabel htmlFor="artists">Alphabetical</Styles.ButtonLabel>
+                                <Styles.ButtonLabel htmlFor="alphabetical">Alphabetical</Styles.ButtonLabel>
                             </div>
 
                             <div>
@@ -82,7 +57,7 @@ export default function Header(props) {
                                     // defaultChecked={this.context.selectedFilter === 'Events Only'}
                                     // onClick={this.context.setFilter}
                                 />
-                                <Styles.ButtonLabel htmlFor="events">Events Only</Styles.ButtonLabel>
+                                <Styles.ButtonLabel htmlFor="genres">Genres</Styles.ButtonLabel>
                             </div>
                         </Styles.SortDropdown>
                     </Styles.SortBtn>
@@ -93,4 +68,25 @@ export default function Header(props) {
                         : null}
             </Styles.TopContainer>
         )
+}
+
+export async function getStaticProps( type ) {
+    const artistRes = await fetch('http://localhost:5000/artists', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Accept: 'application/json',
+            Authorization: 'Bearer ',
+        },
+        body: JSON.stringify({type: type}),
+    });
+    const artistData = await artistRes.json();
+    console.log(artistData)
+
+    return {
+        props: {
+            artistData
+        }
+    }
 }

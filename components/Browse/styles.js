@@ -80,19 +80,20 @@ export const name = styled.p`
 
 //artist list
 export const resultContainer = styled.div`
-    display:flex;
-    align-items: center;
-    border-bottom: 1px solid var(--grey-mid);
-    padding-top:2px;
+  display:flex;
+  align-items: center;
+  border-bottom: 1px solid var(--grey-mid);
+  padding: 15px 0;
   
     img{
-      width:48px;
-      height:48px;
+      width:50px;
+      height:50px;
       object-fit: cover;
       object-position: top center;
       border-radius: 50%;
       border: 1px solid var(--grey-dark);
-      margin: 18px 24px 16px 12px;
+      margin-right: 15px;
+      //margin: 18px 24px 16px 12px;
     }
   `
 
@@ -114,4 +115,58 @@ export const resultIcon = styled(icon)`
       width:18px;
     }
     
+`
+
+export const SortBtn = styled.div`
+  display: inline-flex;
+  align-items: center;
+  color:white;
+  margin-right: 20px;
+  flex: 1;
+  justify-content: flex-end;
+  width: 25px;
+  height: 25px;
+
+  svg{
+    width: 30px;
+    height: 30px;
+  }
+`
+
+export const SortDropdown = styled.div`
+  display: ${(props) => (props.show ? 'block' : 'none')};
+  position: absolute;
+  box-shadow: var(--shadow);
+  margin-top: 108px;
+  background: var(--white);
+  z-index: 100;
+  text-align: left;
+  color: black;
+  padding: 5px;
+
+  input[type='radio'] {
+    opacity: 0;
+    position: fixed;
+  }
+
+  input[type='radio']:checked + label {
+    background: var(--main);
+    color: white;
+  }
+
+  input[type='radio']:checked + label:hover {
+    background: var(--main-hover);
+    color: white;
+  }
+`
+
+export const ButtonLabel = styled.label`
+    display: block;
+    background: var(--white);
+    padding: 5px 10px;
+    font-size: 16px;
+
+    :hover {
+        cursor: pointer;
+        background: var(--grey-light);
 `
