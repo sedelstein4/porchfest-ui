@@ -24,7 +24,7 @@ export default function selectGenres(data) {
                             )
                         })}
                         <Styles.buttonBar>
-                            <Link href={"selectArtists"} passHref>
+                            <Link href={"browse"} passHref>
                                 <button>SKIP</button>
                             </Link>
                             <input

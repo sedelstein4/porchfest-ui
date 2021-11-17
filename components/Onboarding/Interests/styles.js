@@ -28,7 +28,7 @@ export const checkmark = styled.span`
   height: 33px;
   width: 33px;
   background: rgb(255,255,255);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 55%, rgba(187,187,187,0.55) 100%);
+  background: linear-gradient(0deg, rgba(255,255,255, 1) 65%, rgba(187,187,187,0.5) 100%);
   border: 1px solid var(--grey-mid);
   border-radius: 3px;
   
@@ -86,13 +86,14 @@ export const buttonBar = styled.div`
   background: var(--main);
   
   button, input[type="submit"]{
-    padding: 15px 0px;
+    padding: 15px 0;
     width:40%;
     border: 2px solid var(--grey-middark);
     border-radius: 4px;
     margin: 12px 0;
     font-weight: bold;
     font-size: smaller;
+    background-color: var(--white);
   }
   button{
     margin-right: 20px;
