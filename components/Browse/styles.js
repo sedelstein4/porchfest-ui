@@ -29,7 +29,7 @@ export const backToHome = styled.div`
 
 // cardrow
 export const rowContainer = styled.div`
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 `
 
 export const row = styled.div`
@@ -69,7 +69,7 @@ export const img = styled.div`
 export const name = styled.p`
   text-align: left;
   font-size: 1rem;
-  margin-top: 10px;
+  margin-top: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
