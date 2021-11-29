@@ -10,7 +10,7 @@ export const container = styled.div`
         width:90%;
       }
     
-      input[type=submit], input[type=text]{
+      input[type=submit], input[type=text], input[type=password] {
         border: 2px solid var(--grey-middark);
         border-radius:4px;
         text-align: left;
@@ -32,7 +32,7 @@ export const container = styled.div`
       }
     
       input:focus{
-        border:none;
+        border: 2px solid var(--grey-mid);
         outline:none;
       }
 

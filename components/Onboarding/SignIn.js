@@ -22,7 +22,7 @@ export default function SignIn(props) {
                         placeholder={"EMAIL"}
                     />
                     <input
-                        type={"text"}
+                        type={"password"}
                         id={"pass"}
                         name={"pass"}
                         placeholder={"PASSWORD"}

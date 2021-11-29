@@ -23,13 +23,13 @@ export default function SignUp(props) {
                         placeholder={"EMAIL"}
                     />
                     <input
-                        type={"text"}
+                        type={"password"}
                         id={"pass"}
                         name={"pass"}
                         placeholder={"PASSWORD"}
                     />
                     <input
-                        type={"text"}
+                        type={"password"}
                         id={"confirm"}
                         name={"confirm"}
                         placeholder={"CONFIRM PASSWORD"}
