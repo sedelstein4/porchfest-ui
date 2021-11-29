@@ -21,6 +21,18 @@ export default function Header(props) {
         heartFilled(!heartOutline);
     }
 
+    function handleSortClick(param){
+        router.push(
+            {
+                query: {
+                    param
+                }
+            },
+            `/browse/?q=${param}`,
+            {shallow: false}
+        );
+    }
+
     return (
             <Styles.TopContainer>
                 <Styles.BackBtn show={props.pageType === "artist"} onClick={() => router.back()}>
@@ -36,7 +48,7 @@ export default function Header(props) {
                     <Styles.SortBtn onClick={() => sortHandler()}>
                         <FontAwesomeIcon icon={faSortAmountDown}/>
                         <Styles.SortDropdown show={noDropdown}>
-                            <div onClick={() => getStaticProps("alphabetical")}>
+                            <div onClick={() => handleSortClick("alphabetical")}>
                                 <input
                                     type="radio"
                                     value="Alphabetical"
@@ -48,7 +60,7 @@ export default function Header(props) {
                                 <Styles.ButtonLabel htmlFor="alphabetical">Alphabetical</Styles.ButtonLabel>
                             </div>
 
-                            <div>
+                            <div onClick={() => handleSortClick("genre")}>
                                 <input
                                     type="radio"
                                     value="Genre"
