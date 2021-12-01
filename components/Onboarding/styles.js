@@ -35,8 +35,6 @@ export const container = styled.div`
         border: 2px solid var(--grey-mid);
         outline:none;
       }
-
-
 `
 
 export const title = styled.div`

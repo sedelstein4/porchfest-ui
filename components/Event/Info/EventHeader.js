@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Styles from './styles'
-//import * as mainStyles from "../../Navigation/styles";
+import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faUserAlt} from "@fortawesome/free-solid-svg-icons";
 
@@ -16,7 +16,9 @@ export default function EventHeader(props) {
                 </Styles.city>
             </div>
             <Styles.profileBtn>
-                <FontAwesomeIcon icon={faUserAlt} />
+                <Link href={"/profile"} passHref>
+                    <FontAwesomeIcon icon={faUserAlt} />
+                </Link>
             </Styles.profileBtn>
 
         </Styles.TopContainer>
