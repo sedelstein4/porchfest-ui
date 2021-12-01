@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import {icon} from "../Search/styles";
 
 export const Title = styled.div`
   display: flex;
@@ -40,6 +39,11 @@ export const row = styled.div`
   justify-content: space-between;
 `
 
+export const genreHeading = styled.div`
+  display: inline-flex;
+  width: 100%;
+`
+
 export const genre = styled.h1`
   text-align: left;
   font-size: 1.5rem;
@@ -47,7 +51,13 @@ export const genre = styled.h1`
   margin-bottom: 10px;
 `
 
-
+export const arrowIcon = styled.div`
+  margin-left: 8px;
+    svg{
+      width:15px;
+    }
+    
+`
 
 // artistcard
 export const cardContainer = styled.div`
@@ -85,6 +95,11 @@ export const resultContainer = styled.div`
   border-bottom: 1px solid var(--grey-mid);
   padding: 15px 0;
   
+  a{
+    display: inline-flex;
+    width: 100%;
+  }
+  
     img{
       width:50px;
       height:50px;
@@ -108,7 +123,7 @@ export const resultType = styled.div`
   color: var(--grey-dark);
   `
 
-export const resultIcon = styled(icon)`
+export const resultIcon = styled.div`
     margin-left: auto;
     margin-right: var(--mobile-margin);
     svg{

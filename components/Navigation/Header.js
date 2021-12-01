@@ -35,7 +35,7 @@ export default function Header(props) {
 
     return (
             <Styles.TopContainer>
-                <Styles.BackBtn show={props.pageType === "artist"} onClick={() => router.back()}>
+                <Styles.BackBtn show={props.pageType === "artist" || props.pageType === "genre"} onClick={() => router.back()}>
                     <FontAwesomeIcon icon={faArrowLeft}/>
                 </Styles.BackBtn>
                 <Styles.PageInfo>

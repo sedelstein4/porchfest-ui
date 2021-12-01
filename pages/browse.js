@@ -4,7 +4,7 @@ import Link from "next/link";
 import Default from "../layouts/default";
 import React, {useCallback, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleRight} from "@fortawesome/free-solid-svg-icons";
+import {faAngleRight, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {useRouter} from "next/router";
 
 async function fetchData(type) {
@@ -60,9 +60,17 @@ export default function Browse(data) {
                         if (genreData.length > 0) {
                             return (
                                 <Styles.rowContainer key={artistData.id}>
-                                    <Styles.genre>
-                                        {Object.keys(genres)[0]}
-                                    </Styles.genre>
+                                    <Link href="/genre/[slug]" as={`/genre/${Object.values(genres)[1]}`}
+                                          passHref>
+                                        <a>
+                                            <Styles.genreHeading>
+                                                <Styles.genre>{Object.keys(genres)[0]}</Styles.genre>
+                                                <Styles.arrowIcon>
+                                                    <FontAwesomeIcon icon={faChevronRight}/>
+                                                </Styles.arrowIcon>
+                                            </Styles.genreHeading>
+                                        </a>
+                                    </Link>
                                     <Styles.row>
                                         {genreData.slice(0, 3).map((artist, i) => {
                                             return (
@@ -106,6 +114,9 @@ export default function Browse(data) {
                     {artistData.slice(0).map((artist, i) => {
                         return (
                             <Styles.resultContainer key={artist.id}>
+                                <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`}
+                                      passHref>
+                                    <a>
                                 <img
                                     src={artist.photo ? artist.photo : "/images/profile.jpeg"}
                                     alt={artist.name}
@@ -119,6 +130,8 @@ export default function Browse(data) {
                                 <Styles.resultIcon>
                                     <FontAwesomeIcon icon={faAngleRight}/>
                                 </Styles.resultIcon>
+                                    </a>
+                                </Link>
                             </Styles.resultContainer>
                         )
                     })
