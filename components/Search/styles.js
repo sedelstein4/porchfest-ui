@@ -49,10 +49,16 @@ export const icon = styled.div`
     `
 
 export const resultContainer = styled.div`
+  margin: 0 20px;
+  `
+
+export const artistResults = styled.div`
     display:flex;
-    align-items: center;
     border-bottom: 1px solid var(--grey-mid);
     padding-top:2px;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 5px;
   
     img{
         width:48px;
@@ -60,9 +66,33 @@ export const resultContainer = styled.div`
         object-fit: contain;
         border-radius: 50%;
         border: 1px solid var(--grey-dark);
-        margin: 18px 24px 16px 12px;
+        margin: 5px 24px 16px 0px;
     }
   `
+
+export const genreResults = styled.div`
+    display:flex;
+    border-bottom: 1px solid var(--grey-mid);
+    padding-top:2px;
+  flex-direction: column;
+  align-items: flex-start;
+  
+    img{
+        width:48px;
+        height:48px;
+        object-fit: contain;
+        border-radius: 50%;
+        border: 1px solid var(--grey-dark);
+      margin: 5px 24px 16px 0px;
+    }
+  `
+
+export const searchItem = styled.div`
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+`
 
 export const resultName = styled.div`
   justify-content: center;

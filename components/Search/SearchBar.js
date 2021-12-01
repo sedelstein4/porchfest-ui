@@ -22,6 +22,24 @@ export default function SearchBar() {
         bgstyle = searchedBG;
     }
 
+    async function handleSearchChange(e) {
+        const response = await fetch('http://localhost:5000/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                Accept: 'application/json',
+                Authorization: 'Bearer ',
+            },
+            body: JSON.stringify({entry: e.target.value}),
+        });
+        const searchData = await response.json()
+
+        console.log(searchData)
+
+        return { searchData };
+    }
+
     return (
         <Styles.barContainer style={bgstyle}>
             <Styles.searchBar>
@@ -29,8 +47,9 @@ export default function SearchBar() {
                     <input
                         type={"text"}
                         id={"search"}
-                        name={"search>"}
+                        name={"search"}
                         placeholder={"Artists or Genres"}
+                        onChange={handleSearchChange}
                     />
                 </form>
                 <Styles.icon>
