@@ -3,7 +3,7 @@ import Header from "../../components/Navigation/Header";
 import Head from "next/head";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
-import {faApple, faFacebookSquare, faInstagramSquare, faSpotify} from "@fortawesome/free-brands-svg-icons";
+import {faApple, faFacebookSquare, faInstagram, faInstagramSquare, faSpotify} from "@fortawesome/free-brands-svg-icons";
 import {faGlobe} from "@fortawesome/free-solid-svg-icons";
 import Default from "../../layouts/default";
 import Saved from "../saved";
@@ -44,6 +44,16 @@ const SocialMediaGrid = styled.div`
     height: 45px !important;
     margin-left: 7px;
     margin-right: 7px;
+
+    &.insta{
+      background: #d6249f !important;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%) !important;
+      color: white !important;
+      border-radius: 8px !important;
+      width: 42px !important;
+      height: 42px !important;
+      margin-top: 2px;
+    }
   }
 `
 
@@ -65,9 +75,9 @@ const Artist = ({ data }) => {
                 {/*<ArtistImage src={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"} alt={data.artist.name}/>*/}
             </ArtistImageDiv>
             <SocialMediaGrid>
-                {data.artist.facebook ? <FontAwesomeIcon icon={faFacebookSquare} /> : null}
-                {data.artist.instagram ? <FontAwesomeIcon icon={faInstagramSquare} /> : null}
-                {data.artist.spotify ? <FontAwesomeIcon icon={faSpotify} /> : null}
+                {data.artist.facebook ? <FontAwesomeIcon icon={faFacebookSquare} style={{color: '#4267B2'}}/> : null}
+                {data.artist.instagram ? <FontAwesomeIcon icon={faInstagram} className={'insta'}/> : null}
+                {data.artist.spotify ? <FontAwesomeIcon icon={faSpotify} style={{color: '#1DB954'}}/> : null}
                 {data.artist.apple ?  <FontAwesomeIcon icon={faApple} /> : null}
                 <FontAwesomeIcon icon={faGlobe} />
             </SocialMediaGrid>
