@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import {useRouter} from "next/router";
-
 export default function Header(props) {
-
+    console.log(props)
     const router = useRouter()
     const [heartOutline, heartFilled] = useState(false);
     const [noDropdown, dropdown] = useState(0);
@@ -19,7 +18,10 @@ export default function Header(props) {
 
     function handleLikeClick(){
         heartFilled(!heartOutline);
+        //Need to have liked saved locally
+        updatedLikedArtists(props.artistID)
     }
+
 
     function handleSortClick(param){
         router.push(
@@ -78,6 +80,7 @@ export default function Header(props) {
                         {heartOutline ? <FontAwesomeIcon icon={faHeart} className="filled-heart"/> : <FontAwesomeIcon icon={farHeart}/>}
                     </Styles.LikeBtn>
                         : null}
+
             </Styles.TopContainer>
         )
 }
@@ -94,11 +97,27 @@ export async function getStaticProps( type ) {
         body: JSON.stringify({type: type}),
     });
     const artistData = await artistRes.json();
-    console.log(artistData)
+
 
     return {
         props: {
             artistData
         }
     }
+}
+
+export async function updatedLikedArtists(artistID) {
+    return fetch('http://localhost:5000/update_user_to_artist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Accept: 'application/json',
+            Authorization: 'Bearer ',
+        },
+        body: JSON.stringify({
+            artist_id: artistID
+        })
+    });
+
 }

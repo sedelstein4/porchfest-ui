@@ -60,7 +60,9 @@ const Artist = ({ data }) => {
                 <title>Porchfest - {data.artist.name}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header pageType={"artist"} title={data.artist.name} hometown={data.artist.hometown}/>
+            <Header pageType={"artist"} title={data.artist.name} hometown={data.artist.hometown} artistID={data.artist.id} liked={data.artist.liked}/>
+
+
             <ArtistImageDiv imageSrc={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"}>
                 {/*<ArtistImage src={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"} alt={data.artist.name}/>*/}
             </ArtistImageDiv>
