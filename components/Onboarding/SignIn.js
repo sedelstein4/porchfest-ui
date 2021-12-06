@@ -14,7 +14,7 @@ export default function SignIn(props) {
             </Link>
             <Styles.container>
                 <Styles.title>Porchfest</Styles.title>
-                <form>
+                <form method="post">
                     <input
                         type={"text"}
                         id={"email"}

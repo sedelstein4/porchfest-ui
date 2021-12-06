@@ -86,7 +86,6 @@ export default function Search(data) {
                 </Styles.searchBar>
             </Styles.barContainer>
 
-            {/*    temporary 'result' to show styling*/}
             <Styles.resultContainer>
                 <Styles.artistResults>
                     <h1>Artists</h1>

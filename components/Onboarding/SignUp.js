@@ -15,7 +15,7 @@ export default function SignUp(props) {
             </Link>
             <Styles.container>
                 <Styles.title>Porchfest</Styles.title>
-                <form>
+                <form method="post">
                     <input
                         type={"text"}
                         id={"email"}
