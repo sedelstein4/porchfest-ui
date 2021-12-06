@@ -3,8 +3,17 @@ import * as Styles from './styles'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from 'next/router'
+
 
 export default function SignIn(props) {
+    const router = useRouter();
+    const handleSubmit = event => {
+        event.preventDefault();
+        router.push('/selectGenres');
+        //return
+    }
+
     return (
         <div>
             <Link href={"/"} passHref>
@@ -14,7 +23,7 @@ export default function SignIn(props) {
             </Link>
             <Styles.container>
                 <Styles.title>Porchfest</Styles.title>
-                <form method="post">
+                <form method="post" onSubmit={handleSubmit}>
                     <input
                         type={"text"}
                         id={"email"}
