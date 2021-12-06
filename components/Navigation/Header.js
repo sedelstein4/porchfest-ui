@@ -5,11 +5,9 @@ import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-sv
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import {useRouter} from "next/router";
 export default function Header(props) {
-    console.log(props)
     const router = useRouter()
-    const [heartOutline, heartFilled] = useState(false);
+    const [heartOutline, heartFilled] = useState(props.liked);
     const [noDropdown, dropdown] = useState(0);
-
     useEffect(() => {}, [noDropdown]);
 
     function sortHandler(){
@@ -17,9 +15,10 @@ export default function Header(props) {
     }
 
     function handleLikeClick(){
-        heartFilled(!heartOutline);
+
         //Need to have liked saved locally
-        updatedLikedArtists(props.artistID)
+        updatedLikedArtists(props.artistID).then(r => heartFilled(r))
+
     }
 
 
@@ -107,7 +106,7 @@ export async function getStaticProps( type ) {
 }
 
 export async function updatedLikedArtists(artistID) {
-    return fetch('http://localhost:5000/update_user_to_artist', {
+    const response = await fetch('http://localhost:5000/update_user_to_artist', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -119,5 +118,8 @@ export async function updatedLikedArtists(artistID) {
             artist_id: artistID
         })
     });
+    const liked = await response.json()
+    return liked;
+
 
 }
