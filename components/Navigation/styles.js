@@ -28,7 +28,8 @@ export const NavLink = styled.a`
   }
   
   svg{
-    width: 30px;
+    width: 30px !important; //these were getting overridden by some default styling upon refresh (svg-inline--fa, fa-w-14)
+    height: 30px !important;
     margin-bottom: 5px;
   }
   
