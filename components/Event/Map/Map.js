@@ -1,13 +1,14 @@
 import * as Styles from "/components/Event/Map/styles"
 import Navigation from "../../Navigation/Navigation";
 
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+
 import 'leaflet/dist/leaflet.css'
 
 //marker urls are messed with by webpack, need this plugin to fix it
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
 import * as L from 'leaflet';
 import 'leaflet-defaulticon-compatibility';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
 export default function Map(props){
     return (
@@ -16,6 +17,9 @@ export default function Map(props){
                 center={[42.44242, -76.49921]}
                 zoom={13.5}
                 scrollWheelZoom={true}
+                //closePopupOnClick={true}
+                doubleClickZoom={false}
+                tap={false} //when enabled, very difficult to open popup in mobile view on browser. need to test on real mobile device.
                 style={{height: "calc(100vh - 69px)",
                     width: "100%",
                 }}>
@@ -25,7 +29,7 @@ export default function Map(props){
                 />
                 <Marker position={[42.4440, -76.51019]}>
                     <Popup>
-                        Test Popup (click on marker)
+                        <span>Test Popup (click on marker)</span>
                     </Popup>
                 </Marker>
             </MapContainer>
