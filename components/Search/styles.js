@@ -92,6 +92,12 @@ export const searchItem = styled.div`
   flex-direction: row;
   align-items: center;
   width: 100%;
+  margin-bottom: 10px;
+  
+  a{
+    width: 100%;
+    display: inherit;
+  }
 `
 
 export const resultName = styled.div`

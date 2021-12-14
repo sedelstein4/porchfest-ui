@@ -6,6 +6,7 @@ import {faAngleRight, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {useState} from "react";
 import Default from "../layouts/default";
+import Link from "next/link";
 
 const searchedBG ={
     background: "rgba(212, 175, 205, 0.25)",
@@ -92,6 +93,9 @@ export default function Search(data) {
                 {searchData.artists ? searchData.artists.slice(0).map((artist, i) => {
                     return (
                             <Styles.searchItem key={artist.artist.id}>
+                                <Link href="/artist/[slug]" as={`/artist/${artist.artist.url_slug}`}
+                                      passHref>
+                                    <a>
                             <img
                                 src={artist.artist.photo}
                             />
@@ -102,6 +106,8 @@ export default function Search(data) {
                             <Styles.resultIcon>
                                 <FontAwesomeIcon icon={faAngleRight}/>
                             </Styles.resultIcon>
+                                    </a>
+                                </Link>
                             </Styles.searchItem>
                     )
                 }) : <h4>No artists found.</h4>}

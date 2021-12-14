@@ -10,7 +10,8 @@ export default function SignIn(props) {
     const router = useRouter();
     const handleSubmit = event => {
         event.preventDefault();
-        router.push('/selectGenres');
+        const response = fetch('http://localhost:5000/login')
+        router.push('/info');
         //return
     }
 
