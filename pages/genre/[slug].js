@@ -17,6 +17,7 @@ const ResultContainer = styled.div`
   
   a{
     display: inline-flex;
+    align-items: center;
     width: 100%;
   }
   
@@ -40,7 +41,6 @@ const ResultName = styled.div`
 
 const ResultIcon = styled(icon)`
     margin-left: auto;
-    margin-right: var(--mobile-margin);
     svg{
       width:18px;
     }

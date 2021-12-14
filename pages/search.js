@@ -60,7 +60,7 @@ export default function Search(data) {
         setSearchData(refreshedProps.searchFetch);
     }
 
-    console.log(searchData.artists)
+    console.log(searchData)
     return (
         <div>
             <div className="content">
@@ -122,7 +122,12 @@ export default function Search(data) {
                                     src={"/images/profile.jpeg"}
                                 />
                                 <div>
+                                    <Link href="/genre/[slug]" as={`/genre/${genre.genre.slug}`}
+                                          passHref>
+                                        <a>
                                     <Styles.resultName>{genre.genre.name}</Styles.resultName>
+                                        </a>
+                                    </Link>
                                 </div>
                                 <Styles.resultIcon>
                                     <FontAwesomeIcon icon={faAngleRight}/>
