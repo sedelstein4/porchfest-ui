@@ -7,8 +7,11 @@ export const infoContainer = styled.div`
 `
 export const fullWidthImgDiv = styled.div`
     height:250px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
     img{
-    object-fit: fill;
+      object-fit: fill;
     }
 `
 export const eventDiv = styled.div`

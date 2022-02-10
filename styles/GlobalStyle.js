@@ -113,6 +113,11 @@ const GlobalStyle = createGlobalStyle`
           padding-bottom: 50px;
       }
     }
+    
+    .blur {
+        filter:blur(10px);
+        pointer-events: none;
+    }
 `
 
 export default GlobalStyle
