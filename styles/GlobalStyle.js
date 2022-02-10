@@ -117,6 +117,7 @@ const GlobalStyle = createGlobalStyle`
     .blur {
         filter:blur(10px);
         pointer-events: none;
+        touch-action: none;
     }
 `
 
