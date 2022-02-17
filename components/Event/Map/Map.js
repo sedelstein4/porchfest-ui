@@ -16,20 +16,38 @@ const blurred ={
     touchAction: "none",
     display:"block",
     height:"100vh", //otherwise filter will move the nav up behind the map
-    //transition: "filter 0.5s linear" //will this work?
+    //transition: "all 2s",
+    //transition: "filter 0.5s linear, 1s -webkit-filter linear" //will this work?
 };
 
 // const displayed ={
 //     display:"block !important",
 // }
+let lat = 0.0;
+let long =0.0;
+
+function getLocation(){
+    console.log("get location")
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            console.log("success?")
+            lat =position.coords.latitude;
+            long = position.coords.longitude;
+            console.log(lat)
+            console.log(long)
+        });
+    }
+}
+
 
 export default function Map(props){
+    getLocation();
     const [state, setState] = useState('initial')
     let isBlurred;
     let isDisplayed = false;
 
     const proximityEvent = () => { //not sure if this will work or how we will detect proximity to a porch, placeholder
-        setState('blur')
+        setState('blur'); //TODO comment this out to stop the blur from happening (while it is based on clicking)
     }
 
     if (state === 'blur') {
@@ -42,11 +60,12 @@ export default function Map(props){
             <Styles.nowViewing style={{display: isDisplayed?"block":"none"}}>
                 Now Viewing: <br /><br />
                 [display artist info, img, links] <br/><br/>
-                Take a few steps back from the stage to return to the map.
+                Take a few steps back from the stage to return to the map.<br/>
+                Lat: {lat}, Long: {long}
             </Styles.nowViewing>
             <div style={isBlurred} onClick={() => proximityEvent()}>
                 <MapContainer
-                    center={[42.44242, -76.49921]}
+                    center={[42.44242, -76.49921]} //Ithaca, TODO will need to add support for changing this for multiple porchfests
                     zoom={13.5}
                     scrollWheelZoom={true}
                     doubleClickZoom={false}
@@ -66,7 +85,7 @@ export default function Map(props){
                     </Marker>
                     <Marker position={[42.446700, -76.498440]}>
                         <Popup>
-                            <span>210 Utica St - Cielle</span>
+                            <span>210 Utica St - Cielle<br />Playing 4pm-5pm</span>
                         </Popup>
                     </Marker>
                     <Marker position={[42.444860, -76.502120]}>

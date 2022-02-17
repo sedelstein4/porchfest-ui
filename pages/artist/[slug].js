@@ -9,12 +9,12 @@ import Default from "../../layouts/default";
 import Saved from "../saved";
 
 const ArtistImageDiv = styled.div`
-  display: inline-block;
-  margin: 20px 0;
+  display: block;
+  margin: 95px auto 10px auto;
   width: 100%;
+  max-width:550px;
   height: 20vw;
   min-height: 300px;
-  position: relative;
   overflow: hidden;
   background-image: url(${(props) => props.imageSrc});
   background-repeat: no-repeat;
