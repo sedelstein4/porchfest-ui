@@ -26,25 +26,25 @@ const displayed ={
 export default function Map(props){
     const [state, setState] = useState('initial')
     let isBlurred;
-    let isDisplayed;
+    let isDisplayed = false;
 
-    const proximityEvent = (event) => { //not sure if this will work or how we will detect proximity to a porch, placeholder
+    const proximityEvent = () => { //not sure if this will work or how we will detect proximity to a porch, placeholder
         setState('blur')
     }
 
     if (state === 'blur') {
         isBlurred = blurred;
-        isDisplayed = displayed;
+        isDisplayed = !isDisplayed;
     }
 
     return (
         <div>
-            <Styles.nowViewing style={{isDisplayed}}>
+            <Styles.nowViewing style={{display: isDisplayed?"block":"none"}}>
                 Now Viewing: <br /><br />
                 [display artist info, img, links] <br/><br/>
                 Take a few steps back from the stage to return to the map.
             </Styles.nowViewing>
-            <div style={isBlurred}>
+            <div style={isBlurred} onClick={() => proximityEvent()}>
                 <MapContainer
                     center={[42.44242, -76.49921]}
                     zoom={13.5}
