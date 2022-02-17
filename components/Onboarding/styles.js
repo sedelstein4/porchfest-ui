@@ -8,6 +8,11 @@ export const container = styled.div`
   
       form{
         width:90%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        align-items: stretch;
       }
     
       input[type=submit], input[type=text], input[type=password] {
@@ -18,6 +23,7 @@ export const container = styled.div`
         margin-bottom:20px;
         margin-left:18px;
         width:95%;
+        max-width: 550px;
         font-size: smaller;
         font-weight: bold;
       }
@@ -28,6 +34,7 @@ export const container = styled.div`
         text-align: center;
         color: white;
         width:100%;
+        max-width: 565px;
         padding-left:0;
       }
     
@@ -60,7 +67,7 @@ export const forgotLink = styled.a`
   float: right;
   font-size: small;
   color: var(--link);
-  margin: -8px -15px 22px 0;
+  margin: -8px 0 22px 0;
 
 `
 

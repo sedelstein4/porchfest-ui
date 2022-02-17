@@ -66,8 +66,13 @@ export const signout = styled.button`
   font-weight: bold;
   font-size: 0.9em;
   
-  position: absolute; //messed with width of infoRow otherwise
   width:90%;
+  max-width:565px;
   margin: 30px 20px;
   padding: 15px 0 15px;
 `
+
+export const buttonDiv = styled.div`
+    text-align: center;
+    //if adding more buttons, may need to add display:flex and needed properties
+    `

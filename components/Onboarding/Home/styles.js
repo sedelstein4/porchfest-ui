@@ -20,6 +20,7 @@ export const btn = styled.button`
   border-radius: 5px;
   padding: 15px 30px;
   width:45%;
+  max-width: 550px;
   white-space: nowrap;
   justify-content: center;
   margin: auto;

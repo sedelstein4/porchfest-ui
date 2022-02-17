@@ -19,9 +19,9 @@ const blurred ={
     //transition: "filter 0.5s linear" //will this work?
 };
 
-const displayed ={
-    display:"block !important",
-}
+// const displayed ={
+//     display:"block !important",
+// }
 
 export default function Map(props){
     const [state, setState] = useState('initial')

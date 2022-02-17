@@ -86,7 +86,7 @@ const GlobalStyle = createGlobalStyle`
         background: rgb(0, 0, 0, 0.4);
     }
     
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 1920px) { //TODO is max-width needed?
         body {
           min-width: 0;
           width: 100vw;

@@ -24,9 +24,11 @@ export default function Profile(props) {
                 <Styles.infoValue>person@ithaca.edu</Styles.infoValue>
 
             </Styles.infoRow>
-            <Link href={"/"} passHref>
-                <Styles.signout>SIGN OUT</Styles.signout>
-            </Link>
+            <Styles.buttonDiv>
+                <Link href={"/"} passHref>
+                    <Styles.signout>SIGN OUT</Styles.signout>
+                </Link>
+            </Styles.buttonDiv>
         </Styles.container>
     )
 

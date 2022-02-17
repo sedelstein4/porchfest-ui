@@ -36,7 +36,8 @@ export const row = styled.div`
   display: grid;
   grid-row: auto;
   grid-template-columns: auto auto auto;
-  justify-content: space-between;
+  justify-content: start;
+  grid-gap:25px;
 `
 
 export const genreHeading = styled.div`
@@ -63,6 +64,7 @@ export const arrowIcon = styled.div`
 export const cardContainer = styled.div`
   width: 100px;
   height: 100px;
+  margin:auto;
 
   img {
     border-radius: 3px;
