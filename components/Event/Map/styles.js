@@ -2,9 +2,9 @@
 import styled from "styled-components";
 
 export const nowViewing = styled.div`
-  position: absolute;
-  margin:50px;
-  top: 30%;
-  left: 16%;
-  z-index:100;
+  position: absolute; //otherwise pushes the navbar
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-100%);
+  z-index: 1;
 `

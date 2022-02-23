@@ -12,17 +12,14 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
 const blurred ={
     filter:"blur(10px)",
-    pointerEvents: "none",
-    touchAction: "none",
+    pointerEvents: "none", //TODO
+    // touchAction: "none",
     display:"block",
     height:"100vh", //otherwise filter will move the nav up behind the map
     //transition: "all 2s",
     //transition: "filter 0.5s linear, 1s -webkit-filter linear" //will this work?
 };
 
-// const displayed ={
-//     display:"block !important",
-// }
 let lat = 0.0;
 let long =0.0;
 
@@ -30,7 +27,6 @@ function getLocation(){
     console.log("get location")
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            console.log("success?")
             lat =position.coords.latitude;
             long = position.coords.longitude;
             console.log(lat)
@@ -47,14 +43,22 @@ export default function Map(props){
     let isDisplayed = false;
 
     const proximityEvent = () => { //not sure if this will work or how we will detect proximity to a porch, placeholder
-        setState('blur'); //TODO comment this out to stop the blur from happening (while it is based on clicking)
+        if (state ==='blur'){
+            setState('initial');
+        }
+        else{
+            setState('blur');
+        }
+        //setState('blur'); //TODO comment this out to stop the blur from happening (while it is based on clicking)
     }
-
     if (state === 'blur') {
         isBlurred = blurred;
         isDisplayed = !isDisplayed;
     }
-
+//TODO need to be able to get data in here, including current location
+    //current location marker sorta works... but it only shows up (lat and long are set) after the state is changed once for some reason, and not initially
+    //Will need to load data for the markers as well, but can't do that in a component?
+    //Couldn't use navigator in the map page to send in as props for some reason
     return (
         <div>
             <Styles.nowViewing style={{display: isDisplayed?"block":"none"}}>
@@ -81,6 +85,13 @@ export default function Map(props){
                     <Marker position={[42.422660, -76.495167]}>
                         <Popup>
                             <span>Williams Hall</span>
+                        </Popup>
+                    </Marker>
+                    {console.log("in map:" + lat)}
+                    {console.log("in map:" + long)}
+                    <Marker position={[lat,long]}> {/*TODO*/}
+                        <Popup>
+                            <span>You are Here!!!</span>
                         </Popup>
                     </Marker>
                     <Marker position={[42.446700, -76.498440]}>

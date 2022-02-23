@@ -1,6 +1,5 @@
 import Head from "next/head";
 import React from "react";
-import Navigation from "../components/Navigation/Navigation";
 import dynamic from "next/dynamic";
 
 export default function map(props) {
