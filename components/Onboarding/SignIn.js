@@ -1,15 +1,21 @@
-import React, {useContext, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import * as Styles from './styles'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useRouter } from 'next/router'
 
 
 export const SignIn = () => {
-    const localStorage = new LocalStorage('./scratch');
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState("")
+
+    useEffect(()=> {
+        const data = localStorage.getItem('accessToken');
+        if(data){
+            setToken(data)
+        }
+    })
 
     const handleSubmit = () => {
         const opts = {
@@ -28,23 +34,24 @@ export const SignIn = () => {
                 else alert("There has been some error");
             })
             .then(data =>{
-                console.log("this came from the backend", data);
-               // localStorage.setItem("token", data.access_token);
+                localStorage.setItem('accessToken', data.access_token);
             })
             .catch(error =>{
                 console.error("There was an error");
             })
 
     }
+
     return (
         <div>
-            <Link href={"/"} passHref>
+            <Link href={"/info"} passHref>
                 <Styles.backBtn>
                     <FontAwesomeIcon icon={faArrowLeft}/>
                 </Styles.backBtn>
             </Link>
             <Styles.container>
                 <Styles.title>Porchfest</Styles.title>
+                {console.log("Token:", token)}
                 {(token && token!="" && token!=undefined) ? (
                     "You are logged in with token") :(
 
