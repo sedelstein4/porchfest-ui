@@ -1,6 +1,6 @@
 import * as Styles from "/components/Event/Map/styles"
 import Navigation from "../../Navigation/Navigation";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import 'leaflet/dist/leaflet.css'
 
@@ -8,7 +8,9 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
 import * as L from 'leaflet';
 import 'leaflet-defaulticon-compatibility';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import {MapContainer, Marker, Popup, TileLayer, useMap} from 'react-leaflet'
+import LocateControl from "leaflet.locatecontrol"
+
 
 const blurred ={
     filter:"blur(10px)",
@@ -47,7 +49,7 @@ export default function Map(props){
             setState('initial');
         }
         else{
-            setState('blur');
+            // setState('blur'); //also comment this out
         }
         //setState('blur'); //TODO comment this out to stop the blur from happening (while it is based on clicking)
     }
@@ -55,8 +57,25 @@ export default function Map(props){
         isBlurred = blurred;
         isDisplayed = !isDisplayed;
     }
-//TODO need to be able to get data in here, including current location
-    //current location marker sorta works... but it only shows up (lat and long are set) after the state is changed once for some reason, and not initially
+    //Function to get the user's current location and generate a marker component for the map below
+    function LocationMarker() {
+        const [position, setPosition] = useState(null);
+        const map = useMap();
+
+        useEffect(() => {
+            map.locate().on("locationfound", function (e) {
+                setPosition(e.latlng);
+            });
+        }, []);
+
+        return position === null ? null : (
+            <Marker position={position}>
+                <Popup>You are here</Popup>
+            </Marker>
+
+        );
+    }
+//TODO need to be able to get data in here
     //Will need to load data for the markers as well, but can't do that in a component?
     //Couldn't use navigator in the map page to send in as props for some reason
     return (
@@ -87,13 +106,6 @@ export default function Map(props){
                             <span>Williams Hall</span>
                         </Popup>
                     </Marker>
-                    {console.log("in map:" + lat)}
-                    {console.log("in map:" + long)}
-                    <Marker position={[lat,long]}> {/*TODO*/}
-                        <Popup>
-                            <span>You are Here!!!</span>
-                        </Popup>
-                    </Marker>
                     <Marker position={[42.446700, -76.498440]}>
                         <Popup>
                             <span>210 Utica St - Cielle<br />Playing 4pm-5pm</span>
@@ -109,6 +121,7 @@ export default function Map(props){
                             <span>219 Auburn St - Lloyd's Boys)</span>
                         </Popup>
                     </Marker>
+                    <LocationMarker />
                 </MapContainer>
                 <Navigation/>
             </div>

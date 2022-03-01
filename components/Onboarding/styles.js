@@ -8,6 +8,7 @@ export const container = styled.div`
   
       form{
         width:90%;
+        margin-left: 5%; //centers it (leaves 5% on the right from the 90% width)
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
