@@ -3,15 +3,16 @@ import * as Styles from './styles'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-
+const store = require("store2");
 
 export const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [token, setToken] = useState("")
 
+
     useEffect(()=> {
-        const data = localStorage.getItem('accessToken');
+        const data = store.get('accessToken');
         if(data){
             setToken(data)
         }
@@ -34,7 +35,7 @@ export const SignIn = () => {
                 else alert("There has been some error");
             })
             .then(data =>{
-                localStorage.setItem('accessToken', data.access_token);
+                store.set('accessToken', data.access_token);
             })
             .catch(error =>{
                 console.error("There was an error");
@@ -88,3 +89,4 @@ export const SignIn = () => {
     )
 
 }
+

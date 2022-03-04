@@ -4,12 +4,13 @@ import Default from "../layouts/default";
 import * as Styles from "../components/Saved/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleRight, faHeart} from "@fortawesome/free-solid-svg-icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
+import store from "store2";
 
 export default function Saved(data) {
-    console.log(data.artistData)
-
+    console.log(data)
+    console.log(typeof store.get('accessToken'))
     return (
         <div className="content">
             <Head>
@@ -54,9 +55,29 @@ Saved.getLayout = function getLayout(page) {
 }
 
 export async function getStaticProps() {
-    const response = await fetch('http://localhost:5000/get_saved_artists')
+    const token = store.get('accessToken')
+    let artistData = ""
+    console.log("hello")
+    const opts = {
+        headers:{
+            Authorization: 'Bearer' + token
+        }
+    }
+    fetch('http://localhost:5000/get_saved_artists' ,opts)
+        .then(resp =>{
+            if(resp.status == 200) return resp.json();
+            else alert("There has been some error");
+        })
+        .then(data =>{
+            console.log(data.json())
+            artistData = data.json();
+        })
+        .catch(error =>{
+            console.error("There was an error");
+        })
 
-    const artistData = await response.json()
+
+
     return {
         props: {
             artistData
