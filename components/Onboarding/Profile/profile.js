@@ -12,11 +12,11 @@ export default function Profile(props) {
     return (
         <Styles.container>
             <Styles.header>
-                {/*<Link href={"/info"} passHref>*/}
+                <Link href={"/info"} passHref>
                     <Styles.backBtn onClick={() => router.back()}>
                         <FontAwesomeIcon icon={faArrowLeft}/>
                     </Styles.backBtn>
-                {/*</Link>*/}
+                </Link>
                 <Styles.title>User Profile</Styles.title>
             </Styles.header>
             <Styles.infoRow>
