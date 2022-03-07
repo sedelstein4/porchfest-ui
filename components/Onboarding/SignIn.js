@@ -3,7 +3,6 @@ import * as Styles from './styles'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-const store = require("store2");
 
 export const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -12,7 +11,7 @@ export const SignIn = () => {
 
 
     useEffect(()=> {
-        const data = store.get('accessToken');
+        const data = localStorage.getItem('accessToken');
         if(data){
             setToken(data)
         }
@@ -35,7 +34,8 @@ export const SignIn = () => {
                 else alert("There has been some error");
             })
             .then(data =>{
-                store.set('accessToken', data.access_token);
+                console.log(data.access_token)
+                localStorage.setItem('accessToken',data.access_token)
             })
             .catch(error =>{
                 console.error("There was an error");
@@ -52,9 +52,9 @@ export const SignIn = () => {
             </Link>
             <Styles.container>
                 <Styles.title>Porchfest</Styles.title>
-                {console.log("Token:", token)}
+
                 {(token && token!="" && token!=undefined) ? (
-                    "You are logged in with token") :(
+                    "Logged in with token") :(
 
                     <form method="post" onSubmit={handleSubmit}>
                     <input

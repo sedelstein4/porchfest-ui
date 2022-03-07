@@ -6,19 +6,43 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
-import store from "store2";
 
 export default function Saved(data) {
-    console.log(data)
-    console.log(typeof store.get('accessToken'))
+    const [savedArtists, setSavedArtists] = useState("");
+
+
+    useEffect(()=> {
+        const token = localStorage.getItem('accessToken');
+        const opts = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+
+        if(savedArtists == "") {
+            console.log(token)
+            fetch('http://localhost:5000/get_saved_artists', opts)
+                .then(resp => {
+                    if (resp.status == 200) return resp.json();
+                    else alert("There has been some error");
+                })
+                .then(data => {
+                    setSavedArtists(data)
+                })
+                .catch(error => {
+                    console.error("There was an error");
+                })
+        }
+    })
     return (
         <div className="content">
+
             <Head>
                 <title>Saved Artists</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Styles.artistResults>
-                {data.artistData ? data.artistData.slice(0).map((artist, i) => {
+                {savedArtists ? savedArtists.slice(0).map((artist, i) => {
                     return (
                         <Styles.searchItem key={artist.id}>
                             <Styles.LikeBtn>
@@ -54,33 +78,32 @@ Saved.getLayout = function getLayout(page) {
     )
 }
 
-export async function getStaticProps() {
-    const token = store.get('accessToken')
-    let artistData = ""
-    console.log("hello")
+function getProps() {
+    const token = localStorage.getItem('accessToken');
+    console.log(token)
     const opts = {
-        headers:{
-            Authorization: 'Bearer' + token
+        headers: {
+            Authorization: 'Bearer ' + token
         }
     }
-    fetch('http://localhost:5000/get_saved_artists' ,opts)
-        .then(resp =>{
-            if(resp.status == 200) return resp.json();
+    fetch('http://localhost:5000/get_saved_artists', opts)
+        .then(resp => {
+            if (resp.status == 200) return resp.json();
             else alert("There has been some error");
         })
-        .then(data =>{
-            console.log(data.json())
-            artistData = data.json();
+        .then(data => {
+            artistData = data;
         })
-        .catch(error =>{
+        .catch(error => {
             console.error("There was an error");
         })
 
+        let artistData = ""
 
-
-    return {
-        props: {
-            artistData
+        return {
+            props: {
+                artistData
+            }
         }
-    }
+
 }

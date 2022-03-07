@@ -24,7 +24,7 @@ export default function Profile(props) {
                 <Styles.infoValue>person@ithaca.edu</Styles.infoValue>
 
             </Styles.infoRow>
-            <Styles.buttonDiv>
+            <Styles.buttonDiv onClick={() => localStorage.removeItem('accessToken')}>
                 <Link href={"/"} passHref>
                     <Styles.signout>SIGN OUT</Styles.signout>
                 </Link>
