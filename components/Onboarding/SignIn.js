@@ -3,6 +3,8 @@ import * as Styles from './styles'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import {container} from "./styles";
+import Router from 'next/router'
 
 export const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -16,11 +18,20 @@ export const SignIn = () => {
             setToken(data)
         }
     })
+    const fetchData = async () => {
+        const req = await fetch('https://randomuser.me/api/?gender=male&results=100');
+        const newData = await req.json();
+
+        return setData(newData.results);
+    };
 
     const handleSubmit = () => {
+        console.log("Clicked")
+
         const opts = {
             method: 'POST',
             headers: {
+                'Access-Control-Allow-Origin': '*',
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -28,20 +39,24 @@ export const SignIn = () => {
                 "password": password
             })
         }
-        fetch('http://localhost:5000/token', opts)
-            .then(resp =>{
-                if(resp.status == 200) return resp.json();
-                else alert("There has been some error");
-            })
-            .then(data =>{
-                console.log(data.access_token)
-                localStorage.setItem('accessToken',data.access_token)
-            })
-            .catch(error =>{
-                console.error("There was an error");
-            })
+        fetch('http://localhost:5000/login', opts)
+            .then(resp => {
+                if (resp.status == 201) return resp;
+                else console.log("There has been some error");
+                console.log(resp)
 
+            })
+            .then(async data => {
+                const tokens = await data.json()
+                localStorage.setItem('accessToken',tokens.access_token)
+                localStorage.setItem('refreshToken', tokens.refresh_token)
+                await Router.push('http://localhost:3000/browse')
+            })
+            .catch(error => {
+                console.error(error);
+            })
     }
+
 
     return (
         <div>
@@ -50,13 +65,8 @@ export const SignIn = () => {
                     <FontAwesomeIcon icon={faArrowLeft}/>
                 </Styles.backBtn>
             </Link>
-            <Styles.container>
+            <Styles.container id={"Signin"}>
                 <Styles.title>Porchfest</Styles.title>
-
-                {(token && token!="" && token!=undefined) ? (
-                    "Logged in with token") :(
-
-                    <form method="post" onSubmit={handleSubmit}>
                     <input
                     type={"text"}
                     id={"email"}
@@ -74,15 +84,7 @@ export const SignIn = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     />
                     <Styles.forgotLink>Forgot password?</Styles.forgotLink>
-                    <input
-                    type={"submit"}
-                    id={"submit"}
-                    name={"submit"}
-                    value={"SIGN IN"}
-                    />
-                    </form>
-                    )}
-
+                    <button onClick={handleSubmit}>SIGN IN</button>
 
             </Styles.container>
         </div>

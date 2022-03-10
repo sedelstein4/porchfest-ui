@@ -6,9 +6,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
+import Router from "next/router";
 
 export default function Saved(data) {
     const [savedArtists, setSavedArtists] = useState("");
+    const [isloaded, setLoaded] = useState(false)
 
 
     useEffect(()=> {
@@ -19,19 +21,40 @@ export default function Saved(data) {
             }
         }
 
-        if(savedArtists == "") {
-            console.log(token)
-            fetch('http://localhost:5000/get_saved_artists', opts)
+        if(!isloaded) {
+
+            fetch('http://localhost:5000/get_user_saved_artists', opts)
                 .then(resp => {
                     if (resp.status == 200) return resp.json();
+                    if(resp.status === 401) {
+                        const opts = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',
+                                Accept: 'application/json',
+                                Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
+                            }
+                        }
+                        fetch(`http://localhost:5000/refresh`, opts)
+                            .then(async res => {
+                                const data = await res.json()
+                                localStorage.setItem('accessToken',data.access_token)
+                                Router.reload()
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            })
+                    }
                     else alert("There has been some error");
                 })
                 .then(data => {
                     setSavedArtists(data)
                 })
                 .catch(error => {
-                    console.error("There was an error");
+                    console.error(error);
                 })
+            setLoaded(true)
         }
     })
     return (
@@ -78,32 +101,32 @@ Saved.getLayout = function getLayout(page) {
     )
 }
 
-function getProps() {
-    const token = localStorage.getItem('accessToken');
-    console.log(token)
-    const opts = {
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    }
-    fetch('http://localhost:5000/get_saved_artists', opts)
-        .then(resp => {
-            if (resp.status == 200) return resp.json();
-            else alert("There has been some error");
-        })
-        .then(data => {
-            artistData = data;
-        })
-        .catch(error => {
-            console.error("There was an error");
-        })
-
-        let artistData = ""
-
-        return {
-            props: {
-                artistData
-            }
-        }
-
-}
+// function getProps() {
+//     const token = localStorage.getItem('accessToken');
+//     console.log(token)
+//     const opts = {
+//         headers: {
+//             Authorization: 'Bearer ' + token
+//         }
+//     }
+//     fetch('http://localhost:5000/get_user_saved_artists', opts)
+//         .then(resp => {
+//             if (resp.status == 200) return resp.json();
+//             else alert("There has been some error");
+//         })
+//         .then(data => {
+//             artistData = data;
+//         })
+//         .catch(error => {
+//             console.error("There was an error");
+//         })
+//
+//         let artistData = ""
+//
+//         return {
+//             props: {
+//                 artistData
+//             }
+//         }
+//
+// }

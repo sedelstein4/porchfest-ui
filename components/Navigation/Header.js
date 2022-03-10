@@ -3,22 +3,34 @@ import * as Styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
 export default function Header(props) {
     const router = useRouter()
-    const [heartOutline, heartFilled] = useState(props.liked);
+    const [heartOutline, heartFilled] = useState();
     const [noDropdown, dropdown] = useState(0);
-    useEffect(() => {}, [noDropdown]);
+    const [dataLoaded, setDataLoaded] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        if(!dataLoaded && props.slug != undefined){
+            getArtistWithUser(props.slug,token).then((res)=>{
+                heartFilled(res)
+            })
+            setDataLoaded(true)
+        }
+
+    }, [noDropdown]);
 
     function sortHandler(){
         dropdown(current => !current)
     }
 
     function handleLikeClick(){
+        updatedLikedArtists(props.artistID).then((info) =>{
+           // console.log(info)
+            heartFilled(info)
 
-        //Need to have liked saved locally
-        updatedLikedArtists(props.artistID).then(r => heartFilled(r))
-
+        })
     }
 
 
@@ -33,7 +45,6 @@ export default function Header(props) {
             {shallow: false}
         );
     }
-
     return (
             <Styles.TopContainer>
                 <Styles.BackBtn show={props.pageType === "artist" || props.pageType === "genre"} onClick={() => router.back()}>
@@ -106,20 +117,74 @@ export async function getStaticProps( type ) {
 }
 
 export async function updatedLikedArtists(artistID) {
-    const response = await fetch('http://localhost:5000/update_user_to_artist', {
+    const token = localStorage.getItem('accessToken');
+
+    const opts = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             Accept: 'application/json',
-            Authorization: 'Bearer ',
+            Authorization: 'Bearer ' + token
         },
         body: JSON.stringify({
-            artist_id: artistID
+            "artist_id": artistID,
         })
-    });
-    const liked = await response.json()
-    return liked;
+    }
 
+    const updateArtist =fetch(`http://localhost:5000/update_user_to_artist`, opts)
+        .then(resp => {
+            if (resp.status == 200) return resp;
+            if(resp.status === 401) {
+                const opts = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        Accept: 'application/json',
+                        Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
+                    }
+                }
+                fetch(`http://localhost:5000/refresh`, opts)
+                    .then(async res => {
+                        console.log(res)
+                        const data = await res.json()
+                        console.log(data.access_token)
+                        localStorage.setItem('accessToken',data.access_token)
+                        Router.reload()
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+            }
+            else console.log("There has been some error");
+        })
+        .then(async res => {
+            const data = await res.json()
+            return data
+        })
+        .catch(error => {
+            console.error(error);
+        })
+        return updateArtist;
+
+
+}
+async function getArtistWithUser(slug,token) {
+    const opts = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({
+            "access_token": token,
+        })
+    }
+
+    const res = await fetch(`http://localhost:5000/artist/${slug}`, opts)
+    const data = await res.json()
+    return data.liked
 
 }
