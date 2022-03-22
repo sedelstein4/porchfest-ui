@@ -10,6 +10,7 @@ export const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [token, setToken] = useState("")
+    const [loginError,setLoginError] = useState("")
 
 
     useEffect(()=> {
@@ -26,8 +27,6 @@ export const SignIn = () => {
     };
 
     const handleSubmit = () => {
-        console.log("Clicked")
-
         const opts = {
             method: 'POST',
             headers: {
@@ -41,16 +40,18 @@ export const SignIn = () => {
         }
         fetch('http://localhost:5000/login', opts)
             .then(resp => {
-                if (resp.status == 201) return resp;
-                else console.log("There has been some error");
-                console.log(resp)
-
+                if (resp.status == 201)
+                    return resp;
+                else setLoginError('Password or email incorrect')
             })
             .then(async data => {
-                const tokens = await data.json()
-                localStorage.setItem('accessToken',tokens.access_token)
-                localStorage.setItem('refreshToken', tokens.refresh_token)
-                await Router.push('http://localhost:3000/browse')
+                if(data){
+                    const tokens = await data.json()
+                    localStorage.setItem('accessToken',tokens.access_token)
+                    localStorage.setItem('refreshToken', tokens.refresh_token)
+                    await Router.push('http://localhost:3000/info')
+                }
+
             })
             .catch(error => {
                 console.error(error);
@@ -60,13 +61,14 @@ export const SignIn = () => {
 
     return (
         <div>
-            <Link href={"/info"} passHref>
+            <Link href={"/"} passHref>
                 <Styles.backBtn>
                     <FontAwesomeIcon icon={faArrowLeft}/>
                 </Styles.backBtn>
             </Link>
             <Styles.container id={"Signin"}>
                 <Styles.title>Porchfest</Styles.title>
+
                     <input
                     type={"text"}
                     id={"email"}
@@ -84,6 +86,7 @@ export const SignIn = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     />
                     <Styles.forgotLink>Forgot password?</Styles.forgotLink>
+                    {loginError && loginError !="" ? loginError : ""}
                     <button onClick={handleSubmit}>SIGN IN</button>
 
             </Styles.container>

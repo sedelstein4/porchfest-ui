@@ -84,20 +84,6 @@ async function getArtistWithUser(slug,token) {
 }
 
 const Artist = ({ data }) => {
-
-    const [likedArtist, setLikedArtist] = useState();
-    const [dataLoaded, setDataLoaded] = useState(false);
-    useEffect( () => {
-        // const token = localStorage.getItem('accessToken');
-        // if(!dataLoaded){
-        //     getArtistWithUser(data.artist.url_slug,token).then((res)=>{
-        //         setLikedArtist(res)
-        //     })
-        //     setDataLoaded(true)
-        //
-        // }
-        // console.log(likedArtist)
-    })
     return (
         <div className="content">
             <Head>
@@ -112,7 +98,6 @@ const Artist = ({ data }) => {
             </ArtistImageDiv>
             <SocialMediaGrid>
                 {data.artist.facebook ? <FontAwesomeIcon icon={faFacebookSquare} style={{color: '#4267B2'}}/> : null}
-                {data.artist.instagram ? <FontAwesomeIcon icon={faInstagram} className={'insta'}/> : null}
                 {data.artist.spotify ? <FontAwesomeIcon icon={faSpotify} style={{color: '#1DB954'}}/> : null}
                 {data.artist.apple ?  <FontAwesomeIcon icon={faApple} /> : null}
                 <FontAwesomeIcon icon={faGlobe} />

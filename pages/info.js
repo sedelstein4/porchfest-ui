@@ -7,7 +7,6 @@ import * as BtnStyle from "../components/Onboarding/Home/styles"
 import Link from 'next/link'
 
 export default function Info(data) {
-    console.log(data)
     let nameFromBackend = "Porchfest 2021"; //temp
 
     return (

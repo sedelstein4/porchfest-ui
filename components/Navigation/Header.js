@@ -135,7 +135,7 @@ export async function updatedLikedArtists(artistID) {
     const updateArtist =fetch(`http://localhost:5000/update_user_to_artist`, opts)
         .then(resp => {
             if (resp.status == 200) return resp;
-            if(resp.status === 401) {
+            if(resp.status == 401 && localStorage.getItem('refreshToken')) {
                 const opts = {
                     method: 'POST',
                     headers: {
@@ -156,15 +156,23 @@ export async function updatedLikedArtists(artistID) {
                     .catch(error => {
                         console.error(error);
                     })
+            } else if(resp.status === 422){
+                //Router.push('http://localhost:3000')
+                console.log("Error 422")
+                return resp
             }
-            else console.log("There has been some error");
+            else{
+                console.log('error')
+            }
         })
         .then(async res => {
-            const data = await res.json()
-            return data
+            if(res){
+                const data = await res.json()
+                return data
+            }
         })
         .catch(error => {
-            console.error(error);
+            console.error(error)
         })
         return updateArtist;
 

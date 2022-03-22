@@ -3,18 +3,28 @@ import * as Styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link'
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
 
 
 export default function SignUp(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setconFirmPassword] = useState("")
-
+    const [loginError,setLoginError] = useState("")
     const router = useRouter();
 
     const handleSubmit = () => {
-        if(password == confirmPassword) {
+        const re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+        const emailMatcher = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+        if(password != confirmPassword || !email.toLowerCase().match(emailMatcher)){
+            setLoginError("Password mismatch")
+        }
+        if(!re.test(password)){
+            setLoginError("Password needs to be min 8 letter password, with at least a symbol, upper and lower case letters and a number\n" +
+                "\n ")
+        }
+        if(password == confirmPassword && email.toLowerCase().match(emailMatcher) && re.test(password)){
             const opts = {
                 method: 'POST',
                 headers: {
@@ -27,21 +37,22 @@ export default function SignUp(props) {
             }
             fetch('http://localhost:5000/signup', opts)
                 .then(resp => {
-                    if (resp.status == 200) return resp.json();
-                    else alert("There has been some error");
+                    if (resp.status == 201)
+                        return resp;
+                    else setLoginError("Use already created");
                 })
-                .then(data => {
+                .then(async data => {
+                    if(data) {
+                        const tokens = await data.json()
+                        localStorage.setItem('accessToken', tokens.access_token)
+                        localStorage.setItem('refreshToken', tokens.refresh_token)
+                        await Router.push('http://localhost:3000/info')
+                    }
                 })
                 .catch(error => {
                     console.error(error);
                 })
-        }else{
-            alert("Password mismatch")
         }
-
-
-        //router.push('/selectGenres');
-
     }
     return (
         <div>
@@ -76,7 +87,9 @@ export default function SignUp(props) {
                         value={confirmPassword}
                         onChange={(e) => setconFirmPassword(e.target.value)}
                     />
-                <button onClick={handleSubmit}>SIGN UP</button>
+                    {loginError && loginError !="" ? loginError : ""}
+
+                    <button onClick={handleSubmit}>SIGN UP</button>
             </Styles.container>
         </div>
     )

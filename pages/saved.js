@@ -26,7 +26,7 @@ export default function Saved(data) {
             fetch('http://localhost:5000/get_user_saved_artists', opts)
                 .then(resp => {
                     if (resp.status == 200) return resp.json();
-                    if(resp.status === 401) {
+                    if(resp.status === 401 && localStorage.getItem('refreshToken')) {
                         const opts = {
                             method: 'POST',
                             headers: {
@@ -46,7 +46,7 @@ export default function Saved(data) {
                                 console.error(error);
                             })
                     }
-                    else alert("There has been some error");
+                    else Router.push('http://localhost:3000/browse')
                 })
                 .then(data => {
                     setSavedArtists(data)
@@ -65,7 +65,7 @@ export default function Saved(data) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Styles.artistResults>
-                {savedArtists ? savedArtists.slice(0).map((artist, i) => {
+                {savedArtists.length > 0 ? savedArtists.slice(0).map((artist, i) => {
                     return (
                         <Styles.searchItem key={artist.id}>
                             <Styles.LikeBtn>
