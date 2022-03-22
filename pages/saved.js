@@ -101,32 +101,3 @@ Saved.getLayout = function getLayout(page) {
     )
 }
 
-// function getProps() {
-//     const token = localStorage.getItem('accessToken');
-//     console.log(token)
-//     const opts = {
-//         headers: {
-//             Authorization: 'Bearer ' + token
-//         }
-//     }
-//     fetch('http://localhost:5000/get_user_saved_artists', opts)
-//         .then(resp => {
-//             if (resp.status == 200) return resp.json();
-//             else alert("There has been some error");
-//         })
-//         .then(data => {
-//             artistData = data;
-//         })
-//         .catch(error => {
-//             console.error("There was an error");
-//         })
-//
-//         let artistData = ""
-//
-//         return {
-//             props: {
-//                 artistData
-//             }
-//         }
-//
-// }
