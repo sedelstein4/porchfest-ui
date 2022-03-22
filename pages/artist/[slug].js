@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Header from "../../components/Navigation/Header";
 import Head from "next/head";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {faApple, faFacebookSquare, faInstagram, faInstagramSquare, faSpotify} from "@fortawesome/free-brands-svg-icons";
 import {faGlobe} from "@fortawesome/free-solid-svg-icons";
 import Default from "../../layouts/default";
@@ -63,6 +63,26 @@ const ArtistAbout = styled.p`
   font-size: 1.25em;
 `
 
+async function getArtistWithUser(slug,token) {
+
+    const opts = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({
+            "access_token": token,
+        })
+    }
+
+    const res = await fetch(`http://localhost:5000/artist/${slug}`, opts)
+    const data = await res.json()
+    return data.liked
+
+}
+
 const Artist = ({ data }) => {
     return (
         <div className="content">
@@ -70,7 +90,7 @@ const Artist = ({ data }) => {
                 <title>Porchfest - {data.artist.name}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header pageType={"artist"} title={data.artist.name} hometown={data.artist.hometown} artistID={data.artist.id} liked={data.artist.liked}/>
+            <Header pageType={"artist"} title={data.artist.name} hometown={data.artist.hometown} artistID={data.artist.id} slug={data.artist.url_slug}/>
 
 
             <ArtistImageDiv imageSrc={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"}>
@@ -78,7 +98,6 @@ const Artist = ({ data }) => {
             </ArtistImageDiv>
             <SocialMediaGrid>
                 {data.artist.facebook ? <FontAwesomeIcon icon={faFacebookSquare} style={{color: '#4267B2'}}/> : null}
-                {data.artist.instagram ? <FontAwesomeIcon icon={faInstagram} className={'insta'}/> : null}
                 {data.artist.spotify ? <FontAwesomeIcon icon={faSpotify} style={{color: '#1DB954'}}/> : null}
                 {data.artist.apple ?  <FontAwesomeIcon icon={faApple} /> : null}
                 <FontAwesomeIcon icon={faGlobe} />
@@ -108,7 +127,6 @@ export async function getStaticPaths() {
 
     return { paths, fallback: false }
 }
-
 export async function getStaticProps({ params }) {
     const { slug } = params
     const res = await fetch(`http://localhost:5000/artist/${slug}`)

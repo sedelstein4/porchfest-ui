@@ -46,8 +46,6 @@ export default function Browse(data) {
             // }
     }, [router.asPath])
 
-    console.log(data)
-    console.log(artistData)
         if (!artistData[0].name) {
             return (
                 <div className="content">
@@ -59,7 +57,7 @@ export default function Browse(data) {
                         const genreData = Object.values(genres)[0]
                         if (genreData.length > 0) {
                             return (
-                                <Styles.rowContainer key={artistData.id}>
+                                <Styles.rowContainer key={i}>
                                     <Link href="/genre/[slug]" as={`/genre/${Object.values(genres)[1]}`}
                                           passHref>
                                         <a>

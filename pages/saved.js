@@ -4,20 +4,68 @@ import Default from "../layouts/default";
 import * as Styles from "../components/Saved/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleRight, faHeart} from "@fortawesome/free-solid-svg-icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
+import Router from "next/router";
 
 export default function Saved(data) {
-    console.log(data.artistData)
+    const [savedArtists, setSavedArtists] = useState("");
+    const [isloaded, setLoaded] = useState(false)
 
+
+    useEffect(()=> {
+        const token = localStorage.getItem('accessToken');
+        const opts = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+
+        if(!isloaded) {
+
+            fetch('http://localhost:5000/get_user_saved_artists', opts)
+                .then(resp => {
+                    if (resp.status == 200) return resp.json();
+                    if(resp.status === 401 && localStorage.getItem('refreshToken')) {
+                        const opts = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',
+                                Accept: 'application/json',
+                                Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
+                            }
+                        }
+                        fetch(`http://localhost:5000/refresh`, opts)
+                            .then(async res => {
+                                const data = await res.json()
+                                localStorage.setItem('accessToken',data.access_token)
+                                Router.reload()
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            })
+                    }
+                    else Router.push('http://localhost:3000/browse')
+                })
+                .then(data => {
+                    setSavedArtists(data)
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+            setLoaded(true)
+        }
+    })
     return (
         <div className="content">
+
             <Head>
                 <title>Saved Artists</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Styles.artistResults>
-                {data.artistData ? data.artistData.slice(0).map((artist, i) => {
+                {savedArtists.length > 0 ? savedArtists.slice(0).map((artist, i) => {
                     return (
                         <Styles.searchItem key={artist.id}>
                             <Styles.LikeBtn>
@@ -53,13 +101,32 @@ Saved.getLayout = function getLayout(page) {
     )
 }
 
-export async function getStaticProps() {
-    const response = await fetch('http://localhost:5000/get_saved_artists')
-
-    const artistData = await response.json()
-    return {
-        props: {
-            artistData
-        }
-    }
-}
+// function getProps() {
+//     const token = localStorage.getItem('accessToken');
+//     console.log(token)
+//     const opts = {
+//         headers: {
+//             Authorization: 'Bearer ' + token
+//         }
+//     }
+//     fetch('http://localhost:5000/get_user_saved_artists', opts)
+//         .then(resp => {
+//             if (resp.status == 200) return resp.json();
+//             else alert("There has been some error");
+//         })
+//         .then(data => {
+//             artistData = data;
+//         })
+//         .catch(error => {
+//             console.error("There was an error");
+//         })
+//
+//         let artistData = ""
+//
+//         return {
+//             props: {
+//                 artistData
+//             }
+//         }
+//
+// }
