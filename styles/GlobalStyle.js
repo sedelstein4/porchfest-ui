@@ -107,7 +107,10 @@ const GlobalStyle = createGlobalStyle`
         }
         .mobile-only {
             display: block;
-        }
+        }  
+      .mobile-margin-sides {
+        margin: 0 var(--mobile-margin);
+      }
         .content {
           margin: 80px var(--mobile-margin) 0;
           padding-bottom: 50px;

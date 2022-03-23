@@ -22,8 +22,6 @@ export const container = styled.div`
         text-align: left;
         padding:15px 0 15px 12px;
         margin-bottom:20px;
-        margin-left:18px;
-        width:95%;
         max-width: 550px;
         font-size: smaller;
         font-weight: bold;
@@ -58,7 +56,7 @@ export const backBtn = styled.div`
 
   svg{
     width:40px;
-    margin:20px 0 0 20px;+
+    margin:20px 0;
     
   }
 `
@@ -68,7 +66,37 @@ export const forgotLink = styled.a`
   float: right;
   font-size: small;
   color: var(--link);
-  margin: -8px 0 22px 0;
+  margin-top: -8px;
 
+`
+
+export const loginError = styled.div`
+  display: block;
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
+`
+
+export const loginNotice = styled.div`
+  display: block;
+  font-weight: bold;
+  margin-bottom: 15px;
+`
+
+export const signInBtn = styled.button`
+  background: var(--main);
+  color: var(--white);
+  padding: 15px;
+  margin-top: 22px;
+  border: 1px var(--black) solid;
+  border-radius:4px;
+`
+
+export const signUpBtn = styled.button`
+  background: var(--main);
+  color: var(--white);
+  padding: 15px;
+  border: 1px var(--black) solid;
+  border-radius:4px;
 `
 

@@ -21,8 +21,7 @@ export default function SignUp(props) {
             setLoginError("Password mismatch")
         }
         if(!re.test(password)){
-            setLoginError("Password needs to be min 8 letter password, with at least a symbol, upper and lower case letters and a number\n" +
-                "\n ")
+            setLoginError(["Password Requirements:",<br/>,"At least 8 characters",<br/>,"At least 1 uppercase and 1 lowercase letter",<br/>,"At least 1 number",<br/>,"At least 1 symbol\n"])
         }
         if(password == confirmPassword && email.toLowerCase().match(emailMatcher) && re.test(password)){
             const opts = {
@@ -55,7 +54,7 @@ export default function SignUp(props) {
         }
     }
     return (
-        <div>
+        <div className="mobile-margin-sides">
             <Link href={"/"} passHref>
                 <Styles.backBtn>
                     <FontAwesomeIcon icon={faArrowLeft}/>
@@ -87,9 +86,9 @@ export default function SignUp(props) {
                         value={confirmPassword}
                         onChange={(e) => setconFirmPassword(e.target.value)}
                     />
-                    {loginError && loginError !="" ? loginError : ""}
+                    {loginError && loginError !="" ? <Styles.loginNotice>{loginError}</Styles.loginNotice> : ""}
 
-                    <button onClick={handleSubmit}>SIGN UP</button>
+                    <Styles.signUpBtn onClick={handleSubmit}>SIGN UP</Styles.signUpBtn>
             </Styles.container>
         </div>
     )

@@ -60,7 +60,7 @@ export const SignIn = () => {
 
 
     return (
-        <div>
+        <div className="mobile-margin-sides">
             <Link href={"/"} passHref>
                 <Styles.backBtn>
                     <FontAwesomeIcon icon={faArrowLeft}/>
@@ -86,8 +86,8 @@ export const SignIn = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     />
                     <Styles.forgotLink>Forgot password?</Styles.forgotLink>
-                    {loginError && loginError !="" ? loginError : ""}
-                    <button onClick={handleSubmit}>SIGN IN</button>
+                {loginError && loginError !="" ? <Styles.loginError>{loginError}</Styles.loginError> : ""}
+                    <Styles.signInBtn onClick={handleSubmit}>SIGN IN</Styles.signInBtn>
 
             </Styles.container>
         </div>
