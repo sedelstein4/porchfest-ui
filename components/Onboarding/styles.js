@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const container = styled.div`
-  height:80vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   
       form{
         width:90%;
@@ -22,21 +23,22 @@ export const container = styled.div`
         text-align: left;
         padding:15px 0 15px 12px;
         margin-bottom:20px;
+        width: 85%;
         max-width: 550px;
         font-size: smaller;
         font-weight: bold;
       }
 
-      input[type=submit]{
-        background: var(--main);
-        border-color: var(--black);
-        text-align: center;
-        color: white;
-        width:100%;
-        max-width: 565px;
-        padding-left:0;
-      }
-    
+      //input[type=submit]{
+      //  background: var(--main);
+      //  border-color: var(--black);
+      //  text-align: center;
+      //  color: white;
+      //  width:100%;
+      //  max-width: 565px;
+      //  padding-left:0;
+      //}
+  
       input:focus{
         border: 2px solid var(--grey-mid);
         outline:none;
@@ -62,12 +64,9 @@ export const backBtn = styled.div`
 `
 
 export const forgotLink = styled.a`
-  text-align: right;
-  float: right;
   font-size: small;
   color: var(--link);
   margin-top: -8px;
-
 `
 
 export const loginError = styled.div`
@@ -90,6 +89,8 @@ export const signInBtn = styled.button`
   margin-top: 22px;
   border: 1px var(--black) solid;
   border-radius:4px;
+  max-width: 565px;
+  width: 90%;
 `
 
 export const signUpBtn = styled.button`
@@ -98,5 +99,7 @@ export const signUpBtn = styled.button`
   padding: 15px;
   border: 1px var(--black) solid;
   border-radius:4px;
+  max-width: 565px;
+  width: 90%;
 `
 
