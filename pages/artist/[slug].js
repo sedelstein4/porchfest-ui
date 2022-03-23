@@ -97,10 +97,9 @@ const Artist = ({ data }) => {
                 {/*<ArtistImage src={data.artist.photo ? data.artist.photo : "/images/profile.jpeg"} alt={data.artist.name}/>*/}
             </ArtistImageDiv>
             <SocialMediaGrid>
-                {data.artist.facebook ? <FontAwesomeIcon icon={faFacebookSquare} style={{color: '#4267B2'}}/> : null}
-                {data.artist.spotify ? <FontAwesomeIcon icon={faSpotify} style={{color: '#1DB954'}}/> : null}
-                {data.artist.apple ?  <FontAwesomeIcon icon={faApple} /> : null}
-                <FontAwesomeIcon icon={faGlobe} />
+                {data.artist.facebook ? <a target="_blank" href={data.artist.facebook}><FontAwesomeIcon icon={faFacebookSquare} style={{color: '#4267B2'}}/></a> : null}
+                {data.artist.spotify ? <a target="_blank" href={data.artist.spotify}><FontAwesomeIcon icon={faSpotify} style={{color: '#1DB954'}}/></a> : null}
+                {data.artist.website ?  <a target="_blank" href={data.artist.website}><FontAwesomeIcon icon={faGlobe} /></a> : null}
             </SocialMediaGrid>
             <ArtistAbout>{data.artist.about}</ArtistAbout>
         </div>
