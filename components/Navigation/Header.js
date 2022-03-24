@@ -9,15 +9,20 @@ export default function Header(props) {
     const [heartOutline, heartFilled] = useState();
     const [noDropdown, dropdown] = useState(0);
     const [dataLoaded, setDataLoaded] = useState(false);
+    const [loggedInUser, setLoggedInUser] = useState(false)
 
     useEffect(() => {
-        const token = localStorage.getItem('accessToken');
-        if(!dataLoaded && props.slug != undefined){
-            getArtistWithUser(props.slug,token).then((res)=>{
-                heartFilled(res)
-            })
-            setDataLoaded(true)
+        if(localStorage.getItem('accessToken')){
+            const token = localStorage.getItem('accessToken');
+            if(!dataLoaded && props.slug != undefined){
+                getArtistWithUser(props.slug,token).then((res)=>{
+                    heartFilled(res)
+                })
+                setDataLoaded(true)
+                setLoggedInUser(true)
+            }
         }
+
 
     }, [noDropdown]);
 
@@ -84,7 +89,7 @@ export default function Header(props) {
                             </div>
                         </Styles.SortDropdown>
                     </Styles.SortBtn>
-                    : props.pageType === "artist" ?
+                    : props.pageType === "artist" && loggedInUser ?
                     <Styles.LikeBtn onClick={() => handleLikeClick()}>
                         {heartOutline ? <FontAwesomeIcon icon={faHeart} className="filled-heart"/> : <FontAwesomeIcon icon={farHeart}/>}
                     </Styles.LikeBtn>

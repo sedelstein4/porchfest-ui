@@ -10,19 +10,17 @@ import Router from "next/router";
 
 export default function Saved(data) {
     const [savedArtists, setSavedArtists] = useState("");
-    const [isloaded, setLoaded] = useState(false)
-
+    const [isDataLoaded, setDataLoaded] = useState(false)
+    const [loggedInUser, setLoggedInUser] = useState(false)
 
     useEffect(()=> {
-        const token = localStorage.getItem('accessToken');
-        const opts = {
-            headers: {
-                Authorization: 'Bearer ' + token
+        if(!isDataLoaded && localStorage.getItem('accessToken')) {
+            const token = localStorage.getItem('accessToken');
+            const opts = {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
             }
-        }
-
-        if(!isloaded) {
-
             fetch('http://localhost:5000/get_user_saved_artists', opts)
                 .then(resp => {
                     if (resp.status == 200) return resp.json();
@@ -54,18 +52,19 @@ export default function Saved(data) {
                 .catch(error => {
                     console.error(error);
                 })
-            setLoaded(true)
+            setDataLoaded(true)
+            setLoggedInUser(true)
         }
     })
     return (
         <div className="content">
-
             <Head>
                 <title>Saved Artists</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            {loggedInUser && isDataLoaded ? (
             <Styles.artistResults>
-                {savedArtists.length > 0 ? savedArtists.slice(0).map((artist, i) => {
+                {savedArtists.length > 0 && isDataLoaded ? savedArtists.slice(0).map((artist, i) => {
                     return (
                         <Styles.searchItem key={artist.id}>
                             <Styles.LikeBtn>
@@ -87,8 +86,13 @@ export default function Saved(data) {
                             </Styles.resultIcon>
                         </Styles.searchItem>
                     )
-                }) : <h4>No artists found.</h4>}
+                }) :
+                    <h4>No artists found.</h4>}
+
             </Styles.artistResults>
+                ):(
+                <h4>Need to be logged in to use this feature</h4>
+            )}
 
         </div>
     )}
