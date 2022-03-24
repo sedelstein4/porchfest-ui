@@ -54,6 +54,11 @@ export const TopContainer = styled.div`
   z-index: 100;
   background: var(--main);
   margin: auto;
+
+  svg{
+    width: 30px !important;
+    height: 30px !important;
+  }
   `
 
 export const profileBtn = styled.div`
@@ -66,11 +71,6 @@ export const profileBtn = styled.div`
   justify-content: flex-end;
   width: 25px;
   height: 25px;
-
-  svg{
-    width: 30px;
-    height: 30px;
-  }
 `
 
 export const city = styled(header)`

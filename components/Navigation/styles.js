@@ -48,6 +48,11 @@ export const TopContainer = styled.div`
   z-index: 100;
   background: var(--main);
   margin: auto;
+  
+  svg{
+    width: 30px !important;
+    height: 30px !important;
+  }
   `
 
 export const PageInfo = styled.div`
@@ -82,11 +87,7 @@ export const SortBtn = styled.div`
   justify-content: flex-end;
   width: 25px;
   height: 25px;
-
-  svg{
-    width: 30px;
-    height: 30px;
-  }
+  
 `
 
 export const SortDropdown = styled.div`
@@ -138,11 +139,7 @@ export const LikeBtn = styled.div`
   .filled-heart{
     color: #F85858;
   }
-
-  svg{
-    width: 30px;
-    height: 30px;
-  }
+  
 `
 
 export const BackBtn = styled.div`
@@ -150,9 +147,4 @@ export const BackBtn = styled.div`
   align-items: center;
   color: white;
   margin-right: 10px;
-
-  svg{
-    width: 30px;
-    height: 30px;
-  }
 `

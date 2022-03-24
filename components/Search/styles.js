@@ -28,6 +28,7 @@ export const searchBar = styled.div`
       border: none;
       text-align: left;
       padding:5px;
+      padding-top:7px;
       width:95%;
       font-size: larger;
     }
@@ -44,7 +45,8 @@ export const icon = styled.div`
   
     svg{
       display:block;
-      width:22px;
+      width:25px !important;
+      height:25px !important;
     }
     `
 
@@ -66,7 +68,7 @@ export const artistResults = styled.div`
         object-fit: contain;
         border-radius: 50%;
         border: 1px solid var(--grey-dark);
-        margin: 5px 24px 16px 0px;
+        margin: 5px 24px 16px 0;
     }
   `
 
@@ -83,7 +85,7 @@ export const genreResults = styled.div`
         object-fit: contain;
         border-radius: 50%;
         border: 1px solid var(--grey-dark);
-      margin: 5px 24px 16px 0px;
+      margin: 5px 24px 16px 0;
     }
   `
 
