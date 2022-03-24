@@ -47,9 +47,7 @@ const ResultIcon = styled(icon)`
 `
 
 const Genre = ({ data }) => {
-    console.log(Object.keys(data[0])[0])
     const genreData = Object.values(data[0])[0]
-    console.log(genreData)
 
     return (
         <div className="content">
@@ -59,7 +57,6 @@ const Genre = ({ data }) => {
             </Head>
             <Header pageType={"genre"} title={Object.keys(data[0])[0]} />
             {genreData.slice(0).map((artist, i) => {
-                console.log(artist)
                 return (
                     <ResultContainer key={artist.id}>
                         <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`}

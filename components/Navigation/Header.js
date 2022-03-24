@@ -146,9 +146,7 @@ export async function updatedLikedArtists(artistID) {
                 }
                 fetch(`http://localhost:5000/refresh`, opts)
                     .then(async res => {
-                        console.log(res)
                         const data = await res.json()
-                        console.log(data.access_token)
                         localStorage.setItem('accessToken',data.access_token)
                         Router.reload()
                     })

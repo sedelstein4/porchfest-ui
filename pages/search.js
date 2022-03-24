@@ -39,17 +39,11 @@ async function handleSearchChange(e) {
     });
     const searchFetch = await response.json()
 
-    // console.log(searchFetch)
-
     return { searchFetch };
-
-    // setSearchData(searchFetch.searchData);
 }
 
 
 export default function Search(data) {
-    console.log(data)
-
     const [
         searchData,
         setSearchData
@@ -59,8 +53,6 @@ export default function Search(data) {
         const refreshedProps = await handleSearchChange(e);
         setSearchData(refreshedProps.searchFetch);
     }
-
-    console.log(searchData)
     return (
         <div>
             <div className="content">

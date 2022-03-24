@@ -4,7 +4,6 @@ import * as Styles from "../components/Onboarding/Interests/styles"
 import Link from "next/link";
 
 export default function selectGenres(data) {
-    console.log(data.genreData)
     if (data.genreData[0].name) {
         return (
             <div className={"content"}>

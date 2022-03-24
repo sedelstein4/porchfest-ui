@@ -35,8 +35,6 @@ export default function SearchBar() {
         });
         const searchData = await response.json()
 
-        console.log(searchData)
-
         return { searchData };
     }
 
