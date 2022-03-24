@@ -27,14 +27,13 @@ export default function Header(props) {
 
     function handleLikeClick(){
         updatedLikedArtists(props.artistID).then((info) =>{
-           // console.log(info)
             heartFilled(info)
-
         })
     }
 
 
     function handleSortClick(param){
+        localStorage.setItem('sort_type',param)
         router.push(
             {
                 query: {
