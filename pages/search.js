@@ -1,32 +1,21 @@
 import Head from "next/head";
 import Header from "../components/Navigation/Header";
-import SearchBar from "../components/Search/SearchBar"
 import * as Styles from "../components/Search/styles"
 import {faAngleRight, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Default from "../layouts/default";
 import Link from "next/link";
 
-const searchedBG ={
-    background: "rgba(212, 175, 205, 0.25)",
-    transition: "background 0.5s linear"
-};
-
-// function SearchBar() {
-//     const [state, setState] = useState('initial')
-//     let bgstyle;
-//
-//     const searchSubmit = (event) =>{
-//         event.preventDefault();
-//         setState('searched')
-//     }
-//
-//     if (state === 'searched'){
-//         bgstyle = searchedBG;
-//     }
-
-async function handleSearchChange(e) {
+async function handleSearchChange(e,location) {
+    let searchKeyWord
+    if (location == 'old') {
+        searchKeyWord = e
+        localStorage.setItem('searchKeyWord', e)
+    } else {
+        searchKeyWord = e.target.value
+        localStorage.setItem('searchKeyWord', e.target.value)
+    }
     const response = await fetch('http://localhost:5000/search', {
         method: 'POST',
         headers: {
@@ -35,26 +24,43 @@ async function handleSearchChange(e) {
             Accept: 'application/json',
             Authorization: 'Bearer ',
         },
-        body: JSON.stringify({entry: e.target.value}),
+        body: JSON.stringify({entry: searchKeyWord}),
     });
     const searchFetch = await response.json()
 
-    return { searchFetch };
+    return {searchFetch};
+
+
 }
 
-
 export default function Search(data) {
-    const [
-        searchData,
-        setSearchData
-    ] = useState(data);
+    const [searchData, setSearchData] = useState(data);
+    const [isDataLoaded,setDataLoaded] = useState(false)
 
+    useEffect(async () => {
+        if (!isDataLoaded) {
+            if (localStorage.getItem('searchKeyWord')) {
+                console.log("hello")
+                const refreshedProps = await handleSearchChange(localStorage.getItem('searchKeyWord'),'old');
+                setSearchData(refreshedProps.searchFetch);
+            }
+        }
+        setDataLoaded(true)
+    })
     async function refresh(e) {
-        const refreshedProps = await handleSearchChange(e);
-        setSearchData(refreshedProps.searchFetch);
+        if(e.target.value.length == 0){
+            localStorage.removeItem('searchKeyWord')
+            setSearchData({})
+        }else{
+            const refreshedProps = await handleSearchChange(e,'new');
+            setSearchData(refreshedProps.searchFetch);
+            setDataLoaded(true)
+        }
     }
     return (
+
         <div>
+
             <div className="content">
                 <Head>
                     <title>Search</title>
@@ -64,15 +70,13 @@ export default function Search(data) {
 
             <Styles.barContainer>
                 <Styles.searchBar>
-                    <form onSubmit = {(event) => searchSubmit(event)}>
                         <input
                             type={"text"}
                             id={"search"}
                             name={"search"}
-                            placeholder={"Artists or Genres"}
+                            placeholder={'Artists or Genres'}
                             onChange={refresh}
                         />
-                    </form>
                     <Styles.icon>
                         <FontAwesomeIcon icon={faSearch} />
                     </Styles.icon>
@@ -82,7 +86,7 @@ export default function Search(data) {
             <Styles.resultContainer>
                 <Styles.artistResults>
                     <h1>Artists</h1>
-                {searchData.artists ? searchData.artists.slice(0).map((artist, i) => {
+                {searchData.artists && searchData.artists.length ? searchData.artists.slice(0).map((artist, i) => {
                     return (
                             <Styles.searchItem key={artist.artist.id}>
                                 <Link href="/artist/[slug]" as={`/artist/${artist.artist.url_slug}`}
@@ -107,7 +111,7 @@ export default function Search(data) {
 
                 <Styles.genreResults>
                     <h1>Genres</h1>
-                {searchData.genres ? searchData.genres.slice(0).map((genre, i) => {
+                {searchData.genres && searchData.genres.length? searchData.genres.slice(0).map((genre, i) => {
                     return (
                             <Styles.searchItem key={genre.genre.id}>
                                 <img
@@ -131,25 +135,6 @@ export default function Search(data) {
                             </Styles.resultContainer>
         </div>
     )}
-
-// export async function getStaticProps( context ) {
-//     const response = await fetch('http://localhost:5000/search', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Access-Control-Allow-Origin': '*',
-//             Accept: 'application/json',
-//             Authorization: 'Bearer ',
-//         },
-//         body: JSON.stringify({entry: ""}),
-//     });
-//     const searchFetch = await response.json()
-//
-//     return {
-//         props:
-//             searchFetch
-//     }
-// }
 
 Search.getLayout = function getLayout(page) {
     return (

@@ -42,7 +42,6 @@ export const row = styled.div`
 
 export const genreHeading = styled.div`
   display: inline-flex;
-  width: 100%;
 `
 
 export const genre = styled.h1`

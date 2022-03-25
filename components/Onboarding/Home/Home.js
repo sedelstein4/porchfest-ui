@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Router from "next/router";
 
 export default function Home(props) {
+    // Redirects so that the user doesn't have to login again
     useEffect(()=> {
         const token = localStorage.getItem('accessToken');
         if(token){
