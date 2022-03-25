@@ -7,13 +7,13 @@ import * as BtnStyle from "../components/Onboarding/Home/styles"
 import Link from 'next/link'
 
 export default function Info(data) {
-    let nameFromBackend = "Porchfest 2021"; //temp
+    let nameFromBackend = "Porchfest 2022"; //temp
 
     return (
         <div>
             <EventHeader
                 title={nameFromBackend}
-                city={"Ithaca, NY"}
+                city={"Trumansburg, NY"}
             />
             <Head>
                 <title>{nameFromBackend}</title>
@@ -22,11 +22,11 @@ export default function Info(data) {
             <EventInfo
                 imgPath={"/images/coverphoto.png"}
                 name={nameFromBackend}
-                dateStr={"September 22nd, 2021"}
-                timeStr={"Noon-6pm"}
-                desc={"Porchfest is a music festival held on the porches of the Fall Creek and Northside neighborhoods of Ithaca, NY."}
+                dateStr={"June 11th, 2022"}
+                timeStr={"Noon-5pm"}
+                desc={"Trumansburg Porchfest brings the community together through music! It is a do-it yourself music festival featuring free shows on porches all over the neighborhood."}
             />
-            <Link href={"/map"} passHref>
+            <Link href={"/map2"} passHref>
                 <BtnStyle.btn>GO TO MAP</BtnStyle.btn>
             </Link>
         </div>
