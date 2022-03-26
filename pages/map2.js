@@ -40,7 +40,6 @@ export default function Map2({ porchData}) {
         addrText = porchData[2][i];
         timeText = porchData[3][i];
         setOpened(true);
-        console.log("bandtext is: " + bandText)
     }
 
     function GenerateMarkers(){
@@ -81,33 +80,36 @@ export default function Map2({ porchData}) {
 
     //TODO figure out "too many re-renders" error. Infinite loop somehow?
     function checkProximity(userLat, userLng){
-        console.log("Checking Proximity")
-        let dist = 1000;
-        let porchIdx = -1;
-        // let userLat = 42.446750;
-        // let userLng= -76.498500;
+        console.log("checking proximity1")
+        return function checkProximity(){
+            console.log("Checking Proximity")
+            let dist = 1000;
+            let porchIdx = -1;
+            // let userLat = 42.446750;
+            // let userLng= -76.498500;
 
-        //loop through porchData coords, find closest to user location
-        for (let i = 0; i < porchData.length; i++){
-            let lat = porchData[0][i][0];
-            let lng = porchData[0][i][1];
-            let distToPorch = getDistanceFromLatLngInKm(userLat, userLng, lat, lng);
-            console.log(distToPorch)
-            if (distToPorch < dist){
-                dist = distToPorch;
-                porchIdx = i;
+            //loop through porchData coords, find closest to user location
+            for (let i = 0; i < porchData.length; i++){
+                let lat = porchData[0][i][0];
+                let lng = porchData[0][i][1];
+                let distToPorch = getDistanceFromLatLngInKm(userLat, userLng, lat, lng);
+                console.log(distToPorch)
+                if (distToPorch < dist){
+                    dist = distToPorch;
+                    porchIdx = i;
+                }
             }
-        }
-        if (porchIdx != -1){
-            if(dist < 0.008){ //within 8 meters
-                console.log("close!");
-                setBlurred(true);
-                openModal(porchIdx);
+            if (porchIdx != -1){
+                if(dist < 0.008){ //within 8 meters
+                    console.log("close!");
+                    setBlurred(true);
+                    openModal(porchIdx);
+                }
+                else{
+                    setBlurred(false);
+                }
             }
-            else{
-                setBlurred(false);
-            }
-        }
+        };
     }
 
     return (
@@ -139,7 +141,7 @@ export default function Map2({ porchData}) {
                     <FullscreenControl position="top-left" />
                     <NavigationControl position="top-left" />
                     <ScaleControl/>
-                    <Marker latitude={42.44242} longitude={-76.499} color="red"/>
+                    {/*<Marker latitude={42.44242} longitude={-76.499} color="red"/>*/}
                     {GenerateMarkers()}
                 </Map>
                 <Navigation />
