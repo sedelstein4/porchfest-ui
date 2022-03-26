@@ -77,9 +77,9 @@ export default function Search(data) {
                             placeholder={'Artists or Genres'}
                             onChange={refresh}
                         />
-                    <Styles.icon>
+                    <Styles.searchIcon>
                         <FontAwesomeIcon icon={faSearch} />
-                    </Styles.icon>
+                    </Styles.searchIcon>
                 </Styles.searchBar>
             </Styles.barContainer>
 

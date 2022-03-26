@@ -11,7 +11,7 @@ export const barContainer = styled.div`
 `
 
 export const searchBar = styled.div`
-    display:block;
+    display:flex;
     border: solid 1px var(--grey-middark);
     border-radius: 10px;
     padding: 5px 0 5px 8px;
@@ -29,7 +29,8 @@ export const searchBar = styled.div`
       text-align: left;
       padding:5px;
       padding-top:7px;
-      width:95%;
+      display:flex;
+      flex-grow: 1;
       font-size: larger;
     }
   
@@ -48,7 +49,11 @@ export const icon = styled.div`
       width:25px !important;
       height:25px !important;
     }
-    `
+`
+export const searchIcon = styled(icon)`
+  padding-right:8px;
+  
+`
 
 export const resultContainer = styled.div`
   margin: 0 20px;
