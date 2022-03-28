@@ -57,7 +57,14 @@ export default function Profile(props) {
             <Styles.infoRow>
                 <Styles.infoType>Email</Styles.infoType>
                 <Styles.infoValue>{email}</Styles.infoValue>
-
+            </Styles.infoRow>
+            <Styles.infoRow>
+                <Styles.infoType>Track Location</Styles.infoType>
+                <Styles.infoValue>
+                    <input
+                        type={"checkbox"}
+                    />
+                </Styles.infoValue>
             </Styles.infoRow>
             <Styles.buttonDiv onClick={removeTokens}>
                 <Link href={"/"} passHref>

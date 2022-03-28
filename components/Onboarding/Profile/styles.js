@@ -55,7 +55,12 @@ export const infoType = styled.div`
 export const infoValue = styled.div`
   margin: 10px 28px 12px 0;
   color: var(--grey-dark);
-  font-size:1.25em;   
+  font-size:1.25em;
+  
+  input{
+    height: 16px;
+    width: 16px;
+  }
 `
 
 export const signout = styled.button`
