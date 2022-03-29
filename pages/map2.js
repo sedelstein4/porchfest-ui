@@ -11,7 +11,7 @@ import Map, {
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import ArtistModal from "../components/Event/ArtistModal/ArtistModal";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Modal} from "@mantine/core";
 import Navigation from "../components/Navigation/Navigation"
 
@@ -33,6 +33,14 @@ export default function Map2({ porchData}) {
     const [blurred, setBlurred] = useState(false);
     let isBlurred;
     if (blurred) isBlurred = blurStyle;
+
+    useEffect(()=> {
+        if ('geolocation' in navigator) {
+            navigator.geolocation.watchPosition(function(position) {
+                console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
+            });
+        }
+    })
 
     //takes index of porch in porchData prop
     function openModal(i){
