@@ -29,6 +29,7 @@ let addrText = "data2 - address";
 let timeText = "data3 - timeslot";
 
 export default function Map2({ porchData}) {
+
     const [opened, setOpened] = useState(false);
     const [blurred, setBlurred] = useState(false);
     let isBlurred;
@@ -38,6 +39,7 @@ export default function Map2({ porchData}) {
         if ('geolocation' in navigator) {
             navigator.geolocation.watchPosition(function(position) {
                 console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
+                checkProximity(position.coords.latitude, position.coords.longitude);
             });
         }
     })
@@ -88,36 +90,28 @@ export default function Map2({ porchData}) {
 
     //TODO figure out "too many re-renders" error. Infinite loop somehow?
     function checkProximity(userLat, userLng){
-        console.log("checking proximity1")
-        return function checkProximity(){
-            console.log("Checking Proximity")
-            let dist = 1000;
-            let porchIdx = -1;
-            // let userLat = 42.446750;
-            // let userLng= -76.498500;
+        let dist = 1000;
+        let porchIdx = -1;
 
-            //loop through porchData coords, find closest to user location
-            for (let i = 0; i < porchData.length; i++){
-                let lat = porchData[0][i][0];
-                let lng = porchData[0][i][1];
-                let distToPorch = getDistanceFromLatLngInKm(userLat, userLng, lat, lng);
-                console.log(distToPorch)
-                if (distToPorch < dist){
-                    dist = distToPorch;
-                    porchIdx = i;
-                }
+        //loop through porchData coords, find closest to user location
+        for (let i = 0; i < porchData.length; i++){
+            let lat = porchData[0][i][0];
+            let lng = porchData[0][i][1];
+            let distToPorch = getDistanceFromLatLngInKm(userLat, userLng, lat, lng);
+            if (distToPorch < dist){
+                dist = distToPorch;
+                porchIdx = i;
             }
-            if (porchIdx != -1){
-                if(dist < 0.008){ //within 8 meters
-                    console.log("close!");
-                    setBlurred(true);
-                    openModal(porchIdx);
-                }
-                else{
-                    setBlurred(false);
-                }
+        }
+        if (porchIdx !== -1){
+            if(dist < 0.008){ //within 8 meters
+                setBlurred(true);
+                openModal(porchIdx);
             }
-        };
+            else{
+                setBlurred(false);
+            }
+        }
     }
 
     return (
@@ -144,12 +138,10 @@ export default function Map2({ porchData}) {
                         position="top-left"
                         positionOptions={{enableHighAccuracy: true}} //TODO disable if slow on mobile devices
                         trackUserLocation={true}
-                        onGeoLocate={checkProximity(42.446750, -76.498500)} //TODO get real user location
                     />
                     <FullscreenControl position="top-left" />
                     <NavigationControl position="top-left" />
                     <ScaleControl/>
-                    {/*<Marker latitude={42.44242} longitude={-76.499} color="red"/>*/}
                     {GenerateMarkers()}
                 </Map>
                 <Navigation />
@@ -161,7 +153,9 @@ export default function Map2({ porchData}) {
                 title={bandText}
                 overlayOpacity={0.1}
             >
-                <p> {addrText} - {bandText} <br />Playing {timeText}.</p>
+                <p> {addrText} - {bandText} <br />
+                    Playing {timeText}.</p><br />
+                Take a few steps away from the stage to return to the map.
             </Modal>
         </div>
     );
