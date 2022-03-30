@@ -30,6 +30,12 @@ export default function Home(props) {
         }
 
     })
+    function handleGuestClick(){
+        localStorage.clear()
+
+
+        Router.push('http://localhost:3000/info')
+    }
 
     return (
         <Styles.homeContainer>
@@ -42,9 +48,10 @@ export default function Home(props) {
                 <Styles.btn>SIGN UP</Styles.btn>
             </Link>
             <br/>
-            <Link href={"/browse"} passHref>
-                <Styles.btn>CONTINUE AS GUEST</Styles.btn>
-            </Link>
+            <Styles.btn onClick={() => handleGuestClick()}>
+                CONTINUE AS GUEST
+            </Styles.btn>
+
         </Styles.homeContainer>
 
 
