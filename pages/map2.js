@@ -30,7 +30,8 @@ let timeText = "data3 - timeslot";
 
 export default function Map2({ porchData}) {
 
-    const [opened, setOpened] = useState(false);
+    const [openNormal, setOpenNormal] = useState(false);
+    const [openBlurred, setOpenBlurred] = useState(false);
     const [blurred, setBlurred] = useState(false);
     let isBlurred;
     if (blurred) isBlurred = blurStyle;
@@ -44,12 +45,18 @@ export default function Map2({ porchData}) {
         }
     })
 
-    //takes index of porch in porchData prop
-    function openModal(i){
+    //takes index of porch in porchData prop, opens
+    function openModal(i, type){
         bandText = porchData[1][i];
         addrText = porchData[2][i];
         timeText = porchData[3][i];
-        setOpened(true);
+        if (type === "normal"){
+            setOpenNormal(true);
+
+        }
+        else if (type === "blurred"){
+            setOpenBlurred(true);
+        }
     }
 
     function GenerateMarkers(){
@@ -62,7 +69,7 @@ export default function Map2({ porchData}) {
                     latitude = {porchData[0][i][0]}
                     longitude = {porchData[0][i][1]}
                     onClick={() =>
-                        openModal(i)
+                        openModal(i, "normal")
                     }
                     >
                 </Marker>
@@ -106,7 +113,7 @@ export default function Map2({ porchData}) {
         if (porchIdx !== -1){
             if(dist < 0.008){ //within 8 meters
                 setBlurred(true);
-                openModal(porchIdx);
+                openModal(porchIdx, "blurred");
             }
             else{
                 setBlurred(false);
@@ -147,15 +154,26 @@ export default function Map2({ porchData}) {
                 <Navigation />
             </div>
             <Modal
-                sx={{/*TODO put modal styling here*/}}
-                opened={opened}
-                onClose={() => setOpened(false)}
+                sx={{pointerEvents: "none", touchAction: "none" }}
+                opened={openBlurred}
+                hideCloseButton={true}
+                onClose={() => setOpenBlurred(false)}
                 title={bandText}
                 overlayOpacity={0.1}
             >
                 <p> {addrText} - {bandText} <br />
                     Playing {timeText}.</p><br />
                 Take a few steps away from the stage to return to the map.
+            </Modal>
+            <Modal
+                sx={{}}
+                opened={openNormal}
+                onClose={() => setOpenNormal(false)}
+                title={bandText}
+                overlayOpacity={0.1}
+            >
+                <p> {addrText} - {bandText} <br />
+                    Playing {timeText}.</p><br />
             </Modal>
         </div>
     );
