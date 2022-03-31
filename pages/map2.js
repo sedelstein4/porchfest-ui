@@ -2,7 +2,6 @@ import * as React from 'react';
 import Head from 'next/head';
 import Map, {
     Marker,
-    Popup,
     NavigationControl,
     FullscreenControl,
     ScaleControl,
@@ -10,7 +9,7 @@ import Map, {
 } from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import ArtistModal from "../components/Event/ArtistModal/ArtistModal";
+// import ArtistModal from "../components/Event/ArtistModal/ArtistModal";
 import {useEffect, useState} from "react";
 import {Modal} from "@mantine/core";
 import Navigation from "../components/Navigation/Navigation"
