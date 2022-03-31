@@ -62,6 +62,28 @@ export const backBtn = styled.div`
     
   }
 `
+export const infoType = styled.div`
+  margin: 10px 0 12px 12px;
+  color: #3e3e3e;
+  font-size: 1.65em;
+`
+export const infoRow = styled.div`
+  display:flex;
+  align-items: center;
+  border-bottom: 2px solid #dedede;
+  padding-top:2px;
+  justify-content: space-between;
+`
+export const infoValue = styled.div`
+  margin: 10px 28px 12px 0;
+  color: var(--grey-dark);
+  font-size:1.25em;
+  
+  input{
+    height: 16px;
+    width: 16px;
+  }
+`
 
 export const forgotLink = styled.a`
   font-size: small;

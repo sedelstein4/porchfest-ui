@@ -9,6 +9,7 @@ import Router, {useRouter} from "next/router";
 export default function SignUp(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [geoTracking, setGeoTracking] = useState(false)
     const [confirmPassword, setconFirmPassword] = useState("")
     const [loginError,setLoginError] = useState("")
     const router = useRouter();
@@ -31,7 +32,8 @@ export default function SignUp(props) {
                 },
                 body: JSON.stringify({
                     "email": email,
-                    "password": password
+                    "password": password,
+                    "geo_Tracking": geoTracking
                 })
             }
             fetch('http://localhost:5000/signup', opts)
@@ -86,6 +88,17 @@ export default function SignUp(props) {
                         value={confirmPassword}
                         onChange={(e) => setconFirmPassword(e.target.value)}
                     />
+                <Styles.infoRow>
+                    <Styles.infoType>Track Location</Styles.infoType>
+                    <Styles.infoValue>
+                        <input
+                            onClick={() => setGeoTracking(!geoTracking)}
+                            defaultChecked={geoTracking}
+                            type={"checkbox"}
+                        />
+                    </Styles.infoValue>
+                </Styles.infoRow>
+
                     {loginError && loginError !="" ? <Styles.loginNotice>{loginError}</Styles.loginNotice> : ""}
 
                     <Styles.signUpBtn onClick={handleSubmit}>SIGN UP</Styles.signUpBtn>
