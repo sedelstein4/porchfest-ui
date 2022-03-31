@@ -70,7 +70,7 @@ export const infoType = styled.div`
 export const infoRow = styled.div`
   display:flex;
   align-items: center;
-  border-bottom: 2px solid #dedede;
+  //border-bottom: 2px solid #dedede;
   padding-top:2px;
   justify-content: space-between;
 `

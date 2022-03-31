@@ -32,11 +32,39 @@ export default function Map2({ porchData}) {
     const [openNormal, setOpenNormal] = useState(false);
     const [openBlurred, setOpenBlurred] = useState(false);
     const [blurred, setBlurred] = useState(false);
+    const [geoTracking, setGeoTracking] = useState(false)
     let isBlurred;
     if (blurred) isBlurred = blurStyle;
 
     useEffect(()=> {
-        if ('geolocation' in navigator) {
+        const data = localStorage.getItem('accessToken');
+        if(data){
+            const opts = {
+                method: 'GET',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    "Content-Type": "application/json",
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + data
+                }
+            }
+            fetch('http://localhost:5000/user_profile', opts)
+                .then(resp => {
+                    if (resp.status == 200)
+                        return resp;
+                    else console.log("Error")
+                })
+                .then(async data => {
+                    if(data){
+                        const userData = await data.json()
+                        setGeoTracking(userData.geo_Tracking)
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        }
+        if ('geolocation' in navigator && geoTracking) {
             navigator.geolocation.watchPosition(function(position) {
                 console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
                 checkProximity(position.coords.latitude, position.coords.longitude);
@@ -94,7 +122,6 @@ export default function Map2({ porchData}) {
         return deg * (Math.PI/180)
     }
 
-    //TODO figure out "too many re-renders" error. Infinite loop somehow?
     function checkProximity(userLat, userLng){
         let dist = 1000;
         let porchIdx = -1;
@@ -140,11 +167,15 @@ export default function Map2({ porchData}) {
                     mapStyle="mapbox://styles/mapbox/streets-v9"
                     mapboxAccessToken={'pk.eyJ1Ijoic2VkZWxzdGVpbjQiLCJhIjoiY2wwNjFtM2YxMjNmaTNrbmZyeXp3Nm5uciJ9.Wit4Sb6saoQxekjXLZD-kw'}
                 >
-                    <GeolocateControl
+                    {geoTracking ?
+                        <GeolocateControl
                         position="top-left"
                         positionOptions={{enableHighAccuracy: true}} //TODO disable if slow on mobile devices
-                        trackUserLocation={true}
-                    />
+                        trackUserLocation={geoTracking}
+                        showUserLocation={geoTracking}
+                        />
+                        : console.log("Geotracking disabled")
+                    }
                     <FullscreenControl position="top-left" />
                     <NavigationControl position="top-left" />
                     <ScaleControl/>
@@ -183,7 +214,7 @@ export async function getStaticProps() {
     // const res = await fetch('http://localhost:5000/porches')
     // const porches = await res.json()
 
-    //TODO this won't be the format of the database so will need to edit map component after
+    //TODO this won't be the format of the database so will need to edit checkProximity, openModal, generateMarkers
     let coords = [[42.446700, -76.498440], [42.444860, -76.502120], [42.449340, -76.500430], [42.422660, -76.495167]];
     let bands = ["Cielle", "The Flywheels", "Lloyd's Boys", "Jimilab Team"];
     let addrs = ["210 Utica St", "105 2nd Str", "219 Auburn St", "Williams Hall"];
