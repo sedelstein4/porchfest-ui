@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import * as Styles from './styles'
 import Link from 'next/link'
 import Router from "next/router";
+import {backendEndpoint, frontendEndpoint} from "../../../Config";
 
 export default function Home(props) {
     // Redirects so that the user doesn't have to login again
@@ -17,10 +18,10 @@ export default function Home(props) {
                     Authorization: 'Bearer ' + token
                 }
             }
-            fetch(`http://localhost:5000/user_profile`, opts)
+            fetch(backendEndpoint + `user_profile`, opts)
                 .then(async resp => {
                     if (resp.status == 200) {
-                        Router.push('http://localhost:3000/info')
+                        Router.push(frontendEndpoint + 'info')
                     }//If any other response loads the page ei: no token
                 })
 
@@ -34,7 +35,7 @@ export default function Home(props) {
         localStorage.clear()
 
 
-        Router.push('http://localhost:3000/info')
+        Router.push(frontendEndpoint + 'info')
     }
 
     return (

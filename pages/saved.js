@@ -7,6 +7,7 @@ import {faAngleRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import Router from "next/router";
+import {backendEndpoint, frontendEndpoint} from "../Config";
 
 export default function Saved(data) {
     const [savedArtists, setSavedArtists] = useState("");
@@ -21,7 +22,7 @@ export default function Saved(data) {
                     Authorization: 'Bearer ' + token
                 }
             }
-            fetch('http://localhost:5000/get_user_saved_artists', opts)
+            fetch(backendEndpoint + 'get_user_saved_artists', opts)
                 .then(resp => {
                     if (resp.status == 200) return resp.json();
                     if(resp.status === 401 && localStorage.getItem('refreshToken')) {
@@ -34,7 +35,7 @@ export default function Saved(data) {
                                 Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
                             }
                         }
-                        fetch(`http://localhost:5000/refresh`, opts)
+                        fetch(backendEndpoint + `refresh`, opts)
                             .then(async res => {
                                 const data = await res.json()
                                 localStorage.setItem('accessToken',data.access_token)
@@ -44,7 +45,7 @@ export default function Saved(data) {
                                 console.error(error);
                             })
                     }
-                    else Router.push('http://localhost:3000/browse')
+                    else Router.push(frontendEndpoint + 'browse')
                 })
                 .then(data => {
                     setSavedArtists(data)

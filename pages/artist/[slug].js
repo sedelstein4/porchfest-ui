@@ -7,6 +7,7 @@ import {faApple, faFacebookSquare, faInstagram, faInstagramSquare, faSpotify} fr
 import {faGlobe} from "@fortawesome/free-solid-svg-icons";
 import Default from "../../layouts/default";
 import Saved from "../saved";
+import {backendEndpoint} from "../../Config";
 
 const ArtistImageDiv = styled.div`
   display: block;
@@ -77,7 +78,7 @@ async function getArtistWithUser(slug,token) {
         })
     }
 
-    const res = await fetch(`http://localhost:5000/artist/${slug}`, opts)
+    const res = await fetch(backendEndpoint + `artist/${slug}`, opts)
     const data = await res.json()
     return data.liked
 
@@ -109,7 +110,7 @@ const Artist = ({ data }) => {
 export async function getStaticPaths() {
     // get all artist names here in array
     const type = "alphabetical"
-    const res = await fetch('http://localhost:5000/artists', {
+    const res = await fetch(backendEndpoint + 'artists', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -128,7 +129,7 @@ export async function getStaticPaths() {
 }
 export async function getStaticProps({ params }) {
     const { slug } = params
-    const res = await fetch(`http://localhost:5000/artist/${slug}`)
+    const res = await fetch(backendEndpoint + `artist/${slug}`)
     const data = await res.json()
 
     // Pass post data to the page via props

@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {useEffect, useState} from "react";
 import Default from "../layouts/default";
 import Link from "next/link";
+import {backendEndpoint} from "../Config";
 
 async function handleSearchChange(e,location) {
     let searchKeyWord
@@ -16,7 +17,7 @@ async function handleSearchChange(e,location) {
         searchKeyWord = e.target.value
         localStorage.setItem('searchKeyWord', e.target.value)
     }
-    const response = await fetch('http://localhost:5000/search', {
+    const response = await fetch(backendEndpoint + 'search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

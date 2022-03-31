@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import {container} from "./styles";
 import Router from 'next/router'
+import {backendEndpoint} from "../../Config";
 
 export const ForgotPasswordPage = () => {
     const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ export const ForgotPasswordPage = () => {
                     "email": email,
                 })
             }
-            fetch('http://localhost:5000/send_password_reset', opts)
+            fetch(backendEndpoint + 'send_password_reset', opts)
                 .then(resp => {
                     if (resp.status == 200) {
                         setEmailSent("If email is found you will receive an email to reset password")

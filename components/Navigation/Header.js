@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Router, {useRouter} from "next/router";
+import {backendEndpoint} from "../../Config";
 export default function Header(props) {
     const router = useRouter()
     const [heartOutline, heartFilled] = useState();
@@ -100,7 +101,7 @@ export default function Header(props) {
 }
 
 export async function getStaticProps( type ) {
-    const artistRes = await fetch('http://localhost:5000/artists', {
+    const artistRes = await fetch(backendEndpoint + 'artists', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -136,7 +137,7 @@ export async function updatedLikedArtists(artistID) {
         })
     }
 
-    const updateArtist =fetch(`http://localhost:5000/update_user_to_artist`, opts)
+    const updateArtist =fetch(backendEndpoint + `update_user_to_artist`, opts)
         .then(resp => {
             if (resp.status == 200) return resp;
             if(resp.status == 401 && localStorage.getItem('refreshToken')) {
@@ -149,7 +150,7 @@ export async function updatedLikedArtists(artistID) {
                         Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
                     }
                 }
-                fetch(`http://localhost:5000/refresh`, opts)
+                fetch(backendEndpoint + `refresh`, opts)
                     .then(async res => {
                         const data = await res.json()
                         localStorage.setItem('accessToken',data.access_token)
@@ -193,7 +194,7 @@ async function getArtistWithUser(slug,token) {
         })
     }
 
-    const res = await fetch(`http://localhost:5000/artist/${slug}`, opts)
+    const res = await fetch(backendEndpoint + `artist/${slug}`, opts)
     const data = await res.json()
     return data.liked
 

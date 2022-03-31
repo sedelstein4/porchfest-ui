@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import {container} from "./styles";
 import Router from 'next/router'
+import {backendEndpoint, frontendEndpoint} from "../../Config";
 
 export const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -38,7 +39,7 @@ export const SignIn = () => {
                 "password": password
             })
         }
-        fetch('http://localhost:5000/login', opts)
+        fetch(backendEndpoint + 'login', opts)
             .then(resp => {
                 if (resp.status == 201)
                     return resp;
@@ -51,7 +52,7 @@ export const SignIn = () => {
                     const tokens = await data.json()
                     localStorage.setItem('accessToken',tokens.access_token)
                     localStorage.setItem('refreshToken', tokens.refresh_token)
-                    await Router.push('http://localhost:3000/info')
+                    await Router.push(frontendEndpoint + 'info')
                 }
 
             })

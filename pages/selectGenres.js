@@ -2,6 +2,7 @@ import Head from "next/head";
 import React from "react";
 import * as Styles from "../components/Onboarding/Interests/styles"
 import Link from "next/link";
+import {backendEndpoint} from "../Config";
 
 export default function selectGenres(data) {
     if (data.genreData[0].name) {
@@ -44,7 +45,7 @@ export default function selectGenres(data) {
 }
 
 export async function getStaticProps( context ) {
-    const genreRes = await fetch(`http://localhost:5000/genres`);
+    const genreRes = await fetch(backendEndpoint + `genres`);
     const genreData = await genreRes.json()
 
     return {

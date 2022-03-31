@@ -6,9 +6,10 @@ import React, {useCallback, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleRight, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {useRouter} from "next/router";
+import {backendEndpoint} from "../Config";
 
 async function fetchData(type) {
-    const response = await fetch('http://localhost:5000/artists', {
+    const response = await fetch(backendEndpoint + 'artists', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
