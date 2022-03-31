@@ -42,7 +42,9 @@ export const SignIn = () => {
             .then(resp => {
                 if (resp.status == 201)
                     return resp;
-                else setLoginError('Password or email incorrect')
+                else{
+                    setLoginError('Password or email incorrect')
+                }
             })
             .then(async data => {
                 if(data){
@@ -85,7 +87,9 @@ export const SignIn = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
+                <Link href={"/forgotpassword"} passHref>
                     <Styles.forgotLink>Forgot password?</Styles.forgotLink>
+                </Link>
                 {loginError && loginError !="" ? <Styles.loginError>{loginError}</Styles.loginError> : ""}
                     <Styles.signInBtn onClick={handleSubmit}>SIGN IN</Styles.signInBtn>
 
