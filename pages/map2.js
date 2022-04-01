@@ -13,6 +13,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import {useEffect, useState} from "react";
 import {Modal} from "@mantine/core";
 import Navigation from "../components/Navigation/Navigation"
+import {backendEndpoint} from "../Config";
 
 const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2VkZWxzdGVpbjQiLCJhIjoiY2wwNjFtM2YxMjNmaTNrbmZyeXp3Nm5uciJ9.Wit4Sb6saoQxekjXLZD-kw'; // Set your mapbox token here
 
@@ -48,7 +49,7 @@ export default function Map2({ porchData}) {
                     Authorization: 'Bearer ' + data
                 }
             }
-            fetch('http://localhost:5000/user_profile', opts)
+            fetch(backendEndpoint + 'user_profile', opts)
                 .then(resp => {
                     if (resp.status == 200)
                         return resp;

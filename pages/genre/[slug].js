@@ -7,6 +7,7 @@ import {faAngleRight, faGlobe} from "@fortawesome/free-solid-svg-icons";
 import Default from "../../layouts/default";
 import Link from "next/link";
 import {icon} from "../../components/Search/styles";
+import {backendEndpoint} from "../../Config";
 
 
 const ResultContainer = styled.div`
@@ -84,7 +85,7 @@ const Genre = ({ data }) => {
 
 export async function getStaticPaths() {
     // get all artist names here in array
-    const res = await fetch('http://localhost:5000/genres')
+    const res = await fetch(backendEndpoint + 'genres')
     const names = await res.json()
 
     // const paths = names.map(url_slug => `/artist/${url_slug}`)
@@ -95,7 +96,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const { slug } = params
-    const res = await fetch(`http://localhost:5000/genre/${slug}`)
+    const res = await fetch(backendEndpoint + `genre/${slug}`)
     const data = await res.json()
 
     // Pass post data to the page via props

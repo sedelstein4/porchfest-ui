@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Router, {useRouter} from "next/router";
+import {backendEndpoint} from "../../../Config";
 
 
 export default function Profile(props) {
@@ -22,7 +23,7 @@ export default function Profile(props) {
                     Authorization: 'Bearer ' + data
                 }
             }
-            fetch('http://localhost:5000/user_profile', opts)
+            fetch(backendEndpoint + 'user_profile', opts)
                 .then(resp => {
                     if (resp.status == 200)
                         return resp;
@@ -52,7 +53,7 @@ export default function Profile(props) {
                     Authorization: 'Bearer ' + data
                 },
             }
-            fetch('http://localhost:5000/update_user_geo_tracking', opts)
+            fetch(backendEndpoint + 'update_user_geo_tracking', opts)
                 .then(resp => {
                     if (resp.status == 200)
                         return resp;
@@ -85,7 +86,7 @@ export default function Profile(props) {
                     Authorization: 'Bearer ' + data
                 },
             }
-            fetch('http://localhost:5000/delete_user', opts)
+            fetch(backendEndpoint + 'delete_user', opts)
                 .then(resp => {
                     if (resp.status == 200)
                         return resp;

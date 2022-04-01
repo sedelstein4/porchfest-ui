@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link'
 import Router, {useRouter} from "next/router";
+import {backendEndpoint, frontendEndpoint} from "../../Config";
 
 
 export default function SignUp(props) {
@@ -36,7 +37,7 @@ export default function SignUp(props) {
                     "geo_Tracking": geoTracking
                 })
             }
-            fetch('http://localhost:5000/signup', opts)
+            fetch(backendEndpoint + 'signup', opts)
                 .then(resp => {
                     if (resp.status == 201)
                         return resp;
@@ -47,7 +48,7 @@ export default function SignUp(props) {
                         const tokens = await data.json()
                         localStorage.setItem('accessToken', tokens.access_token)
                         localStorage.setItem('refreshToken', tokens.refresh_token)
-                        await Router.push('http://localhost:3000/info')
+                        await Router.push(frontendEndpoint + 'info')
                     }
                 })
                 .catch(error => {
