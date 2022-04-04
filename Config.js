@@ -5,8 +5,8 @@ export let backendEndpoint
 export let frontendEndpoint
 
 if (environment === 'prod') {
-    backendEndpoint = 'https://test.anime.technology/'
-    frontendEndpoint = 'https://d2zdtmtdrz0btq.cloudfront.net'
+    backendEndpoint = 'https://api.porchfest.live/'
+    frontendEndpoint = 'https://porchfest.live/'
 } else {
     backendEndpoint = 'http://localhost:5000/'
     frontendEndpoint = 'http://localhost:3000/'
