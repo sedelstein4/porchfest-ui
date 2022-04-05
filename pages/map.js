@@ -28,7 +28,7 @@ let bandText = "data1 - band";
 let addrText = "data2 - address";
 let timeText = "data3 - timeslot";
 
-export default function Map2({ porchData}) {
+export default function Map({ porchData}) {
 
     const [openNormal, setOpenNormal] = useState(false);
     const [openBlurred, setOpenBlurred] = useState(false);

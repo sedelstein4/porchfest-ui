@@ -26,7 +26,7 @@ export default function Info(data) {
                 timeStr={"Noon-5pm"}
                 desc={"Trumansburg Porchfest brings the community together through music! It is a do-it yourself music festival featuring free shows on porches all over the neighborhood."}
             />
-            <Link href={"/map2"} passHref>
+            <Link href={"/map"} passHref>
                 <BtnStyle.btn>GO TO MAP</BtnStyle.btn>
             </Link>
         </div>
