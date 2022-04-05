@@ -90,6 +90,10 @@ export const forgotLink = styled.a`
   color: var(--link);
   margin-top: -8px;
 `
+export const showPassword = styled.a`
+  font-size: small;
+  color: var(--link);
+`
 
 export const loginError = styled.div`
   display: block;

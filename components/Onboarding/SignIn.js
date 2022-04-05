@@ -3,13 +3,14 @@ import * as Styles from './styles'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import {container} from "./styles";
+import {container, showPassword} from "./styles";
 import Router from 'next/router'
 import {backendEndpoint, frontendEndpoint} from "../../Config";
 
 export const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false)
     const [token, setToken] = useState("")
     const [loginError,setLoginError] = useState("")
 
@@ -26,6 +27,9 @@ export const SignIn = () => {
 
         return setData(newData.results);
     };
+    const showPasswordSubmit = () => {
+        setShowPassword(!showPassword)
+    }
 
     const handleSubmit = () => {
         const opts = {
@@ -81,14 +85,15 @@ export const SignIn = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
-                    type={"password"}
+                        type={showPassword?'text':'password'}
                     id={"pass"}
                     name={"pass"}
                     placeholder={"PASSWORD"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
-                <Link href={"/forgotpassword"} passHref>
+                    <Styles.showPassword onClick={showPasswordSubmit}>{showPassword?'hide':'show password'}</Styles.showPassword>
+                <Link href={"/forgotPassword"} passHref>
                     <Styles.forgotLink>Forgot password?</Styles.forgotLink>
                 </Link>
                 {loginError && loginError !="" ? <Styles.loginError>{loginError}</Styles.loginError> : ""}
