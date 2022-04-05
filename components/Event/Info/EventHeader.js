@@ -21,18 +21,20 @@ export default function EventHeader(props) {
                     {props.city}
                 </Styles.city>
             </div>
-
-            <Styles.profileBtn>
                 {loggedInUser ? (
                 <Link href={"/profile"} passHref>
-                    <FontAwesomeIcon icon={faUserAlt} />
+                    <Styles.profileBtn>
+                    <FontAwesomeIcon icon={faUserAlt}/>
+                    </Styles.profileBtn>
                 </Link>
                 ):(
                 <Link href={"/"} passHref>
-                    <FontAwesomeIcon icon={faUserAlt} />
+                    <Styles.profileBtn>
+                    <FontAwesomeIcon icon={faUserAlt}/>
+                    </Styles.profileBtn>
                 </Link>
                 )}
-            </Styles.profileBtn>
+
 
         </Styles.TopContainer>
     )
