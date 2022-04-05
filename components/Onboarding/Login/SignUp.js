@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import * as Styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link'
 import Router, {useRouter} from "next/router";
 import {backendEndpoint, frontendEndpoint} from "../../../Config";
-
+import ReactTooltip from 'react-tooltip';
 
 export default function SignUp(props) {
     const [email, setEmail] = useState("");
@@ -13,7 +13,12 @@ export default function SignUp(props) {
     const [geoTracking, setGeoTracking] = useState(false)
     const [confirmPassword, setconFirmPassword] = useState("")
     const [loginError,setLoginError] = useState("")
+    const [isMounted,setIsMounted] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        setIsMounted(true);
+    });
 
     const handleSubmit = () => {
         const emailMatcher = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -99,8 +104,13 @@ export default function SignUp(props) {
                             type={"checkbox"}
                         />
                     </Styles.infoValue>
+                    {isMounted && <ReactTooltip id={"mytip"} effect={"solid"} />}
+                    <span data-tip={"We use your location to your location to porches in your area"} data-for={"mytip"}>
+                        <Styles.toolTip>
+                    <FontAwesomeIcon icon={faQuestionCircle}/>
+                        </Styles.toolTip>
+                    </span>
                 </Styles.infoRow>
-
                     {loginError && loginError !="" ? <Styles.loginNotice>{loginError}</Styles.loginNotice> : ""}
 
                     <Styles.signUpBtn onClick={handleSubmit}>SIGN UP</Styles.signUpBtn>
