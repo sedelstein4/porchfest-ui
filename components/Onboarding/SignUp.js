@@ -16,16 +16,15 @@ export default function SignUp(props) {
     const router = useRouter();
 
     const handleSubmit = () => {
-        const re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
         const emailMatcher = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
         if(password != confirmPassword || !email.toLowerCase().match(emailMatcher)){
             setLoginError("Password mismatch")
         }
-        if(!re.test(password)){
-            setLoginError(["Password Requirements:",<br/>,"At least 8 characters",<br/>,"At least 1 uppercase and 1 lowercase letter",<br/>,"At least 1 number",<br/>,"At least 1 symbol\n"])
+        if(password.length < 5){
+            setLoginError(["Password Requirements:",<br/>,"At least 5 characters."])
         }
-        if(password == confirmPassword && email.toLowerCase().match(emailMatcher) && re.test(password)){
+        if(password == confirmPassword && email.toLowerCase().match(emailMatcher) && password.length >= 5){
             const opts = {
                 method: 'POST',
                 headers: {
