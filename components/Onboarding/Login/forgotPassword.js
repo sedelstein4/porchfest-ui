@@ -3,9 +3,8 @@ import * as Styles from './styles'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import {container} from "./styles";
 import Router from 'next/router'
-import {backendEndpoint} from "../../Config";
+import {backendEndpoint} from "../../../Config";
 
 export const ForgotPasswordPage = () => {
     const [email, setEmail] = useState("");
@@ -59,6 +58,7 @@ export const ForgotPasswordPage = () => {
             </Link>
             <Styles.container id={"Signin"}>
                 <Styles.title>Porchfest</Styles.title>
+                <Styles.inputFields>
                 <input
                     type={"text"}
                     id={"email"}
@@ -71,12 +71,13 @@ export const ForgotPasswordPage = () => {
                     type={"text"}
                     id={"email"}
                     name={"email"}
-                    placeholder={"EMAIL  AGAIN"}
+                    placeholder={"RE-ENTER EMAIL"}
                     value={confirmEmail}
                     onChange={(e) => setconfirmEmail(e.target.value)}
                 />
+                </Styles.inputFields>
                 {loginError && loginError !="" ? <Styles.loginNotice>{loginError}</Styles.loginNotice> : <Styles.loginNotice>{emailSent}</Styles.loginNotice>}
-                <Styles.signInBtn onClick={handleSubmit}>Reset Password</Styles.signInBtn>
+                <Styles.signUpBtn onClick={handleSubmit}>Reset Password</Styles.signUpBtn>
 
             </Styles.container>
         </div>

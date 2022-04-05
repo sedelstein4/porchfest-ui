@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import {SignIn} from "../components/Onboarding/SignIn"
+import {SignIn} from "../components/Onboarding/Login/SignIn"
 import Header from "../components/Navigation/Header";
 
 export default function Login() {

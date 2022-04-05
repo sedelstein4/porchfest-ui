@@ -17,17 +17,17 @@ export const container = styled.div`
         align-items: stretch;
       }
     
-      input[type=submit], input[type=text], input[type=password] {
-        border: 2px solid var(--grey-middark);
-        border-radius:4px;
-        text-align: left;
-        padding:15px 0 15px 12px;
-        margin-bottom:20px;
-        width: 85%;
-        max-width: 550px;
-        font-size: smaller;
-        font-weight: bold;
-      }
+      //input[type=submit], input[type=text], input[type=password] {
+      //  border: 2px solid var(--grey-middark);
+      //  border-radius:4px;
+      //  text-align: left;
+      //  padding:15px 0 15px 12px;
+      //  margin-bottom:20px;
+      //  width: 85%;
+      //  max-width: 550px;
+      //  font-size: smaller;
+      //  font-weight: bold;
+      //}
 
       //input[type=submit]{
       //  background: var(--main);
@@ -85,12 +85,31 @@ export const infoValue = styled.div`
   }
 `
 
+export const inputFields = styled.div`
+
+  input[type=submit], input[type=text], input[type=password] {
+    border: 2px solid var(--grey-middark);
+    border-radius:4px;
+    text-align: left;
+    padding:15px 0 15px 12px;
+    margin-bottom:20px;
+    width: 96%;
+    max-width: 550px;
+    font-size: smaller;
+    font-weight: bold;
+  }
+    
+`
+
 export const forgotLink = styled.a`
+  display: inline-block;
   font-size: small;
   color: var(--link);
   margin-top: -8px;
 `
+
 export const showPassword = styled.a`
+  float: right;
   font-size: small;
   color: var(--link);
 `

@@ -3,9 +3,8 @@ import * as Styles from './styles'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import {container, showPassword} from "./styles";
 import Router from 'next/router'
-import {backendEndpoint, frontendEndpoint} from "../../Config";
+import {backendEndpoint, frontendEndpoint} from "../../../Config";
 
 export const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -76,6 +75,7 @@ export const SignIn = () => {
             <Styles.container id={"Signin"}>
                 <Styles.title>Porchfest</Styles.title>
 
+                <Styles.inputFields>
                     <input
                     type={"text"}
                     id={"email"}
@@ -92,10 +92,11 @@ export const SignIn = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Styles.showPassword onClick={showPasswordSubmit}>{showPassword?'hide':'show password'}</Styles.showPassword>
-                <Link href={"/forgotPassword"} passHref>
-                    <Styles.forgotLink>Forgot password?</Styles.forgotLink>
-                </Link>
+                    <Link href={"/forgotPassword"} passHref>
+                        <Styles.forgotLink>Forgot password?</Styles.forgotLink>
+                    </Link>
+                    <Styles.showPassword onClick={showPasswordSubmit}>{showPassword?'Hide password':'Show password'}</Styles.showPassword>
+                </Styles.inputFields>
                 {loginError && loginError !="" ? <Styles.loginError>{loginError}</Styles.loginError> : ""}
                     <Styles.signInBtn onClick={handleSubmit}>SIGN IN</Styles.signInBtn>
 

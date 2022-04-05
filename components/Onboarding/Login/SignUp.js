@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link'
 import Router, {useRouter} from "next/router";
-import {backendEndpoint, frontendEndpoint} from "../../Config";
+import {backendEndpoint, frontendEndpoint} from "../../../Config";
 
 
 export default function SignUp(props) {
@@ -64,6 +64,7 @@ export default function SignUp(props) {
             </Link>
             <Styles.container>
                 <Styles.title>Porchfest</Styles.title>
+                <Styles.inputFields>
                     <input
                         type={"text"}
                         id={"email"}
@@ -88,6 +89,7 @@ export default function SignUp(props) {
                         value={confirmPassword}
                         onChange={(e) => setconFirmPassword(e.target.value)}
                     />
+                </Styles.inputFields>
                 <Styles.infoRow>
                     <Styles.infoType>Track Location</Styles.infoType>
                     <Styles.infoValue>

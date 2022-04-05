@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import {ForgotPasswordPage} from "../components/Onboarding/forgotPassword"
+import {ForgotPasswordPage} from "../components/Onboarding/Login/forgotPassword"
 
 export default function ForgotPassword() {
     return (
