@@ -8,6 +8,7 @@ import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import Router from "next/router";
 import {backendEndpoint, frontendEndpoint} from "../Config";
+import UserAPI from "./UserAPI";
 
 export default function Saved(data) {
     const [savedArtists, setSavedArtists] = useState("");
@@ -25,25 +26,13 @@ export default function Saved(data) {
             fetch(backendEndpoint + 'get_user_saved_artists', opts)
                 .then(resp => {
                     if (resp.status == 200) return resp.json();
+
                     if(resp.status === 401 && localStorage.getItem('refreshToken')) {
-                        const opts = {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*',
-                                Accept: 'application/json',
-                                Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
-                            }
-                        }
-                        fetch(backendEndpoint + `refresh`, opts)
-                            .then(async res => {
-                                const data = await res.json()
-                                localStorage.setItem('accessToken',data.access_token)
-                                Router.reload()
-                            })
-                            .catch(error => {
-                                console.error(error);
-                            })
+                        UserAPI.getNewToken(localStorage.getItem('refreshToken')).then((resp) => {
+                            const data = resp
+                            localStorage.setItem('accessToken',data.access_token)
+                            Router.reload()
+                        })
                     }
                     else Router.push(frontendEndpoint + 'browse')
                 })
