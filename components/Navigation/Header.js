@@ -5,6 +5,7 @@ import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-sv
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Router, {useRouter} from "next/router";
 import {backendEndpoint} from "../../Config";
+import UserAPI from "../../pages/UserAPI";
 export default function Header(props) {
     const router = useRouter()
     const [heartOutline, heartFilled] = useState();
@@ -137,30 +138,16 @@ export async function updatedLikedArtists(artistID) {
         })
     }
 
-    const updateArtist =fetch(backendEndpoint + `update_user_to_artist`, opts)
+    const updateArtist = fetch(backendEndpoint + `update_user_to_artist`, opts)
         .then(resp => {
             if (resp.status == 200) return resp;
             if(resp.status == 401 && localStorage.getItem('refreshToken')) {
-                const opts = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*',
-                        Accept: 'application/json',
-                        Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
-                    }
-                }
-                fetch(backendEndpoint + `refresh`, opts)
-                    .then(async res => {
-                        const data = await res.json()
-                        localStorage.setItem('accessToken',data.access_token)
-                        Router.reload()
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    })
+                UserAPI.getNewToken(localStorage.getItem('refreshToken')).then((resp) => {
+                    const data = resp
+                    localStorage.setItem('accessToken',data.access_token)
+                    Router.reload()
+                })
             } else if(resp.status === 422){
-                //Router.push('http://localhost:3000')
                 console.log("Error 422")
                 return resp
             }

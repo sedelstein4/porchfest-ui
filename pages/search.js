@@ -41,7 +41,6 @@ export default function Search(data) {
     useEffect(async () => {
         if (!isDataLoaded) {
             if (localStorage.getItem('searchKeyWord')) {
-                console.log("hello")
                 const refreshedProps = await handleSearchChange(localStorage.getItem('searchKeyWord'),'old');
                 setSearchData(refreshedProps.searchFetch);
             }
