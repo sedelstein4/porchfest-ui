@@ -49,9 +49,9 @@ export default function Home(props) {
                 <Styles.btn>SIGN UP</Styles.btn>
             </Link>
             <br/>
-            <Styles.btn onClick={() => handleGuestClick()}>
+            <Styles.btnGuest onClick={() => handleGuestClick()}>
                 CONTINUE AS GUEST
-            </Styles.btn>
+            </Styles.btnGuest>
 
         </Styles.homeContainer>
 

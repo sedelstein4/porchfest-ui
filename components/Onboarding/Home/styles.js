@@ -15,7 +15,7 @@ export const title = styled.div`
 export const btn = styled.button`
   display:flex;
   color: var(--main);
-  background: none;
+  background: var(--secondary);
   border: 2px solid var(--grey-middark);
   border-radius: 5px;
   padding: 15px 30px;
@@ -26,4 +26,8 @@ export const btn = styled.button`
   margin: auto;
   font-weight: bold;
   font-size: smaller;
+`
+
+export const btnGuest = styled(btn)`
+  background: none;
 `
