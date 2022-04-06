@@ -57,7 +57,7 @@ export const backBtn = styled.div`
   color: var(--secondary);
 
   svg{
-    width:40px;
+    width:40px !important;
     margin:20px 0;
     
   }

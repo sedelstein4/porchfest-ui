@@ -23,8 +23,8 @@ export const backBtn = styled.div`
   margin-right: 10px;
 
   svg{
-    width: 25px;
-    height: 25px;
+    width: 25px !important;
+    height: 25px !important;
   }
 `
 
