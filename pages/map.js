@@ -24,11 +24,14 @@ const blurStyle ={
     display:"block",
     height:"100vh", //otherwise filter will move the nav up behind the map
 };
-let bandText = "data1 - band";
-let addrText = "data2 - address";
-let timeText = "data3 - timeslot";
+//temp data for modal
+let name = "data1 - name"
+let addrText = "data2 - address"
+let timeText = "data3 - timeslot"
+let aboutText = "data4 - about"
+let imageSource = "/images/profile.jpeg"
 
-export default function Map({ porchData}) {
+export default function MapPage({ porchData}) {
 
     const [openNormal, setOpenNormal] = useState(false);
     const [openBlurred, setOpenBlurred] = useState(false);
@@ -51,7 +54,7 @@ export default function Map({ porchData}) {
             }
             fetch(backendEndpoint + 'user_profile', opts)
                 .then(resp => {
-                    if (resp.status == 200)
+                    if (resp.status === 200)
                         return resp;
                     else console.log("Error")
                 })
@@ -75,9 +78,11 @@ export default function Map({ porchData}) {
 
     //takes index of porch in porchData prop, opens
     function openModal(i, type){
-        bandText = porchData[1][i];
+        name = porchData[1][i];
         addrText = porchData[2][i];
         timeText = porchData[3][i];
+        aboutText = porchData[4][i];
+        imageSource = porchData[5][i];
         if (type === "normal"){
             setOpenNormal(true);
 
@@ -88,9 +93,9 @@ export default function Map({ porchData}) {
     }
 
     function GenerateMarkers(){
-        console.log(porchData);
+        //console.log(porchData);
         let markerList =[];
-        for (let i = 0; i < porchData.length; i++){
+        for (let i = 0; i < porchData[0].length; i++){
             markerList.push(
                 <Marker
                     key={i}
@@ -99,7 +104,7 @@ export default function Map({ porchData}) {
                     onClick={() =>
                         openModal(i, "normal")
                     }
-                    >
+                >
                 </Marker>
             )
         }
@@ -119,16 +124,14 @@ export default function Map({ porchData}) {
         let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         return R * c; // Distance in km
     }
-    function deg2rad(deg) {
-        return deg * (Math.PI/180)
-    }
+    function deg2rad(deg) {  return deg * (Math.PI/180) }
 
     function checkProximity(userLat, userLng){
         let dist = 1000;
         let porchIdx = -1;
 
         //loop through porchData coords, find closest to user location
-        for (let i = 0; i < porchData.length; i++){
+        for (let i = 0; i < porchData[0].length; i++){
             let lat = porchData[0][i][0];
             let lng = porchData[0][i][1];
             let distToPorch = getDistanceFromLatLngInKm(userLat, userLng, lat, lng);
@@ -151,7 +154,7 @@ export default function Map({ porchData}) {
     return (
         <div>
             <Head>
-                <title>react-map-gl example</title>
+                <title>Porchfest Map</title>
             </Head>
             <div style={isBlurred}>
                 <Map
@@ -171,11 +174,11 @@ export default function Map({ porchData}) {
                     {geoTracking ?
                         <GeolocateControl
                         position="top-left"
-                        positionOptions={{enableHighAccuracy: true}} //TODO disable if slow on mobile devices
+                        positionOptions={{enableHighAccuracy: true}} //TODO disable if slow/unnecessary  on mobile devices
                         trackUserLocation={geoTracking}
                         showUserLocation={geoTracking}
                         />
-                        : console.log("Geotracking disabled")
+                        : console.log("Geotracking disabled") //TODO do something else? Let user know somehow?
                     }
                     <FullscreenControl position="top-left" />
                     <NavigationControl position="top-left" />
@@ -185,42 +188,92 @@ export default function Map({ porchData}) {
                 <Navigation />
             </div>
             <Modal
-                sx={{pointerEvents: "none", touchAction: "none" }}
+                sx={{
+                    pointerEvents: "none",
+                    touchAction: "none"
+                }}
                 opened={openBlurred}
                 hideCloseButton={true}
                 onClose={() => setOpenBlurred(false)}
-                title={bandText}
+                title={name}
                 overlayOpacity={0.1}
             >
-                <p> {addrText} - {bandText} <br />
-                    Playing {timeText}.</p><br />
+                <p> {addrText} <br /></p>
+                <img
+                    src={imageSource}
+                    alt={name}
+                    width="150px"
+                    height="150px"
+                />
+                <p>Playing {timeText}<br />
+                    About: {aboutText}<br />
+                </p>
                 Take a few steps away from the stage to return to the map.
             </Modal>
+
             <Modal
                 sx={{}}
                 opened={openNormal}
                 onClose={() => setOpenNormal(false)}
-                title={bandText}
+                title={name}
                 overlayOpacity={0.1}
             >
-                <p> {addrText} - {bandText} <br />
-                    Playing {timeText}.</p><br />
+                <p> {addrText}<br /></p>
+                <img
+                    src={imageSource}
+                    alt={name}
+                    width="150px"
+                    height="150px"
+                />
+                <p>Playing {timeText}<br />
+                    About: {aboutText}<br />
+                </p>
             </Modal>
         </div>
     );
 }
 
-export async function getStaticProps() {
-    // get all porch info for markers
-    // const res = await fetch('http://localhost:5000/porches')
-    // const porches = await res.json()
+function makeTimeStr(hour) {
+    let ampm = hour >= 12 ? 'pm' : 'am';
+    hour = hour % 12;
+    hour = hour ? hour : 12; // the hour '0' should be '12'
+    return hour + ampm;
+}
 
-    //TODO this won't be the format of the database so will need to edit checkProximity, openModal, generateMarkers
-    let coords = [[42.446700, -76.498440], [42.444860, -76.502120], [42.449340, -76.500430], [42.422660, -76.495167]];
-    let bands = ["Cielle", "The Flywheels", "Lloyd's Boys", "Jimilab Team"];
-    let addrs = ["210 Utica St", "105 2nd Str", "219 Auburn St", "Williams Hall"];
-    let times = ["4-5pm", "11am-12pm", "1-2pm", "3-4pm"];
-    let porchData = [coords, bands ,addrs, times];
+// get all porch info for markers
+export async function getStaticProps() {
+    const res = await fetch(backendEndpoint + `porch`)
+    const data = await res.json()
+
+    let coords2 = [], names=[], addrs=[], times=[], abouts = [], photos=[]
+    data.slice(0).map((artists, i) => {
+        const artistData = Object.values(artists)[0]
+        //console.log(artists);
+        //console.log(artistData)
+        names.push(artistData.name)
+        abouts.push(artistData.about)
+        photos.push(artistData.photo)
+        artistData.events.map((porches, i) => {
+            coords2.push([porches.latitude, porches.longitude])
+            addrs.push(porches.address)
+        });
+
+        //strip everything from time except hour number, assumes datetime in backend is in 24 hour format and already EST?
+        //TODO probably just redo this time stuff later
+        let hours = parseInt(artists.time.split(" ")[4].slice(0,2))
+        //generates a string in this format (example): 11am - 12pm
+        let timeStr = makeTimeStr(hours) + " - " + makeTimeStr(hours+1)
+        times.push(timeStr)
+
+    });
+    let coords = [[42.446700, -76.498440], [42.444860, -76.502120], [42.449340, -76.500430], [42.422660, -76.495167], [42.433664, -76.499167]];
+    //TODO switch to coords2 when backend has lat/lng data
+    let porchData = [coords, names, addrs, times, abouts, photos]
+
+    // let bands = ["Cielle", "The Flywheels", "Lloyd's Boys", "Jimilab Team"];
+    // let addrs = ["210 Utica St", "105 2nd Str", "219 Auburn St", "Williams Hall"];
+    // let times = ["4-5pm", "11am-12pm", "1-2pm", "3-4pm"];
+    // let porchData = [coords, bands ,addrs, times];
 
     return {
         props: {porchData}
