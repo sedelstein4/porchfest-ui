@@ -20,7 +20,6 @@ async function fetchData(type) {
         body: JSON.stringify({type: type}),
     });
     const artistData = await response.json()
-
     return { artistData };
 }
 
@@ -50,15 +49,15 @@ export default function Browse(data) {
                             <link rel="icon" href="/favicon.ico"/>
                         </Head>
                         {artistData.slice(0).map((genres, i) => {
-                            const genreData = Object.values(genres)[0]
+                            const genreData = genres['artists']
                             if (genreData.length > 0) {
                                 return (
                                     <Styles.rowContainer key={i}>
-                                        <Link href="/genre/[slug]" as={`/genre/${Object.values(genres)[1]}`}
+                                        <Link href="/genre/[slug]" as={`/genre/${genres['genre_slug']}`}
                                               passHref>
                                             <a>
                                                 <Styles.genreHeading>
-                                                    <Styles.genre>{Object.keys(genres)[0]}</Styles.genre>
+                                                    <Styles.genre>{genres['genre']}</Styles.genre>
                                                     <Styles.arrowIcon>
                                                         <FontAwesomeIcon icon={faChevronRight}/>
                                                     </Styles.arrowIcon>
