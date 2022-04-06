@@ -92,6 +92,27 @@ export default function MapPage({ porchData}) {
         }
     }
 
+    //color marker based on starting hour of marker/artist playing time
+    function colorMarker(hour){
+        hour = parseInt(hour);
+        //TODO get current hour, base cases below on hours until the marker hour?
+        switch(hour){
+            default:
+            case 11:
+                return "#3fb1ce"
+            case 12:
+                return "#000080"
+            case 1:
+                return "#FFF000"
+            case 2:
+                return "#00FF00"
+            case 3:
+                return "#008000"
+            case 4:
+                return "#800080"
+        }
+    }
+
     function GenerateMarkers(){
         //console.log(porchData);
         let markerList =[];
@@ -99,6 +120,7 @@ export default function MapPage({ porchData}) {
             markerList.push(
                 <Marker
                     key={i}
+                    color={colorMarker(porchData[3][i].slice(0,2))}
                     latitude = {porchData[0][i][0]}
                     longitude = {porchData[0][i][1]}
                     onClick={() =>
@@ -245,7 +267,7 @@ export async function getStaticProps() {
     const res = await fetch(backendEndpoint + `porch`)
     const data = await res.json()
 
-    let coords2 = [], names=[], addrs=[], times=[], abouts = [], photos=[]
+    let coords = [], names=[], addrs=[], times=[], abouts = [], photos=[]
     data.slice(0).map((artists, i) => {
         const artistData = Object.values(artists)[0]
         //console.log(artists);
@@ -254,7 +276,7 @@ export async function getStaticProps() {
         abouts.push(artistData.about)
         photos.push(artistData.photo)
         artistData.events.map((porches, i) => {
-            coords2.push([porches.latitude, porches.longitude])
+            coords.push([porches.latitude, porches.longitude])
             addrs.push(porches.address)
         });
 
@@ -266,10 +288,9 @@ export async function getStaticProps() {
         times.push(timeStr)
 
     });
-    let coords = [[42.446700, -76.498440], [42.444860, -76.502120], [42.449340, -76.500430], [42.422660, -76.495167], [42.433664, -76.499167]];
-    //TODO switch to coords2 when backend has lat/lng data
     let porchData = [coords, names, addrs, times, abouts, photos]
 
+    //let coords = [[42.446700, -76.498440], [42.444860, -76.502120], [42.449340, -76.500430], [42.422660, -76.495167], [42.433664, -76.499167]];
     // let bands = ["Cielle", "The Flywheels", "Lloyd's Boys", "Jimilab Team"];
     // let addrs = ["210 Utica St", "105 2nd Str", "219 Auburn St", "Williams Hall"];
     // let times = ["4-5pm", "11am-12pm", "1-2pm", "3-4pm"];
