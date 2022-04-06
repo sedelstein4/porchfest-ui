@@ -8,7 +8,7 @@ import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import Router from "next/router";
 import {backendEndpoint, frontendEndpoint} from "../Config";
-import UserAPI from "./UserAPI";
+import UserAPI from "../api/UserAPI";
 
 export default function Saved(data) {
     const [savedArtists, setSavedArtists] = useState("");

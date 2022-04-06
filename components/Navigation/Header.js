@@ -5,7 +5,7 @@ import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-sv
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Router, {useRouter} from "next/router";
 import {backendEndpoint} from "../../Config";
-import UserAPI from "../../pages/UserAPI";
+import UserAPI from "../../api/UserAPI";
 export default function Header(props) {
     const router = useRouter()
     const [heartOutline, heartFilled] = useState();
