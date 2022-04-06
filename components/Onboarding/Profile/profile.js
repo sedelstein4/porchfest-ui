@@ -11,6 +11,7 @@ export default function Profile(props) {
     const router = useRouter()
     const [email, setEmail] = useState("");
     const [geoTracking, setGeoTracking] = useState(false)
+    const [clickDeleteButton, setClickDeleteButton] = useState(false)
     useEffect(()=> {
         const data = localStorage.getItem('accessToken');
         if(data){
@@ -74,8 +75,12 @@ export default function Profile(props) {
     const removeTokens = () => {
         localStorage.clear()
     }
+    const deleteAccountTrue = () =>{
+        setClickDeleteButton(!clickDeleteButton)
+    }
     const deleteAccount = () => {
         const data = localStorage.getItem('accessToken');
+        console.log("deleted account")
         if(data){
             const opts = {
                 method: 'POST',
@@ -98,6 +103,7 @@ export default function Profile(props) {
                     console.error(error);
                 })
             localStorage.clear()
+            setClickDeleteButton(!clickDeleteButton)
         }
     }
     return (
@@ -128,11 +134,16 @@ export default function Profile(props) {
             </Styles.infoRow>
 
 
-            <Styles.buttonDiv onClick={deleteAccount}>
-                <Link href={"/"} passHref>
+
+
+            <Styles.buttonDiv onClick={deleteAccountTrue}>
                     <Styles.signout>Delete Account</Styles.signout>
-                </Link>
             </Styles.buttonDiv>
+            {clickDeleteButton ?  <Styles.buttonDiv onClick={deleteAccount}>
+                <Link href={"/"} passHref>
+                <Styles.signout>Delete Account?</Styles.signout>
+                </Link>
+            </Styles.buttonDiv> :  null}
 
 
             <Styles.buttonDiv onClick={removeTokens}>
@@ -140,6 +151,7 @@ export default function Profile(props) {
                     <Styles.signout>SIGN OUT</Styles.signout>
                 </Link>
             </Styles.buttonDiv>
+
         </Styles.container>
         
     )

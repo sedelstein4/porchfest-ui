@@ -23,6 +23,9 @@ export default function Home(props) {
                     if (resp.status == 200) {
                         Router.push(frontendEndpoint + 'info')
                     }//If any other response loads the page ei: no token
+                    if(resp.status == 401){
+                        localStorage.clear()
+                    }
                 })
 
                 .catch(error => {
