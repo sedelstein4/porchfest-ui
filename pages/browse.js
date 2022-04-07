@@ -34,7 +34,7 @@ export default function Browse(data) {
         setDataLoaded(true)
     }
     useEffect(() => {
-        if(localStorage.getItem('sort_type') != undefined){
+        if(localStorage.getItem('sort_type') !== undefined){
             refresh(localStorage.getItem('sort_type'))
         }else{
             refresh('genre')

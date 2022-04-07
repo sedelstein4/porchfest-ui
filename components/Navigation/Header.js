@@ -9,7 +9,7 @@ import UserAPI from "../../api/UserAPI";
 export default function Header(props) {
     const router = useRouter()
     const [heartOutline, heartFilled] = useState();
-    const [noDropdown, dropdown] = useState(0);
+    const [noDropdown, dropdown] = useState(false);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState(false)
 
@@ -29,6 +29,7 @@ export default function Header(props) {
     }, [noDropdown]);
 
     function sortHandler(){
+        console.log("sortHandler")
         dropdown(current => !current)
     }
 
@@ -70,7 +71,7 @@ export default function Header(props) {
                                 <input
                                     type="radio"
                                     value="Alphabetical"
-                                    name="alphabetical"
+                                    name="sort"
                                     id="alphabetical"
                                     // defaultChecked={this.context.selectedFilter === 'Local Artists Only'}
                                     // onClick={this.context.setFilter}
@@ -82,12 +83,12 @@ export default function Header(props) {
                                 <input
                                     type="radio"
                                     value="Genre"
-                                    name="genre"
+                                    name="sort"
                                     id="genre"
                                     // defaultChecked={this.context.selectedFilter === 'Events Only'}
                                     // onClick={this.context.setFilter}
                                 />
-                                <Styles.ButtonLabel htmlFor="genres">Genres</Styles.ButtonLabel>
+                                <Styles.ButtonLabel htmlFor="genre">Genres</Styles.ButtonLabel>
                             </div>
                         </Styles.SortDropdown>
                     </Styles.SortBtn>
