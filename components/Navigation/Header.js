@@ -29,7 +29,6 @@ export default function Header(props) {
     }, [noDropdown]);
 
     function sortHandler(){
-        console.log("sortHandler")
         dropdown(current => !current)
     }
 
