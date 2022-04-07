@@ -82,9 +82,9 @@ export default function Saved(data) {
             </Styles.artistResults>
                 ):(
                 <Styles.homeContainer>
-                    <h4>Need to be logged in to use this feature</h4>
+                    <h4>Create an account to use this feature!</h4>
                     <Link href={"/"} passHref>
-                        <Styles.btn>Login/Sign up</Styles.btn>
+                        <Styles.btn>Sign up</Styles.btn>
                     </Link>
                 </Styles.homeContainer>
 
