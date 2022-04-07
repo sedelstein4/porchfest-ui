@@ -41,7 +41,6 @@ export const backToHome = styled.div`
 export const TopContainer = styled.div`
   display: flex;
   position: fixed;
-  padding: 20px 10px;
   top: 0;
   left: 0;
   width: 100%;
@@ -59,6 +58,7 @@ export const PageInfo = styled.div`
   display: inline-flex;
   flex-direction: column;
   margin-right: 20px;
+  padding: 20px 10px;
 `
 
 export const PageTitle = styled.h1`
@@ -79,27 +79,23 @@ export const Hometown = styled.h3`
 `
 
 export const SortBtn = styled.div`
-  display: inline-flex;
-  align-items: center;
-  color:white;
-  margin-right: 20px;
-  flex: 1;
-  justify-content: flex-end;
-  width: 25px;
-  height: 25px;
-  
+  color: white;
+  margin-left: auto;
+  margin-right: 10px;
+  align-self: center;
 `
 
 export const SortDropdown = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
   position: absolute;
   box-shadow: var(--shadow);
-  margin-top: 108px;
+  margin-top: 53px;
   background: var(--white);
   z-index: 100;
   text-align: left;
   color: black;
   padding: 5px;
+  right: 10px;
 
   input[type='radio'] {
     opacity: 0;
@@ -146,5 +142,5 @@ export const BackBtn = styled.div`
   display: ${(props) => (props.show ? 'inline-flex' : 'none')};
   align-items: center;
   color: white;
-  margin-right: 10px;
+  margin: 0 10px;
 `

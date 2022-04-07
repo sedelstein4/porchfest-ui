@@ -64,8 +64,10 @@ export default function Header(props) {
                     {props.pageType === "artist" ? <Styles.Hometown>{props.hometown}</Styles.Hometown> : null}
                 </Styles.PageInfo>
                 {props.pageType === "browse" ?
+                    <>
                     <Styles.SortBtn onClick={() => sortHandler()}>
                         <FontAwesomeIcon icon={faSortAmountDown}/>
+                       </Styles.SortBtn>
                         <Styles.SortDropdown show={noDropdown}>
                             <div onClick={() => handleSortClick("alphabetical")}>
                                 <input
@@ -73,8 +75,8 @@ export default function Header(props) {
                                     value="Alphabetical"
                                     name="sort"
                                     id="alphabetical"
+                                    onClick={() => sortHandler()}
                                     // defaultChecked={this.context.selectedFilter === 'Local Artists Only'}
-                                    // onClick={this.context.setFilter}
                                 />
                                 <Styles.ButtonLabel htmlFor="alphabetical">Alphabetical</Styles.ButtonLabel>
                             </div>
@@ -85,13 +87,13 @@ export default function Header(props) {
                                     value="Genre"
                                     name="sort"
                                     id="genre"
+                                    onClick={() => sortHandler()}
                                     // defaultChecked={this.context.selectedFilter === 'Events Only'}
-                                    // onClick={this.context.setFilter}
                                 />
                                 <Styles.ButtonLabel htmlFor="genre">Genres</Styles.ButtonLabel>
                             </div>
                         </Styles.SortDropdown>
-                    </Styles.SortBtn>
+                    </>
                     : props.pageType === "artist" && loggedInUser ?
                     <Styles.LikeBtn onClick={() => handleLikeClick()}>
                         {heartOutline ? <FontAwesomeIcon icon={faHeart} className="filled-heart"/> : <FontAwesomeIcon icon={farHeart}/>}
