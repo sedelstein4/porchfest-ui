@@ -65,7 +65,7 @@ export default function Browse(data) {
                                             </a>
                                         </Link>
                                         <Styles.row>
-                                            {genreData.slice(0, 3).map((artist, i) => {
+                                            {genreData.slice(0, genreData.length).map((artist, i) => {
                                                 return (
                                                     <Styles.cardContainer key={artist.id}>
                                                         <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`}
