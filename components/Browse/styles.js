@@ -53,7 +53,6 @@ export const genre = styled.h1`
 
 export const arrowIcon = styled.div`
   margin-left: 8px;
-  margin-top: 5px;
     svg{
       width:15px;
     }
