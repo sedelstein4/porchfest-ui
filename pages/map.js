@@ -24,6 +24,12 @@ const blurStyle ={
     display:"block",
     height:"100vh", //otherwise filter will move the nav up behind the map
 };
+
+const modalStyle={
+  textAlign: "center"
+
+};
+
 //temp data for modal
 let name = "data1 - name"
 let addrText = "data2 - address"
@@ -92,7 +98,7 @@ export default function MapPage({ porchData}) {
         }
     }
 
-    //color marker based on starting hour of marker/artist playing time
+    //return a color to color marker based on starting hour of marker/artist playing time
     function colorMarker(hour){
         hour = parseInt(hour);
         //TODO get current hour, base cases below on hours until the marker hour?
@@ -101,15 +107,15 @@ export default function MapPage({ porchData}) {
             case 11:
                 return "#3fb1ce"
             case 12:
-                return "#000080"
+                return "#b8b8d9"
             case 1:
-                return "#FFF000"
+                return "#fcf093"
             case 2:
-                return "#00FF00"
+                return "#68fc68"
             case 3:
-                return "#008000"
+                return "#4ba94b"
             case 4:
-                return "#800080"
+                return "#a473a4"
         }
     }
 
@@ -181,8 +187,12 @@ export default function MapPage({ porchData}) {
             <div style={isBlurred}>
                 <Map
                     initialViewState={{
-                        latitude: 42.44242,
-                        longitude: -76.49921,
+                        //Ithaca coords:
+                        //latitude: 42.44242,
+                        //longitude: -76.49921,
+                        //Tburg coords:
+                        latitude: 42.541604,
+                        longitude: -76.660557,
                         zoom: 14,
                         width: "100%",
                         height: "100vh"
@@ -220,17 +230,19 @@ export default function MapPage({ porchData}) {
                 title={name}
                 overlayOpacity={0.1}
             >
-                <p> {addrText} <br /></p>
-                <img
-                    src={imageSource}
-                    alt={name}
-                    width="150px"
-                    height="150px"
-                />
-                <p>Playing {timeText}<br />
-                    About: {aboutText}<br />
-                </p>
-                Take a few steps away from the stage to return to the map.
+                <div style={modalStyle}>
+                    <p> {addrText} <br /></p>
+                    <img
+                        src={imageSource}
+                        alt={name}
+                        width="150px"
+                        height="150px"
+                    />
+                    <p>Playing {timeText}<br />
+                        About: <br />{aboutText}<br />
+                    </p>
+                    Take a few steps away from the stage to return to the map.
+                </div>
             </Modal>
 
             <Modal
@@ -240,16 +252,18 @@ export default function MapPage({ porchData}) {
                 title={name}
                 overlayOpacity={0.1}
             >
-                <p> {addrText}<br /></p>
-                <img
-                    src={imageSource}
-                    alt={name}
-                    width="150px"
-                    height="150px"
-                />
-                <p>Playing {timeText}<br />
-                    About: {aboutText}<br />
-                </p>
+               <div style={modalStyle}>
+                   <p> {addrText}<br /></p>
+                    <img
+                        src={imageSource}
+                        alt={name}
+                        width="150px"
+                        height="150px"
+                    />
+                    <p>Playing {timeText}<br />
+                        About:<br /> {aboutText}<br />
+                    </p>
+               </div>
             </Modal>
         </div>
     );
@@ -270,31 +284,21 @@ export async function getStaticProps() {
     let coords = [], names=[], addrs=[], times=[], abouts = [], photos=[]
     data.slice(0).map((artists, i) => {
         const artistData = Object.values(artists)[0]
-        //console.log(artists);
-        //console.log(artistData)
         names.push(artistData.name)
         abouts.push(artistData.about)
-        photos.push(artistData.photo)
+        photos.push(artistData.photo ? artistData.photo : "/images/profile.jpeg")
         artistData.events.map((porches, i) => {
             coords.push([porches.latitude, porches.longitude])
             addrs.push(porches.address)
+            //strip everything from time except hour number, assumes datetime in backend is in 24 hour format and already EST?
+            let hours = parseInt(porches.time.split(" ")[4].slice(0,2))
+            //TODO timezone?
+            //generates a string in this format (example): 11am - 12pm
+            let timeStr = makeTimeStr(hours) + " - " + makeTimeStr(hours+1)
+            times.push(timeStr)
         });
-
-        //strip everything from time except hour number, assumes datetime in backend is in 24 hour format and already EST?
-        //TODO probably just redo this time stuff later
-        let hours = parseInt(artists.time.split(" ")[4].slice(0,2))
-        //generates a string in this format (example): 11am - 12pm
-        let timeStr = makeTimeStr(hours) + " - " + makeTimeStr(hours+1)
-        times.push(timeStr)
-
     });
     let porchData = [coords, names, addrs, times, abouts, photos]
-
-    //let coords = [[42.446700, -76.498440], [42.444860, -76.502120], [42.449340, -76.500430], [42.422660, -76.495167], [42.433664, -76.499167]];
-    // let bands = ["Cielle", "The Flywheels", "Lloyd's Boys", "Jimilab Team"];
-    // let addrs = ["210 Utica St", "105 2nd Str", "219 Auburn St", "Williams Hall"];
-    // let times = ["4-5pm", "11am-12pm", "1-2pm", "3-4pm"];
-    // let porchData = [coords, bands ,addrs, times];
 
     return {
         props: {porchData}
