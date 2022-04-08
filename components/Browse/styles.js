@@ -28,16 +28,37 @@ export const backToHome = styled.div`
 
 // cardrow
 export const rowContainer = styled.div`
-  margin-bottom: 80px;
+  margin-bottom: 25px;
+  display: grid;
+  grid-template-columns: 0 1fr 0;
+  align-content: start;
+
+  > * {
+    grid-column: 2 / -2;
+  }
 `
 
 export const row = styled.div`
-  width:100%;
+  grid-column: 1 / -1;
   display: grid;
-  grid-row: auto;
-  grid-template-columns: auto auto auto;
-  justify-content: start;
-  grid-gap:25px;
+  grid-template-columns: 0;
+  grid-template-rows: minmax(150px, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: calc(50% - 25px * 2);
+
+  overflow-x: scroll;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  margin-bottom: calc(-.25 * 25px);
+
+  :before,
+  :after {
+    content: '';
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const genreHeading = styled.div`
@@ -63,7 +84,8 @@ export const arrowIcon = styled.div`
 export const cardContainer = styled.div`
   width: 100px;
   height: 100px;
-  margin:auto;
+  scroll-snap-align: center;
+}
 
   img {
     border-radius: 3px;
