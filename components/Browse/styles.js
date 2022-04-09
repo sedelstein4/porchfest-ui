@@ -39,17 +39,21 @@ export const rowContainer = styled.div`
 `
 
 export const row = styled.div`
-  grid-column: 1 / -1;
   display: grid;
+  grid-column: 1 / -1;
   grid-template-columns: 0;
-  grid-template-rows: minmax(150px, 1fr);
+  grid-template-rows: minmax(235px,1fr);
   grid-auto-flow: column;
-  grid-auto-columns: calc(50% - 25px * 2);
-
+  grid-auto-columns: 215px;
   overflow-x: scroll;
   scroll-snap-type: x proximity;
   scrollbar-width: none;
   margin-bottom: calc(-.25 * 25px);
+
+  @media (max-width: 768px) {
+    grid-template-rows: minmax(150px, 1fr);
+    grid-auto-columns: calc(50% - 25px * 2);
+  }
 
   :before,
   :after {
@@ -82,9 +86,14 @@ export const arrowIcon = styled.div`
 
 // artistcard
 export const cardContainer = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 180px;
+  height: 180px;
   scroll-snap-align: center;
+  
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
 }
 
   img {
