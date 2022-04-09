@@ -47,6 +47,10 @@ const ResultIcon = styled(icon)`
     }
 `
 
+const BottomSpace = styled.div`
+    padding-bottom: 20px;
+`
+
 const Genre = ({ data }) => {
     const genreData = Object.values(data[0])[0]
 
@@ -79,6 +83,7 @@ const Genre = ({ data }) => {
                 )
             })
             }
+            <BottomSpace/>
         </div>
     )
 }

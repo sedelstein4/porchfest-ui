@@ -28,16 +28,41 @@ export const backToHome = styled.div`
 
 // cardrow
 export const rowContainer = styled.div`
-  margin-bottom: 80px;
+  margin-bottom: 25px;
+  display: grid;
+  grid-template-columns: 0 1fr 0;
+  align-content: start;
+
+  > * {
+    grid-column: 2 / -2;
+  }
 `
 
 export const row = styled.div`
-  width:100%;
   display: grid;
-  grid-row: auto;
-  grid-template-columns: auto auto auto;
-  justify-content: start;
-  grid-gap:25px;
+  grid-column: 1 / -1;
+  grid-template-columns: 0;
+  grid-template-rows: minmax(235px,1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 215px;
+  overflow-x: scroll;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  margin-bottom: calc(-.25 * 25px);
+
+  @media (max-width: 768px) {
+    grid-template-rows: minmax(150px, 1fr);
+    grid-auto-columns: calc(50% - 25px * 2);
+  }
+
+  :before,
+  :after {
+    content: '';
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const genreHeading = styled.div`
@@ -61,9 +86,15 @@ export const arrowIcon = styled.div`
 
 // artistcard
 export const cardContainer = styled.div`
-  width: 100px;
-  height: 100px;
-  margin:auto;
+  width: 180px;
+  height: 180px;
+  scroll-snap-align: center;
+  
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+}
 
   img {
     border-radius: 3px;
