@@ -201,15 +201,12 @@ export default function MapPage({ porchData}) {
                     mapStyle="mapbox://styles/mapbox/streets-v9"
                     mapboxAccessToken={'pk.eyJ1Ijoic2VkZWxzdGVpbjQiLCJhIjoiY2wwNjFtM2YxMjNmaTNrbmZyeXp3Nm5uciJ9.Wit4Sb6saoQxekjXLZD-kw'}
                 >
-                    {geoTracking ?
                         <GeolocateControl
                         position="top-left"
                         positionOptions={{enableHighAccuracy: true}} //TODO disable if slow/unnecessary  on mobile devices
                         trackUserLocation={geoTracking}
                         showUserLocation={geoTracking}
                         />
-                        : console.log("Geotracking disabled") //TODO do something else? Let user know somehow?
-                    }
                     <FullscreenControl position="top-left" />
                     <NavigationControl position="top-left" />
                     <ScaleControl/>
