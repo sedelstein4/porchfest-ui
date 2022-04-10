@@ -25,8 +25,7 @@ const blurStyle ={
     height:"100vh", //otherwise filter will move the nav up behind the map
 };
 
-const modalStyle={
-  textAlign: "center"
+const modalBody={
 
 };
 
@@ -107,15 +106,15 @@ export default function MapPage({ porchData}) {
             case 11:
                 return "#3fb1ce"
             case 12:
-                return "#b8b8d9"
+                return "#3f8ece"
             case 1:
-                return "#fcf093"
+                return "#3f68ce"
             case 2:
-                return "#68fc68"
+                return "#4d3fce"
             case 3:
-                return "#4ba94b"
+                return "#783fce"
             case 4:
-                return "#a473a4"
+                return "#9a3fce"
         }
     }
 
@@ -221,6 +220,7 @@ export default function MapPage({ porchData}) {
             </div>
             <Modal
                 sx={{
+                    textAlign: "center",
                     pointerEvents: "none",
                     touchAction: "none"
                 }}
@@ -230,7 +230,7 @@ export default function MapPage({ porchData}) {
                 title={name}
                 overlayOpacity={0.1}
             >
-                <div style={modalStyle}>
+                <div style={modalBody}>
                     <p> {addrText} <br /></p>
                     <img
                         src={imageSource}
@@ -246,13 +246,15 @@ export default function MapPage({ porchData}) {
             </Modal>
 
             <Modal
-                sx={{}}
+                sx={{
+                   textAlign: "center",
+                }}
                 opened={openNormal}
                 onClose={() => setOpenNormal(false)}
                 title={name}
                 overlayOpacity={0.1}
             >
-               <div style={modalStyle}>
+               <div style={modalBody}>
                    <p> {addrText}<br /></p>
                     <img
                         src={imageSource}

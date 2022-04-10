@@ -6,8 +6,8 @@ export const infoContainer = styled.div`
   margin-top: 62px;
 `
 export const fullWidthImgDiv = styled.div`
-    height:250px;
     max-width: 550px;
+    aspect-ratio: 3 / 2;
     margin-left: auto;
     margin-right: auto;
     img{
