@@ -168,7 +168,7 @@ export default function MapPage({ porchData}) {
             }
         }
         if (porchIdx !== -1){
-            if(dist < 0.03){ //within 8 meters
+            if(dist < 0.04){ //within 8 meters
                 setBlurred(true);
                 openModal(porchIdx, "blurred");
             }
