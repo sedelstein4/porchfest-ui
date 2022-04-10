@@ -75,7 +75,7 @@ export default function MapPage({ porchData}) {
         }
         if ('geolocation' in navigator && geoTracking) {
             navigator.geolocation.watchPosition(function(position) {
-                console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
+                //console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
                 checkProximity(position.coords.latitude, position.coords.longitude);
             });
         }
@@ -174,6 +174,7 @@ export default function MapPage({ porchData}) {
             }
             else{
                 setBlurred(false);
+                setOpenBlurred(false);
             }
         }
     }

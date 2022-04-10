@@ -173,6 +173,7 @@ export default function MapPage({ porchData}) {
             }
             else{
                 setBlurred(false);
+                setOpenBlurred(false);
             }
         }
     }
