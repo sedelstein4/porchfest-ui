@@ -72,7 +72,7 @@ export default function MapPage({ porchData}) {
                     console.error(error);
                 })
         }
-        if ('geolocation' in navigator && geoTracking) {
+        if ('geolocation' in navigator) {
             navigator.geolocation.watchPosition(function(position) {
                 console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
                 checkProximity(position.coords.latitude, position.coords.longitude);
@@ -204,8 +204,8 @@ export default function MapPage({ porchData}) {
                         <GeolocateControl
                         position="top-left"
                         positionOptions={{enableHighAccuracy: true}} //TODO disable if slow/unnecessary  on mobile devices
-                        trackUserLocation={geoTracking}
-                        showUserLocation={geoTracking}
+                        trackUserLocation={true}
+                        showUserLocation={true}
                         />
                     <FullscreenControl position="top-left" />
                     <NavigationControl position="top-left" />
