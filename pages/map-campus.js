@@ -161,13 +161,14 @@ export default function MapPage({ porchData}) {
             let lat = porchData[0][i][0];
             let lng = porchData[0][i][1];
             let distToPorch = getDistanceFromLatLngInKm(userLat, userLng, lat, lng);
+            console.log(distToPorch)
             if (distToPorch < dist){
                 dist = distToPorch;
                 porchIdx = i;
             }
         }
         if (porchIdx !== -1){
-            if(dist < 0.008){ //within 8 meters
+            if(dist < 0.03){ //within 8 meters
                 setBlurred(true);
                 openModal(porchIdx, "blurred");
             }
@@ -237,7 +238,7 @@ export default function MapPage({ porchData}) {
                     {/*<p>Playing {timeText}<br />*/}
                     {/*    About: <br />{aboutText}<br />*/}
                     {/*</p>*/}
-                    Take a few steps away from the building to return to the map.
+                    <p>Take a few steps away from the building to return to the map.</p>
                 </div>
             </Modal>
 
