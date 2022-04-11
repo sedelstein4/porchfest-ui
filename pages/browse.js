@@ -72,7 +72,7 @@ export default function Browse(data) {
                                                               passHref>
                                                             <a>
                                                                 <img
-                                                                    src={artist.photo ? artist.photo : "/images/profile.jpeg"}
+                                                                    src={artist.photo ? artist.photo : "/images/music_note.png"}
                                                                     alt={artist.name}
                                                                     width="100%"
                                                                     height="100%"
@@ -112,7 +112,7 @@ export default function Browse(data) {
                                           passHref>
                                         <a>
                                             <img
-                                                src={artist.photo ? artist.photo : "/images/profile.jpeg"}
+                                                src={artist.photo ? artist.photo : "/images/music_note.png"}
                                                 alt={artist.name}
                                                 width="100%"
                                                 height="100%"
