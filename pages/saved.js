@@ -60,20 +60,17 @@ export default function Saved(data) {
                             <Styles.LikeBtn>
                                <FontAwesomeIcon icon={faHeart} className="filled-heart"/>
                             </Styles.LikeBtn>
-                            <img
-                                src={artist.photo}
-                            />
-                            <div>
-                                <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`}
-                                      passHref>
-                                    <a>
-                                <Styles.resultName>{artist.name}</Styles.resultName>
-                                    </a>
-                                </Link>
-                            </div>
-                            <Styles.resultIcon>
-                                <FontAwesomeIcon icon={faAngleRight}/>
-                            </Styles.resultIcon>
+                            <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`} passHref>
+                                <a>
+                                    <img
+                                        src={artist.photo ? artist.photo : "/images/music_note.png"}
+                                    />
+                                    <Styles.resultName>{artist.name}</Styles.resultName>
+                                    <Styles.resultIcon>
+                                        <FontAwesomeIcon icon={faAngleRight}/>
+                                    </Styles.resultIcon>
+                                </a>
+                            </Link>
                         </Styles.searchItem>
                     )
                 }) :

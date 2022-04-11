@@ -20,12 +20,16 @@ export const artistResults = styled.div`
   `
 
 export const searchItem = styled.div`
-  display: inline-flex;
-  flex-direction: row;
+  display: flex;
   align-items: center;
   width: 100%;
   padding: 11px 0;
   border-bottom: 1px solid var(--grey-mid);
+
+  a{
+    display: inline-flex;
+    width: 100%;
+  }
 `
 
 export const LikeBtn = styled.div`
@@ -45,18 +49,17 @@ export const LikeBtn = styled.div`
 `
 
 export const resultName = styled.div`
-  justify-content: center;
+  align-self: center;
   font-size: 18pt;
-  margin-bottom:5px;
   `
 
 export const resultIcon = styled(icon)`
+  align-self: center;
   margin-left: auto;
-  margin-bottom: 7px;
-    svg{
-      width:18px;
-    }
-    
+  svg{
+    width:30px !important;
+    height:30px !important;
+  }
 `
 
 export const homeContainer = styled.div`
