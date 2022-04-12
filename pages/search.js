@@ -93,7 +93,7 @@ export default function Search(data) {
                                       passHref>
                                     <a>
                             <img
-                                src={artist.artist.photo}
+                                src={artist.artist.photo ? artist.artist.photo : "/images/music_note.png"}
                             />
                             <div>
                                 <Styles.resultName>{artist.artist.name}</Styles.resultName>

@@ -60,38 +60,39 @@ export const resultContainer = styled.div`
   `
 
 export const artistResults = styled.div`
-    display:flex;
-    border-bottom: 1px solid var(--grey-mid);
-    padding-top:2px;
+  display:flex;
+  border-bottom: 1px solid var(--grey-mid);
+  padding-top:2px;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 5px;
   
-    img{
-        width:48px;
-        height:48px;
-        object-fit: contain;
-        border-radius: 50%;
-        border: 1px solid var(--grey-dark);
-        margin: 5px 24px 16px 0;
-    }
+  img{
+    width:48px;
+    height:48px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--grey-dark);
+    margin: 5px 24px 16px 0;
+  }
   `
 
 export const genreResults = styled.div`
-    display:flex;
-    border-bottom: 1px solid var(--grey-mid);
-    padding-top:2px;
+  margin-bottom: 80px;
+  display:flex;
+  border-bottom: 1px solid var(--grey-mid);
+  padding-top:2px;
   flex-direction: column;
   align-items: flex-start;
   
-    img{
-        width:48px;
-        height:48px;
-        object-fit: contain;
-        border-radius: 50%;
-        border: 1px solid var(--grey-dark);
-      margin: 5px 24px 16px 0;
-    }
+  img{
+    width:48px;
+    height:48px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 1px solid var(--grey-dark);
+    margin: 5px 24px 16px 0;
+  }
   `
 
 export const searchItem = styled.div`
