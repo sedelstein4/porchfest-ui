@@ -66,7 +66,7 @@ export default function MapPage({ porchData}) {
                 .then(async data => {
                     if(data){
                         const userData = await data.json()
-                        setGeoTracking(userData.geo_Tracking)
+                        setGeoTracking(userData.trackLocation)
                     }
                 })
                 .catch(error => {
