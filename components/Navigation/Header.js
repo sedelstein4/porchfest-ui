@@ -12,8 +12,12 @@ export default function Header(props) {
     const [noDropdown, dropdown] = useState(false);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState(false)
-
+    const [sort_type, setSortType] = useState("")
     useEffect(() => {
+        if(localStorage.getItem('sort_type')){
+            setSortType(localStorage.getItem('sort_type'))
+        }
+
         if(localStorage.getItem('accessToken')){
             const token = localStorage.getItem('accessToken');
             if(!dataLoaded && props.slug != undefined){
@@ -41,6 +45,7 @@ export default function Header(props) {
 
     function handleSortClick(param){
         localStorage.setItem('sort_type',param)
+        setSortType(param)
         router.push(
             {
                 query: {
@@ -75,11 +80,11 @@ export default function Header(props) {
                                     name="sort"
                                     id="alphabetical"
                                     onClick={() => sortHandler()}
-                                    // defaultChecked={this.context.selectedFilter === 'Local Artists Only'}
+                                    defaultChecked={sort_type == "alphabetical"}
                                 />
                                 <Styles.ButtonLabel htmlFor="alphabetical">Alphabetical</Styles.ButtonLabel>
                             </div>
-
+                            {console.log(sort_type )}
                             <div onClick={() => handleSortClick("genre")}>
                                 <input
                                     type="radio"
@@ -87,7 +92,7 @@ export default function Header(props) {
                                     name="sort"
                                     id="genre"
                                     onClick={() => sortHandler()}
-                                    // defaultChecked={this.context.selectedFilter === 'Events Only'}
+                                    defaultChecked={sort_type == "genre"}
                                 />
                                 <Styles.ButtonLabel htmlFor="genre">Genres</Styles.ButtonLabel>
                             </div>
