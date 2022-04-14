@@ -14,6 +14,7 @@ import {useEffect, useState} from "react";
 import {Modal} from "@mantine/core";
 import Navigation from "../components/Navigation/Navigation"
 import {backendEndpoint} from "../Config";
+import UserAPI from "../api/UserAPI";
 
 const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2VkZWxzdGVpbjQiLCJhIjoiY2wwNjFtM2YxMjNmaTNrbmZyeXp3Nm5uciJ9.Wit4Sb6saoQxekjXLZD-kw'; // Set your mapbox token here
 
@@ -48,30 +49,10 @@ export default function MapPage({ porchData}) {
     useEffect(()=> {
         const data = localStorage.getItem('accessToken');
         if(data){
-            const opts = {
-                method: 'GET',
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Content-Type": "application/json",
-                    Accept: 'application/json',
-                    Authorization: 'Bearer ' + data
-                }
-            }
-            fetch(backendEndpoint + 'user_profile', opts)
-                .then(resp => {
-                    if (resp.status === 200)
-                        return resp;
-                    else console.log("Error")
-                })
-                .then(async data => {
-                    if(data){
-                        const userData = await data.json()
-                        setGeoTracking(userData.trackLocation)
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+            UserAPI.getUserProfile(data).then((resp) => {
+                const userData = resp
+                setGeoTracking(userData.trackLocation)
+            })
         }
         if ('geolocation' in navigator && geoTracking) {
             navigator.geolocation.watchPosition(function(position) {

@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import Router from 'next/router'
 import {backendEndpoint, frontendEndpoint} from "../../../Config";
+import RegisterAPI from "../../../api/RegisterAPI";
 
 export const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -31,37 +32,17 @@ export const SignIn = () => {
     }
 
     const handleSubmit = () => {
-        const opts = {
-            method: 'POST',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "email": email,
-                "password": password
-            })
-        }
-        fetch(backendEndpoint + 'login', opts)
-            .then(resp => {
-                if (resp.status == 201)
-                    return resp;
-                else{
-                    setLoginError('Password or email incorrect')
-                }
-            })
-            .then(async data => {
-                if(data){
-                    const tokens = await data.json()
-                    localStorage.setItem('accessToken',tokens.access_token)
-                    localStorage.setItem('refreshToken', tokens.refresh_token)
-                    await Router.push(frontendEndpoint + 'info')
-                }
-
-            })
-            .catch(error => {
-                console.error(error);
-            })
+        RegisterAPI.login(email,password).then((resp) => {
+            if(resp === '401'){
+                setLoginError('Password or email incorrect')
+            }
+            else{
+                const tokens = resp
+                localStorage.setItem('accessToken',tokens.access_token)
+                localStorage.setItem('refreshToken', tokens.refresh_token)
+                Router.push(frontendEndpoint + 'info')
+            }
+        })
     }
 
 

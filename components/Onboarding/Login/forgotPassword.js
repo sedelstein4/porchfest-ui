@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import Router from 'next/router'
 import {backendEndpoint} from "../../../Config";
+import RegisterAPI from "../../../api/RegisterAPI";
 
 export const ForgotPasswordPage = () => {
     const [email, setEmail] = useState("");
@@ -19,35 +20,16 @@ export const ForgotPasswordPage = () => {
             setLoginError("Email mismatch")
         }
         if(email == confirmEmail && email.toLowerCase().match(emailMatcher)) {
-            const opts = {
-                method: 'POST',
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "email": email,
-                })
-            }
-            fetch(backendEndpoint + 'send_password_reset', opts)
-                .then(resp => {
-                    if (resp.status == 200) {
-                        setEmailSent("If email is found you will receive an email to reset password")
-                        return resp;
-                    }else {
-                        setEmailSent("Something went wrong")
-                    }
-                })
-                .then(data => {
-
+            RegisterAPI.sendPasswordReset(email).then((resp) =>{
+                if (resp === '200') {
+                    setEmailSent("If email is found you will receive an email to reset password")
                     //Router.push('http://localhost:3000/login')
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+                }else {
+                    setEmailSent("Something went wrong")
+                }
+            })
         }
     }
-
 
     return (
         <div className="mobile-margin-sides">
