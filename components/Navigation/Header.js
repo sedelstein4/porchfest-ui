@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import Router, {useRouter} from "next/router";
-import {backendEndpoint} from "../../Config";
 import UserAPI from "../../api/UserAPI";
+import ArtistAPI from "../../api/ArtistAPI";
 export default function Header(props) {
     const router = useRouter()
     const [heartOutline, heartFilled] = useState();
@@ -13,35 +13,40 @@ export default function Header(props) {
     const [dataLoaded, setDataLoaded] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState(false)
     const [sort_type, setSortType] = useState("")
-    useEffect(() => {
-        if(localStorage.getItem('sort_type')){
+    useEffect(async () => {
+        if (localStorage.getItem('sort_type')) {
             setSortType(localStorage.getItem('sort_type'))
         }
-
-        if(localStorage.getItem('accessToken')){
+        if (localStorage.getItem('accessToken')) {
             const token = localStorage.getItem('accessToken');
-            if(!dataLoaded && props.slug != undefined){
-                getArtistWithUser(props.slug,token).then((res)=>{
-                    heartFilled(res)
+            if (!dataLoaded && props.slug != undefined) {
+                ArtistAPI.getArtistLikedToUser(props.slug,token).then(async (resp) => {
+                    heartFilled(resp.liked)
+
                 })
                 setDataLoaded(true)
                 setLoggedInUser(true)
             }
         }
-
-
     }, [noDropdown]);
 
     function sortHandler(){
         dropdown(current => !current)
     }
 
-    function handleLikeClick(){
-        updatedLikedArtists(props.artistID).then((info) =>{
-            heartFilled(info)
+    function handleLikeClick() {
+        const token = localStorage.getItem('accessToken');
+        UserAPI.updateUserToArtist(props.artistID, token).then((resp) => {
+            if(resp === '401' && localStorage.getItem('refreshToken')) {
+                UserAPI.getNewToken(localStorage.getItem('refreshToken')).then((resp) => {
+                    const data = resp
+                    localStorage.setItem('accessToken',data.access_token)
+                    Router.reload()
+                })
+            }
+            heartFilled(resp)
         })
     }
-
 
     function handleSortClick(param){
         localStorage.setItem('sort_type',param)
@@ -84,7 +89,6 @@ export default function Header(props) {
                                 />
                                 <Styles.ButtonLabel htmlFor="alphabetical">Alphabetical</Styles.ButtonLabel>
                             </div>
-                            {console.log(sort_type )}
                             <div onClick={() => handleSortClick("genre")}>
                                 <input
                                     type="radio"
@@ -109,87 +113,15 @@ export default function Header(props) {
 }
 
 export async function getStaticProps( type ) {
-    const artistRes = await fetch(backendEndpoint + 'artists', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Accept: 'application/json',
-            Authorization: 'Bearer ',
-        },
-        body: JSON.stringify({type: type}),
-    });
-    const artistData = await artistRes.json();
-
-
-    return {
-        props: {
-            artistData
+    ArtistAPI.getArtists(type).then((artistData) => {
+        return {
+            props:{
+                artistData
+            }
         }
-    }
+    })
 }
 
-export async function updatedLikedArtists(artistID) {
-    const token = localStorage.getItem('accessToken');
-
-    const opts = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + token
-        },
-        body: JSON.stringify({
-            "artist_id": artistID,
-        })
-    }
-
-    const updateArtist = fetch(backendEndpoint + `update_user_to_artist`, opts)
-        .then(resp => {
-            if (resp.status == 200) return resp;
-            if(resp.status == 401 && localStorage.getItem('refreshToken')) {
-                UserAPI.getNewToken(localStorage.getItem('refreshToken')).then((resp) => {
-                    const data = resp
-                    localStorage.setItem('accessToken',data.access_token)
-                    Router.reload()
-                })
-            } else if(resp.status === 422){
-                console.log("Error 422")
-                return resp
-            }
-            else{
-                console.log('error')
-            }
-        })
-        .then(async res => {
-            if(res){
-                const data = await res.json()
-                return data
-            }
-        })
-        .catch(error => {
-            console.error(error)
-        })
-        return updateArtist;
-
-
-}
-async function getArtistWithUser(slug,token) {
-    const opts = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Accept: 'application/json',
-        },
-        body: JSON.stringify({
-            "access_token": token,
-        })
-    }
-
-    const res = await fetch(backendEndpoint + `artist/${slug}`, opts)
-    const data = await res.json()
-    return data.liked
+export function updatedLikedArtists(artistID) {
 
 }
