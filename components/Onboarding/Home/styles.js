@@ -31,3 +31,7 @@ export const btn = styled.button`
 export const btnGuest = styled(btn)`
   background: none;
 `
+//for buttons that are close to the bottom of the screen and would otherwise be hidden by the nav
+export const btnBottom = styled(btn)`
+    margin-bottom: 75px;
+`

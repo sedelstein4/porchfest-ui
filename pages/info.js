@@ -27,7 +27,7 @@ export default function Info(data) {
                 desc={"Trumansburg Porchfest brings the community together through music! It is a do-it yourself music festival featuring free shows on porches all over the neighborhood."}
             />
             <Link href={"/map"} passHref>
-                <BtnStyle.btn>GO TO MAP</BtnStyle.btn>
+                <BtnStyle.btnBottom>GO TO MAP</BtnStyle.btnBottom>
             </Link>
         </div>
     )}
