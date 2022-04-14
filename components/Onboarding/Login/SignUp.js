@@ -24,10 +24,13 @@ export default function SignUp(props) {
     const handleSubmit = () => {
         const emailMatcher = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-        if(password != confirmPassword || !email.toLowerCase().match(emailMatcher)){
+        if(password != confirmPassword){
             setLoginError("Password mismatch")
         }
-        if(password.length < 5){
+        else if(!email.toLowerCase().match(emailMatcher)){
+            setLoginError("Email format is invalid")
+        }
+        else if(password.length < 5){
             setLoginError(["Password Requirements:",<br/>,"At least 5 characters."])
         }
         if(password == confirmPassword && email.toLowerCase().match(emailMatcher) && password.length >= 5){
