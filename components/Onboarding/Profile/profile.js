@@ -5,6 +5,7 @@ import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Router, {useRouter} from "next/router";
 import {backendEndpoint} from "../../../Config";
+import UserAPI from "../../../api/UserAPI";
 
 
 export default function Profile(props) {
@@ -12,98 +13,40 @@ export default function Profile(props) {
     const [email, setEmail] = useState("");
     const [geoTracking, setGeoTracking] = useState(false)
     const [clickDeleteButton, setClickDeleteButton] = useState(false)
+
     useEffect(()=> {
         const data = localStorage.getItem('accessToken');
         if(data){
-            const opts = {
-                method: 'GET',
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Content-Type": "application/json",
-                    Accept: 'application/json',
-                    Authorization: 'Bearer ' + data
-                }
-            }
-            fetch(backendEndpoint + 'user_profile', opts)
-                .then(resp => {
-                    if (resp.status == 200)
-                        return resp;
-                    else console.log("Error")
-                })
-                .then(async data => {
-                    if(data){
-                        const userData = await data.json()
-                        setGeoTracking(userData.trackLocation)
-                        setEmail(userData.email)
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+            UserAPI.getUserProfile(data).then((resp) => {
+                const userData = resp
+                setGeoTracking(userData.trackLocation)
+                setEmail(userData.email)
+            })
         }
     })
     const updateGeoLocationPerms = () => {
         const data = localStorage.getItem('accessToken');
         if(data){
-            const opts = {
-                method: 'GET',
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Content-Type": "application/json",
-                    Accept: 'application/json',
-                    Authorization: 'Bearer ' + data
-                },
-            }
-            fetch(backendEndpoint + 'update_user_geo_tracking', opts)
-                .then(resp => {
-                    if (resp.status == 200)
-                        return resp;
-                    else console.log("Error")
-                })
-                .then(async data => {
-                    if(data){
-                        const geoTracking = await data.json()
-                        setGeoTracking(geoTracking)
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+            UserAPI.updateUserGeoTracking(data).then((resp) => {
+                setGeoTracking(resp)
+            })
         }
     }
 
     const removeTokens = () => {
         localStorage.clear()
     }
+
     const deleteAccountTrue = () =>{
         setClickDeleteButton(!clickDeleteButton)
     }
     const deleteAccount = () => {
         const data = localStorage.getItem('accessToken');
-        console.log("deleted account")
         if(data){
-            const opts = {
-                method: 'POST',
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Content-Type": "application/json",
-                    Accept: 'application/json',
-                    Authorization: 'Bearer ' + data
-                },
-            }
-            fetch(backendEndpoint + 'delete_user', opts)
-                .then(resp => {
-                    if (resp.status == 200)
-                        return resp;
-                    else console.log("Error")
-                })
-                .then(async data => {
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-            localStorage.clear()
-            setClickDeleteButton(!clickDeleteButton)
+            UserAPI.deleteAccount(data).then((resp) => {
+                localStorage.clear()
+                setClickDeleteButton(!clickDeleteButton)
+            })
         }
     }
     return (
@@ -132,9 +75,6 @@ export default function Profile(props) {
 
                 </Styles.infoValue>
             </Styles.infoRow>
-
-
-
 
             <Styles.buttonDiv onClick={deleteAccountTrue}>
                     <Styles.signout>Delete Account</Styles.signout>

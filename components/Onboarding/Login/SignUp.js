@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Router, {useRouter} from "next/router";
 import {backendEndpoint, frontendEndpoint} from "../../../Config";
 import ReactTooltip from 'react-tooltip';
+import RegisterAPI from "../../../api/RegisterAPI";
 
 export default function SignUp(props) {
     const [email, setEmail] = useState("");
@@ -23,41 +24,26 @@ export default function SignUp(props) {
     const handleSubmit = () => {
         const emailMatcher = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-        if(password != confirmPassword || !email.toLowerCase().match(emailMatcher)){
+        if(password != confirmPassword){
             setLoginError("Password mismatch")
         }
-        if(password.length < 5){
+        else if(!email.toLowerCase().match(emailMatcher)){
+            setLoginError("Email format is invalid")
+        }
+        else if(password.length < 5){
             setLoginError(["Password Requirements:",<br/>,"At least 5 characters."])
         }
         if(password == confirmPassword && email.toLowerCase().match(emailMatcher) && password.length >= 5){
-            const opts = {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "email": email,
-                    "password": password,
-                    "geo_Tracking": geoTracking
-                })
-            }
-            fetch(backendEndpoint + 'signup', opts)
-                .then(resp => {
-                    if (resp.status == 201)
-                        return resp;
-                    else setLoginError("Use already created");
-                })
-                .then(async data => {
-                    if(data) {
-                        const tokens = await data.json()
-                        localStorage.setItem('accessToken', tokens.access_token)
-                        localStorage.setItem('refreshToken', tokens.refresh_token)
-                        await Router.push(frontendEndpoint + 'info')
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+            RegisterAPI.signUp(email,password,geoTracking).then((resp)=>{
+                if (resp === 'error')
+                    setLoginError("Use already created")
+                else{
+                    const tokens = resp
+                    localStorage.setItem('accessToken', tokens.access_token)
+                    localStorage.setItem('refreshToken', tokens.refresh_token)
+                    Router.push(frontendEndpoint + 'info')
+                }
+            })
         }
     }
     return (

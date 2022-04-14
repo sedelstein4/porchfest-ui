@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Header, {updatedLikedArtists} from "../components/Navigation/Header";
 import Default from "../layouts/default";
 import * as Styles from "../components/Saved/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -7,7 +6,6 @@ import {faAngleRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import Router from "next/router";
-import {backendEndpoint, frontendEndpoint} from "../Config";
 import UserAPI from "../api/UserAPI";
 
 export default function Saved(data) {
@@ -18,30 +16,17 @@ export default function Saved(data) {
     useEffect(()=> {
         if(!isDataLoaded && localStorage.getItem('accessToken')) {
             const token = localStorage.getItem('accessToken');
-            const opts = {
-                headers: {
-                    Authorization: 'Bearer ' + token
+            UserAPI.getUserSavedArtists(token).then((resp) => {
+                if(resp  === '401' && localStorage.getItem('refreshToken')) {
+                    UserAPI.getNewToken(localStorage.getItem('refreshToken')).then((resp) => {
+                        const data = resp
+                        localStorage.setItem('accessToken',data.access_token)
+                        Router.reload()
+                    })
+                }else{
+                    setSavedArtists(resp)
                 }
-            }
-            fetch(backendEndpoint + 'get_user_saved_artists', opts)
-                .then(resp => {
-                    if (resp.status == 200) return resp.json();
-
-                    if(resp.status === 401 && localStorage.getItem('refreshToken')) {
-                        UserAPI.getNewToken(localStorage.getItem('refreshToken')).then((resp) => {
-                            const data = resp
-                            localStorage.setItem('accessToken',data.access_token)
-                            Router.reload()
-                        })
-                    }
-                    else Router.push(frontendEndpoint + 'browse')
-                })
-                .then(data => {
-                    setSavedArtists(data)
-                })
-                .catch(error => {
-                    console.error(error);
-                })
+            })
             setDataLoaded(true)
             setLoggedInUser(true)
         }

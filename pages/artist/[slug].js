@@ -8,6 +8,7 @@ import {faGlobe} from "@fortawesome/free-solid-svg-icons";
 import Default from "../../layouts/default";
 import Saved from "../saved";
 import {backendEndpoint} from "../../Config";
+import ArtistAPI from "../../api/ArtistAPI";
 
 const ArtistImageDiv = styled.div`
   display: block;
@@ -63,27 +64,6 @@ const ArtistAbout = styled.p`
   text-align: center;
   font-size: 1.25em;
 `
-
-async function getArtistWithUser(slug,token) {
-
-    const opts = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Accept: 'application/json',
-        },
-        body: JSON.stringify({
-            "access_token": token,
-        })
-    }
-
-    const res = await fetch(backendEndpoint + `artist/${slug}`, opts)
-    const data = await res.json()
-    return data.liked
-
-}
-
 const Artist = ({ data }) => {
     return (
         <div className="content">
@@ -121,11 +101,18 @@ export async function getStaticPaths() {
         body: JSON.stringify({type: type}),
     });
     const names = await res.json()
+    const paths = names.map(name => ({params: {slug: name.url_slug}}));
+    return {paths, fallback: false}
 
+    // ArtistAPI.getArtists(type).then((artistData) => {
+    //     console.log(artistData)
+    //     const names = artistData
+    //     const paths = names.map(name => ({ params: { slug: name.url_slug } }));
+    //     return { paths, fallback: false }
+    // })
     // const paths = names.map(url_slug => `/artist/${url_slug}`)
-    const paths = names.map(name => ({ params: { slug: name.url_slug } }));
 
-    return { paths, fallback: false }
+
 }
 export async function getStaticProps({ params }) {
     const { slug } = params
