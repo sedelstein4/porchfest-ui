@@ -133,7 +133,7 @@ export const LikeBtn = styled.div`
   justify-content: flex-end;
   
   .filled-heart{
-    color: #F85858;
+    color: var(--heart-red);
   }
   
 `

@@ -25,7 +25,6 @@ export const backToHome = styled.div`
     margin: 3rem 0 0;
 `
 
-
 // cardrow
 export const rowContainer = styled.div`
   margin-bottom: 25px;
@@ -94,7 +93,6 @@ export const cardContainer = styled.div`
     width: 100px;
     height: 100px;
   }
-}
 
   img {
     border-radius: 3px;
@@ -102,8 +100,8 @@ export const cardContainer = styled.div`
     object-fit: cover;
     object-position: top center;
   }
-
 `
+
 export const img = styled.div`
   //margin:5px;
     
@@ -140,7 +138,6 @@ export const resultContainer = styled.div`
       border-radius: 50%;
       border: 1px solid var(--grey-dark);
       margin-right: 15px;
-      //margin: 18px 24px 16px 12px;
     }
   `
 

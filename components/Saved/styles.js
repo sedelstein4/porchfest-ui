@@ -39,7 +39,7 @@ export const LikeBtn = styled.div`
   margin-right: 20px;
   
   .filled-heart{
-    color: #F85858;
+    color: var(--heart-red);
   }
 
   svg{

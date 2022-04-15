@@ -58,6 +58,7 @@ export const backBtn = styled.div`
 
   svg{
     width:40px !important;
+    height:40px !important;
     margin:20px 0;
     
   }

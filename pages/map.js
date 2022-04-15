@@ -15,6 +15,8 @@ import {Modal} from "@mantine/core";
 import Navigation from "../components/Navigation/Navigation"
 import {backendEndpoint} from "../Config";
 import UserAPI from "../api/UserAPI";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHeart} from "@fortawesome/free-solid-svg-icons";
 
 const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2VkZWxzdGVpbjQiLCJhIjoiY2wwNjFtM2YxMjNmaTNrbmZyeXp3Nm5uciJ9.Wit4Sb6saoQxekjXLZD-kw'; // Set your mapbox token here
 
@@ -42,21 +44,30 @@ export default function MapPage({ porchData}) {
     const [openNormal, setOpenNormal] = useState(false);
     const [openBlurred, setOpenBlurred] = useState(false);
     const [blurred, setBlurred] = useState(false);
-    const [geoTracking, setGeoTracking] = useState(false)
+    const [geoTracking, setGeoTracking] = useState(false);
+    const [savedArtists, setSavedArtists] = useState("");
+    const [isDataLoaded, setDataLoaded] = useState(false);
     let isBlurred;
     if (blurred) isBlurred = blurStyle;
 
+    //Get data and do tracking
     useEffect(()=> {
         const data = localStorage.getItem('accessToken');
-        if(data){
+        if (!data){
+            setDataLoaded(true)
+            setSavedArtists("empty")
+        }
+        if(data && !isDataLoaded){
             UserAPI.getUserProfile(data).then((resp) => {
-                const userData = resp
-                setGeoTracking(userData.trackLocation)
+                setGeoTracking(resp.trackLocation)
             })
+            UserAPI.getUserSavedArtists(data).then((saved) => {
+                setSavedArtists(JSON.stringify(saved))
+            })
+            setDataLoaded(true)
         }
         if ('geolocation' in navigator && geoTracking) {
             navigator.geolocation.watchPosition(function(position) {
-                //console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
                 checkProximity(position.coords.latitude, position.coords.longitude);
             });
         }
@@ -71,7 +82,6 @@ export default function MapPage({ porchData}) {
         imageSource = porchData[5][i];
         if (type === "normal"){
             setOpenNormal(true);
-
         }
         else if (type === "blurred"){
             setOpenBlurred(true);
@@ -100,24 +110,28 @@ export default function MapPage({ porchData}) {
     }
 
     function GenerateMarkers(){
-        //console.log(porchData);
-        let markerList =[];
-        for (let i = 0; i < porchData[0].length; i++){
-            markerList.push(
-                <Marker
-                    key={i}
-                    color={colorMarker(porchData[3][i].slice(0,2))}
-                    latitude = {porchData[0][i][0]}
-                    longitude = {porchData[0][i][1]}
-                    onClick={() =>
-                        openModal(i, "normal")
-                    }
-                >
-                </Marker>
-            )
+        if(isDataLoaded && savedArtists.length > 0){
+            let markerList = [];
+            for (let i = 0; i < porchData[0].length; i++) {
+                //if the user has this artist saved, make it red. Otherwise follow normal color gradient
+                let markerColor = savedArtists.includes(porchData[1][i]) ? "var(--heart-red)" : colorMarker(porchData[3][i].slice(0, 2));
+                markerList.push(
+                    <Marker
+                        key={i}
+                        color={markerColor}
+                        latitude={porchData[0][i][0]}
+                        longitude={porchData[0][i][1]}
+                        onClick={() =>
+                            openModal(i, "normal")
+                        }
+                    >
+                    </Marker>
+                )
+            }
+            return markerList;
         }
-        return markerList;
     }
+
     //https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
     //Haversine Formula
     function getDistanceFromLatLngInKm(lat1, lon1, lat2, lon2) {

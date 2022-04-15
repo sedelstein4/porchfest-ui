@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
         --grey-mid: #C9C9C9;
         --grey-light: #eee;
         --white: #fff;
+        --heart-red: #F85858;
         --shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         --shadow-hover: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         
