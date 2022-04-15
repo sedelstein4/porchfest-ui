@@ -114,20 +114,21 @@ export default function Search(data) {
                 {searchData.genres && searchData.genres.length? searchData.genres.slice(0).map((genre, i) => {
                     return (
                             <Styles.searchItem key={genre.genre.id}>
+                                <Link href="/genre/[slug]" as={`/genre/${genre.genre.slug}`}
+                                      passHref>
+                                    <a>
                                 <img
                                     src={"/images/profile.jpeg"}
                                 />
                                 <div>
-                                    <Link href="/genre/[slug]" as={`/genre/${genre.genre.slug}`}
-                                          passHref>
-                                        <a>
                                     <Styles.resultName>{genre.genre.name}</Styles.resultName>
-                                        </a>
-                                    </Link>
+
                                 </div>
                                 <Styles.resultIcon>
                                     <FontAwesomeIcon icon={faAngleRight}/>
                                 </Styles.resultIcon>
+                                    </a>
+                                </Link>
                             </Styles.searchItem>
                     )
                 }) : <h4>No genres found.</h4>}
