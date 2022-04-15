@@ -31,6 +31,19 @@ export default function Saved(data) {
             setLoggedInUser(true)
         }
     })
+    function handleLikeClick(artistID) {
+        const token = localStorage.getItem('accessToken');
+        UserAPI.updateUserToArtist(artistID, token).then((resp) => {
+            if(resp === '401' && localStorage.getItem('refreshToken')) {
+                UserAPI.getNewToken(localStorage.getItem('refreshToken')).then((resp) => {
+                    const data = resp
+                    localStorage.setItem('accessToken',data.access_token)
+                    Router.reload()
+                })
+            }
+            setDataLoaded(false)
+        })
+    }
     return (
         <div className="content">
             <Head>
@@ -42,7 +55,7 @@ export default function Saved(data) {
                 {savedArtists.length > 0 && isDataLoaded ? savedArtists.slice(0).map((artist, i) => {
                     return (
                         <Styles.searchItem key={artist.id}>
-                            <Styles.LikeBtn>
+                            <Styles.LikeBtn onClick={() => handleLikeClick(artist.id)}>
                                <FontAwesomeIcon icon={faHeart} className="filled-heart"/>
                             </Styles.LikeBtn>
                             <Link href="/artist/[slug]" as={`/artist/${artist.url_slug}`} passHref>
