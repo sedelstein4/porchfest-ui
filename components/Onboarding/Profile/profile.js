@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Router, {useRouter} from "next/router";
-import {backendEndpoint} from "../../../Config";
+import {backendEndpoint, frontendEndpoint} from "../../../Config";
 import UserAPI from "../../../api/UserAPI";
 
 
@@ -53,7 +53,7 @@ export default function Profile(props) {
         <Styles.container>
             <Styles.header>
                 <Link href={"/info"} passHref>
-                    <Styles.backBtn onClick={() => router.back()}>
+                    <Styles.backBtn onClick={() => Router.push(frontendEndpoint + 'info')}>
                         <FontAwesomeIcon icon={faArrowLeft}/>
                     </Styles.backBtn>
                 </Link>

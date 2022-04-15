@@ -19,6 +19,9 @@ export default function SignUp(props) {
 
     useEffect(() => {
         setIsMounted(true);
+        if(password === ""){
+            setLoginError("")
+        }
     });
 
     const handleSubmit = () => {
