@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import * as Styles from './styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faArrowLeft, faHeart, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faArrowLeft, faHeart, faMapMarked, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
+import {faHeart as farHeart} from '@fortawesome/free-regular-svg-icons'
 import Router, {useRouter} from "next/router";
 import UserAPI from "../../api/UserAPI";
 import ArtistAPI from "../../api/ArtistAPI";
+
 export default function Header(props) {
     const router = useRouter()
     const [heartOutline, heartFilled] = useState();
@@ -19,7 +20,7 @@ export default function Header(props) {
         }
         if (localStorage.getItem('accessToken')) {
             const token = localStorage.getItem('accessToken');
-            if (!dataLoaded && props.slug != undefined) {
+            if (!dataLoaded && props.slug !== undefined) {
                 ArtistAPI.getArtistLikedToUser(props.slug,token).then(async (resp) => {
                     heartFilled(resp.liked)
 
@@ -39,8 +40,7 @@ export default function Header(props) {
         UserAPI.updateUserToArtist(props.artistID, token).then((resp) => {
             if(resp === '401' && localStorage.getItem('refreshToken')) {
                 UserAPI.getNewToken(localStorage.getItem('refreshToken')).then((resp) => {
-                    const data = resp
-                    localStorage.setItem('accessToken',data.access_token)
+                    localStorage.setItem('accessToken',resp.access_token)
                     Router.reload()
                 })
             }
@@ -61,6 +61,11 @@ export default function Header(props) {
             {shallow: false}
         );
     }
+
+    function filterHandler(){
+        //TODO
+    }
+
     return (
             <Styles.TopContainer>
                 <Styles.BackBtn show={props.pageType === "artist" || props.pageType === "genre"} onClick={() => router.back()}>
@@ -85,7 +90,7 @@ export default function Header(props) {
                                     name="sort"
                                     id="alphabetical"
                                     onClick={() => sortHandler()}
-                                    defaultChecked={sort_type == "alphabetical"}
+                                    defaultChecked={sort_type === "alphabetical"}
                                 />
                                 <Styles.ButtonLabel htmlFor="alphabetical">Alphabetical</Styles.ButtonLabel>
                             </div>
@@ -96,7 +101,7 @@ export default function Header(props) {
                                     name="sort"
                                     id="genre"
                                     onClick={() => sortHandler()}
-                                    defaultChecked={sort_type == "genre"}
+                                    defaultChecked={sort_type === "genre"}
                                 />
                                 <Styles.ButtonLabel htmlFor="genre">Genres</Styles.ButtonLabel>
                             </div>
@@ -105,9 +110,11 @@ export default function Header(props) {
                     : props.pageType === "artist" && loggedInUser ?
                     <Styles.LikeBtn onClick={() => handleLikeClick()}>
                         {heartOutline ? <FontAwesomeIcon icon={faHeart} className="filled-heart"/> : <FontAwesomeIcon icon={farHeart}/>}
-                    </Styles.LikeBtn>
+                    </Styles.LikeBtn> : props.pageType === "map" ?
+                            <Styles.SortBtn onClick={() => filterHandler()}>
+                                <FontAwesomeIcon icon={faMapMarked}/>
+                            </Styles.SortBtn>
                         : null}
-
             </Styles.TopContainer>
         )
 }

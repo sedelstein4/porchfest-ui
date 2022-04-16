@@ -17,6 +17,7 @@ import {backendEndpoint} from "../Config";
 import UserAPI from "../api/UserAPI";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
+import Header from "../components/Navigation/Header";
 
 const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2VkZWxzdGVpbjQiLCJhIjoiY2wwNjFtM2YxMjNmaTNrbmZyeXp3Nm5uciJ9.Wit4Sb6saoQxekjXLZD-kw'; // Set your mapbox token here
 
@@ -95,17 +96,17 @@ export default function MapPage({ porchData}) {
         switch(hour){
             default:
             case 11:
-                return "#3fb1ce"
+                return "#FFF534"
             case 12:
-                return "#3f8ece"
+                return "#FBD032"
             case 1:
-                return "#3f68ce"
+                return "#F8AB30"
             case 2:
-                return "#4d3fce"
+                return "#F4852F"
             case 3:
-                return "#783fce"
+                return "#F1602D"
             case 4:
-                return "#9a3fce"
+                return "#ED3B2B"
         }
     }
 
@@ -175,11 +176,12 @@ export default function MapPage({ porchData}) {
     }
 
     return (
-        <div>
+        <div style={{marginTop:"64px", marginBottom:"60px"}}>
             <Head>
                 <title>Porchfest Map</title>
             </Head>
             <div style={isBlurred}>
+            <Header title={"Porchfest Map"} pageType={"map"}/>
                 <Map
                     initialViewState={{
                         //Ithaca coords:
@@ -189,10 +191,8 @@ export default function MapPage({ porchData}) {
                         latitude: 42.541604,
                         longitude: -76.660557,
                         zoom: 14,
-                        width: "100%",
-                        height: "100vh"
                     }}
-                    style={{height: "calc(100vh - 69px)", //navbar has 69px height
+                    style={{height: "calc(100vh - 132px)",
                         width: "100%",
                     }}
                     mapStyle="mapbox://styles/mapbox/streets-v9"
