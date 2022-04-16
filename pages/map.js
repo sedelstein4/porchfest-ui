@@ -128,7 +128,7 @@ export default function MapPage({ porchData}) {
                     >
                         {savedArtists.includes(porchData[1][i]) ?
                             <div style={{color:markerColor}}>
-                                <FontAwesomeIcon icon={faHeart} style={{width:"25px", height:"25px"}}/>
+                                <FontAwesomeIcon icon={faHeart} style={{width:"28px", height:"28px"}}/>
                             </div>
                         : null}
 

@@ -81,7 +81,7 @@ export const Hometown = styled.h3`
 export const SortBtn = styled.div`
   color: white;
   margin-left: auto;
-  margin-right: 10px;
+  margin-right: 15px;
   align-self: center;
 `
 

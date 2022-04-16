@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import * as Styles from './styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faArrowLeft, faHeart, faMapMarked, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faHeart, faMapMarked, faSearch, faSortAmountDown} from "@fortawesome/free-solid-svg-icons";
 import {faHeart as farHeart} from '@fortawesome/free-regular-svg-icons'
 import Router, {useRouter} from "next/router";
 import UserAPI from "../../api/UserAPI";
 import ArtistAPI from "../../api/ArtistAPI";
+import Link from "next/link";
 
 export default function Header(props) {
     const router = useRouter()
@@ -68,7 +69,7 @@ export default function Header(props) {
 
     return (
             <Styles.TopContainer>
-                <Styles.BackBtn show={props.pageType === "artist" || props.pageType === "genre"} onClick={() => router.back()}>
+                <Styles.BackBtn show={props.pageType === "artist" || props.pageType === "genre" || props.pageType === "search"} onClick={() => router.back()}>
                     <FontAwesomeIcon icon={faArrowLeft}/>
                 </Styles.BackBtn>
                 <Styles.PageInfo>
@@ -79,7 +80,12 @@ export default function Header(props) {
                 </Styles.PageInfo>
                 {props.pageType === "browse" ?
                     <>
-                    <Styles.SortBtn onClick={() => sortHandler()}>
+                        <Link href="/search" passHref>
+                            <Styles.SortBtn>
+                                <FontAwesomeIcon icon={faSearch} />
+                            </Styles.SortBtn>
+                        </Link>
+                    <Styles.SortBtn onClick={() => sortHandler()} style={{marginLeft:"15px"}}>
                         <FontAwesomeIcon icon={faSortAmountDown}/>
                        </Styles.SortBtn>
                         <Styles.SortDropdown show={noDropdown}>
