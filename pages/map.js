@@ -114,8 +114,8 @@ export default function MapPage({ porchData}) {
         if(isDataLoaded && savedArtists.length > 0){
             let markerList = [];
             for (let i = 0; i < porchData[0].length; i++) {
-                //if the user has this artist saved, make it red. Otherwise follow normal color gradient
-                let markerColor = savedArtists.includes(porchData[1][i]) ? "var(--heart-red)" : colorMarker(porchData[3][i].slice(0, 2));
+                //let markerColor = savedArtists.includes(porchData[1][i]) ? "var(--heart-red)" : colorMarker(porchData[3][i].slice(0, 2));
+                let markerColor = colorMarker(porchData[3][i].slice(0, 2));
                 markerList.push(
                     <Marker
                         key={i}
@@ -126,6 +126,12 @@ export default function MapPage({ porchData}) {
                             openModal(i, "normal")
                         }
                     >
+                        {savedArtists.includes(porchData[1][i]) ?
+                            <div style={{color:markerColor}}>
+                                <FontAwesomeIcon icon={faHeart} style={{width:"25px", height:"25px"}}/>
+                            </div>
+                        : null}
+
                     </Marker>
                 )
             }
@@ -152,6 +158,9 @@ export default function MapPage({ porchData}) {
     function checkProximity(userLat, userLng){
         let dist = 1000;
         let porchIdx = -1;
+        let hours = new Date();
+        hours = hours.getHours();
+        hours = makeTimeStr(hours) + " - " + makeTimeStr(hours + 1);
 
         //loop through porchData coords, find closest to user location
         for (let i = 0; i < porchData[0].length; i++){
@@ -164,7 +173,7 @@ export default function MapPage({ porchData}) {
             }
         }
         if (porchIdx !== -1){
-            if(dist < 0.008){ //within 8 meters
+            if(dist < 0.008 && porchData[3][porchIdx] === hours ){ //within 8 meters and is playing in current time slot
                 setBlurred(true);
                 openModal(porchIdx, "blurred");
             }
@@ -288,14 +297,14 @@ export async function getStaticProps() {
         artistData.events.map((porches, i) => {
             coords.push([porches.latitude, porches.longitude])
             addrs.push(porches.address)
-            //strip everything from time except hour number, assumes datetime in backend is in 24 hour format and already EST?
+            //strip everything from time except hour number, assumes datetime in backend is in 24 hour format and already EST
             let hours = parseInt(porches.time.split(" ")[4].slice(0,2))
-            //TODO timezone?
             //generates a string in this format (example): 11am - 12pm
             let timeStr = makeTimeStr(hours) + " - " + makeTimeStr(hours+1)
             times.push(timeStr)
         });
     });
+
     let porchData = [coords, names, addrs, times, abouts, photos]
 
     return {
