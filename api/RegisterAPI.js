@@ -60,14 +60,15 @@ const RegisterAPI = {
             })
         })
             .then(res => {
+                console.log(res)
             if (res.status === 200) {
                 return '200'
             }else{
-                return 'error'
+                return '404'
             }
         })
             .catch(error => {
-                console.error(error);
+                // console.error(error);
             })
     }
 

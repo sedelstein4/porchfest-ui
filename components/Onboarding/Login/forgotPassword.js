@@ -9,23 +9,20 @@ import RegisterAPI from "../../../api/RegisterAPI";
 
 export const ForgotPasswordPage = () => {
     const [email, setEmail] = useState("");
-    const [confirmEmail, setconfirmEmail] = useState("")
-    const [loginError,setLoginError] = useState("")
     const [emailSent,setEmailSent] = useState()
 
     const handleSubmit = () => {
         const emailMatcher = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-        if(email != confirmEmail || !email.toLowerCase().match(emailMatcher)){
-            setLoginError("Email mismatch")
-        }
-        if(email == confirmEmail && email.toLowerCase().match(emailMatcher)) {
+
+        if(email.toLowerCase().match(emailMatcher)) {
             RegisterAPI.sendPasswordReset(email).then((resp) =>{
-                if (resp === '200') {
-                    setEmailSent("If email is found you will receive an email to reset password")
+                if (resp === '404') {
+                    setEmailSent("Email not found")
+                }
+                else if (resp === '200') {
+                    setEmailSent("Email found and sent")
                     //Router.push('http://localhost:3000/login')
-                }else {
-                    setEmailSent("Something went wrong")
                 }
             })
         }
@@ -45,20 +42,13 @@ export const ForgotPasswordPage = () => {
                     type={"text"}
                     id={"email"}
                     name={"email"}
-                    placeholder={"EMAIL"}
+                    placeholder={"EMAIL:"}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <input
-                    type={"text"}
-                    id={"email"}
-                    name={"email"}
-                    placeholder={"RE-ENTER EMAIL"}
-                    value={confirmEmail}
-                    onChange={(e) => setconfirmEmail(e.target.value)}
-                />
+
                 </Styles.inputFields>
-                {loginError && loginError !="" ? <Styles.loginNotice>{loginError}</Styles.loginNotice> : <Styles.loginNotice>{emailSent}</Styles.loginNotice>}
+                <Styles.loginNotice>{emailSent}</Styles.loginNotice>
                 <Styles.signUpBtn onClick={handleSubmit}>Reset Password</Styles.signUpBtn>
 
             </Styles.container>
