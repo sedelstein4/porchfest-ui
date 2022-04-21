@@ -15,7 +15,8 @@ export const title = styled.div`
 export const btn = styled.button`
   display:flex;
   color: var(--main);
-  background: var(--secondary);
+  //background: var(--secondary);
+  background: none;
   border: 2px solid var(--grey-middark);
   border-radius: 5px;
   padding: 15px 30px;
@@ -29,9 +30,15 @@ export const btn = styled.button`
 `
 
 export const btnGuest = styled(btn)`
-  background: none;
+  background: #efefef;
 `
 //for buttons that are close to the bottom of the screen and would otherwise be hidden by the nav
 export const btnBottom = styled(btn)`
     margin-bottom: 75px;
 `
+
+export const slideshowContainer = styled.div`
+    margin: 0 auto;
+    max-width: 550px;
+    //height: 400px;
+    `
