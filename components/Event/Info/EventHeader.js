@@ -35,7 +35,6 @@ export default function EventHeader(props) {
                 </Link>
                 )}
 
-
         </Styles.TopContainer>
     )
 }

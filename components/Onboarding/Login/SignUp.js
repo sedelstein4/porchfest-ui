@@ -27,7 +27,7 @@ export default function SignUp(props) {
     const handleSubmit = () => {
         const emailMatcher = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-        if(password != confirmPassword){
+        if(password !== confirmPassword){
             setLoginError("Password mismatch")
         }
         else if(!email.toLowerCase().match(emailMatcher)){
@@ -36,7 +36,7 @@ export default function SignUp(props) {
         else if(password.length < 5){
             setLoginError(["Password Requirements:",<br/>,"At least 5 characters."])
         }
-        if(password == confirmPassword && email.toLowerCase().match(emailMatcher) && password.length >= 5){
+        if(password === confirmPassword && email.toLowerCase().match(emailMatcher) && password.length >= 5){
             RegisterAPI.signUp(email,password,geoTracking).then((resp)=>{
                 if (resp === 'error')
                     setLoginError("Use already created")
@@ -100,7 +100,7 @@ export default function SignUp(props) {
                         </Styles.toolTip>
                     </span>
                 </Styles.infoRow>
-                    {loginError && loginError !="" ? <Styles.loginNotice>{loginError}</Styles.loginNotice> : ""}
+                    {loginError && loginError !=="" ? <Styles.loginNotice>{loginError}</Styles.loginNotice> : ""}
 
                     <Styles.signUpBtn onClick={handleSubmit}>SIGN UP</Styles.signUpBtn>
             </Styles.container>

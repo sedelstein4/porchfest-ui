@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React from "react";
 import SignUp from "../components/Onboarding/Login/SignUp"
-import Header from "../components/Navigation/Header";
 
 export default function Register() {
     return (
@@ -13,6 +12,4 @@ export default function Register() {
             <SignUp/>
         </div>
     )
-
-
 }

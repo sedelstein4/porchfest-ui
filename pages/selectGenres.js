@@ -30,12 +30,6 @@ export default function selectGenres(data) {
                             <Link href={"info"} passHref>
                                 <button>CONTINUE</button>
                             </Link>
-                            {/*<input*/}
-                            {/*    type={"submit"}*/}
-                            {/*    id={"submit"}*/}
-                            {/*    name={"continue"}*/}
-                            {/*    value={"CONTINUE"}*/}
-                            {/*/>*/}
                         </Styles.buttonBar>
                     </form>
                 </Styles.Checklist>

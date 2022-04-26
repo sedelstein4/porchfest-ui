@@ -79,7 +79,7 @@ export default function Saved(data) {
                 <Styles.homeContainer>
                     <h4>Create an account to use this feature!</h4>
                     <Link href={"/"} passHref>
-                        <Styles.btn>Sign up</Styles.btn>
+                        <Styles.btn>Sign in / Sign up</Styles.btn>
                     </Link>
                 </Styles.homeContainer>
 

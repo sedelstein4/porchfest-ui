@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Header from "../components/Navigation/Header";
 import * as Styles from "../components/Search/styles"
 import {faAngleRight, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -10,7 +9,7 @@ import {backendEndpoint} from "../Config";
 
 async function handleSearchChange(e,location) {
     let searchKeyWord
-    if (location == 'old') {
+    if (location === 'old') {
         searchKeyWord = e
         localStorage.setItem('searchKeyWord', e)
     } else {
@@ -48,7 +47,7 @@ export default function Search(data) {
         setDataLoaded(true)
     })
     async function refresh(e) {
-        if(e.target.value.length == 0){
+        if(e.target.value.length === 0){
             localStorage.removeItem('searchKeyWord')
             setSearchData({})
         }else{

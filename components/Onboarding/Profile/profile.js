@@ -76,6 +76,14 @@ export default function Profile(props) {
                 </Styles.infoValue>
             </Styles.infoRow>
 
+            <Styles.buttonDiv onClick={removeTokens}>
+                <Link href={"/"} passHref>
+                    <Styles.signout>Sign out</Styles.signout>
+                </Link>
+            </Styles.buttonDiv>
+            {/*<Styles.buttonDiv>*/}
+            {/*        <Styles.signout>Contact form</Styles.signout>*/}
+            {/*</Styles.buttonDiv>*/}
             <Styles.buttonDiv onClick={deleteAccountTrue}>
                     <Styles.signout>Delete Account</Styles.signout>
             </Styles.buttonDiv>
@@ -84,13 +92,6 @@ export default function Profile(props) {
                 <Styles.signout>Delete Account?</Styles.signout>
                 </Link>
             </Styles.buttonDiv> :  null}
-
-
-            <Styles.buttonDiv onClick={removeTokens}>
-                <Link href={"/"} passHref>
-                    <Styles.signout>SIGN OUT</Styles.signout>
-                </Link>
-            </Styles.buttonDiv>
 
         </Styles.container>
         

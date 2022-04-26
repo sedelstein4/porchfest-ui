@@ -16,28 +16,6 @@ export const container = styled.div`
         align-content: center;
         align-items: stretch;
       }
-    
-      //input[type=submit], input[type=text], input[type=password] {
-      //  border: 2px solid var(--grey-middark);
-      //  border-radius:4px;
-      //  text-align: left;
-      //  padding:15px 0 15px 12px;
-      //  margin-bottom:20px;
-      //  width: 85%;
-      //  max-width: 550px;
-      //  font-size: smaller;
-      //  font-weight: bold;
-      //}
-
-      //input[type=submit]{
-      //  background: var(--main);
-      //  border-color: var(--black);
-      //  text-align: center;
-      //  color: white;
-      //  width:100%;
-      //  max-width: 565px;
-      //  padding-left:0;
-      //}
   
       input:focus{
         border: 2px solid var(--grey-mid);
@@ -71,7 +49,6 @@ export const infoType = styled.div`
 export const infoRow = styled.div`
   display:flex;
   align-items: center;
-  //border-bottom: 2px solid #dedede;
   padding-top:2px;
   justify-content: space-between;
 `
@@ -87,7 +64,6 @@ export const infoValue = styled.div`
 `
 
 export const inputFields = styled.div`
-
   input[type=submit], input[type=text], input[type=password] {
     border: 2px solid var(--grey-middark);
     border-radius:4px;

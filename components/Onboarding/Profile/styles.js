@@ -73,11 +73,10 @@ export const signout = styled.button`
   
   width:90%;
   max-width:565px;
-  margin: 30px 20px;
+  margin: 30px 20px 0;
   padding: 15px 0 15px;
 `
 
 export const buttonDiv = styled.div`
     text-align: center;
-    //if adding more buttons, may need to add display:flex and needed properties
     `

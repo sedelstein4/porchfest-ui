@@ -32,9 +32,7 @@ export const NavLink = styled.a`
     height: 30px !important;
     margin-bottom: 5px;
   }
-  
 `
-
 export const backToHome = styled.div` 
     margin: 3rem 0 0;
 `
