@@ -48,15 +48,22 @@ export default function MapPage({ porchData}) {
     const [geoTracking, setGeoTracking] = useState(false);
     const [savedArtists, setSavedArtists] = useState("");
     const [isDataLoaded, setDataLoaded] = useState(false);
+    const [filterType, setFilterType] = useState("")
     let isBlurred;
     if (blurred) isBlurred = blurStyle;
 
-    //Get data and do tracking
     useEffect(()=> {
         const data = localStorage.getItem('accessToken');
-        if (!data){
+        const f = localStorage.getItem('filter_type');
+        if(f !== undefined && f !== null){
+            setFilterType(localStorage.getItem('filter_type'))
+        }
+        else{
+            setFilterType("all")
+        }
+        if (!data){ //if getting user data failed or not logged in
             setDataLoaded(true)
-            setSavedArtists("empty")
+            setSavedArtists("empty") //no saved artists
         }
         if(data && !isDataLoaded){
             UserAPI.getUserProfile(data).then((resp) => {
@@ -92,7 +99,6 @@ export default function MapPage({ porchData}) {
     //return a color to color marker based on starting hour of marker/artist playing time
     function colorMarker(hour){
         hour = parseInt(hour);
-        //TODO get current hour, base cases below on hours until the marker hour?
         switch(hour){
             default:
             case 11:
@@ -114,26 +120,49 @@ export default function MapPage({ porchData}) {
         if(isDataLoaded && savedArtists.length > 0){
             let markerList = [];
             for (let i = 0; i < porchData[0].length; i++) {
-                //let markerColor = savedArtists.includes(porchData[1][i]) ? "var(--heart-red)" : colorMarker(porchData[3][i].slice(0, 2));
                 let markerColor = colorMarker(porchData[3][i].slice(0, 2));
-                markerList.push(
-                    <Marker
-                        key={i}
-                        color={markerColor}
-                        latitude={porchData[0][i][0]}
-                        longitude={porchData[0][i][1]}
-                        onClick={() =>
-                            openModal(i, "normal")
-                        }
-                    >
-                        {savedArtists.includes(porchData[1][i]) ?
-                            <div style={{color:markerColor}}>
-                                <FontAwesomeIcon icon={faHeart} style={{width:"28px", height:"28px"}}/>
-                            </div>
-                        : null}
+                switch(filterType){
+                    case 'all':
+                    case porchData[3][i]: //if current porch's time is equal to set filter display it
+                        markerList.push(
+                            <Marker
+                                key={i}
+                                color={markerColor}
+                                latitude={porchData[0][i][0]}
+                                longitude={porchData[0][i][1]}
+                                onClick={() =>
+                                    openModal(i, "normal")
+                                }
+                            >
+                                {savedArtists.includes(porchData[1][i]) ?
+                                    <div style={{color:markerColor}}>
+                                        <FontAwesomeIcon icon={faHeart} style={{width:"28px", height:"28px"}}/>
+                                    </div>
+                                : null}
 
-                    </Marker>
-                )
+                            </Marker>
+                        )
+                        break;
+                    case 'saved': //only show saved artists
+                        if (savedArtists.includes(porchData[1][i])){
+                            markerList.push(
+                                <Marker
+                                    key={i}
+                                    color={markerColor}
+                                    latitude={porchData[0][i][0]}
+                                    longitude={porchData[0][i][1]}
+                                    onClick={() =>
+                                        openModal(i, "normal")
+                                    }
+                                >
+                                <div style={{color:markerColor}}>
+                                    <FontAwesomeIcon icon={faHeart} style={{width:"28px", height:"28px"}}/>
+                                </div>
+                                </Marker>
+                            )
+                        }
+                        break;
+                }
             }
             return markerList;
         }
