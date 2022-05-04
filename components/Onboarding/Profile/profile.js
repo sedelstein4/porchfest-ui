@@ -89,7 +89,7 @@ export default function Profile(props) {
             </Styles.buttonDiv>
             {clickDeleteButton ?  <Styles.buttonDiv onClick={deleteAccount}>
                 <Link href={"/"} passHref>
-                <Styles.signout>Delete Account?</Styles.signout>
+                <Styles.signoutTwo>Delete Account?</Styles.signoutTwo>
                 </Link>
             </Styles.buttonDiv> :  null}
 

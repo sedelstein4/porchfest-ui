@@ -77,6 +77,20 @@ export const signout = styled.button`
   padding: 15px 0 15px;
 `
 
+export const signoutTwo = styled.button`
+  color: var(--white);
+  background: red;
+  border: 2px solid var(--black);
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.9em;
+  
+  width:90%;
+  max-width:565px;
+  margin: 30px 20px;
+  padding: 15px 0 15px;
+`
+
 export const buttonDiv = styled.div`
     text-align: center;
     `
