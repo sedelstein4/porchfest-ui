@@ -16,9 +16,11 @@ export default function Header(props) {
     const [loggedInUser, setLoggedInUser] = useState(false)
     const [sort_type, setSortType] = useState("")
     const [filter_type, setFilterType] = useState("")
-    useEffect(async () => {
+    useEffect(() => {
         if (localStorage.getItem('sort_type')) {
             setSortType(localStorage.getItem('sort_type'))
+        }else{
+            setSortType("genre")
         }
         if (localStorage.getItem('filter_type')){
             setFilterType(localStorage.getItem('filter_type'))
