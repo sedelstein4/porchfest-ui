@@ -1,3 +1,4 @@
+export const GeoBlurScreen = process.env.Geo_Blur_Screen
 import * as React from 'react';
 import Head from 'next/head';
 import Map, {
@@ -152,7 +153,7 @@ export default function MapPage({ porchData}) {
             }
         }
         if (porchIdx !== -1){
-            if(dist < 0.04){ //within 8 meters
+            if(dist < 0.04 && GeoBlurScreen){ //within 8 meters
                 setBlurred(true);
                 openModal(porchIdx, "blurred");
             }
