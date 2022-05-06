@@ -125,11 +125,13 @@ export const signUpBtn = styled.button`
   width: 90%;
 `
 
+
 export const toolTip = styled.div`
   color: var(--main);
 
   svg{
-    width:30px;
+    width:30px !important;
+    height:30px !important;
     margin:20px 0;
     
   }

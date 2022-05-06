@@ -1,20 +1,25 @@
 import React, {useEffect, useState} from 'react'
 import * as Styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Router, {useRouter} from "next/router";
 import {backendEndpoint, frontendEndpoint} from "../../../Config";
 import UserAPI from "../../../api/UserAPI";
+import ReactTooltip from "react-tooltip";
 
 
 export default function Profile(props) {
     const router = useRouter()
     const [email, setEmail] = useState("");
     const [geoTracking, setGeoTracking] = useState(false)
+    const [blurSetting, setBlurSetting] = useState(true)
     const [clickDeleteButton, setClickDeleteButton] = useState(false)
+    const [isMounted,setIsMounted] = useState(false);
+
 
     useEffect(()=> {
+        setIsMounted(true)
         const data = localStorage.getItem('accessToken');
         if(data){
             UserAPI.getUserProfile(data).then((resp) => {
@@ -31,6 +36,16 @@ export default function Profile(props) {
                 setGeoTracking(resp)
             })
         }
+    }
+
+    const updateBlurSetting = () => {
+        const data = localStorage.getItem('accessToken')
+        if(data){
+            UserAPI.updateUserBlurSetting(data).then((resp) => {
+                setBlurSetting(resp)
+            })
+        }
+
     }
 
     const removeTokens = () => {
@@ -69,6 +84,26 @@ export default function Profile(props) {
                     <input
                         onClick={() => updateGeoLocationPerms()}
                         checked={geoTracking}
+                        type={"checkbox"}
+                        readOnly
+                    />
+
+                </Styles.infoValue>
+            </Styles.infoRow>
+            <Styles.infoRow>
+                <Styles.infoType>Blur on proximity
+                    {isMounted && <ReactTooltip id={"blurTip"} effect={"solid"} clickable={true}/>}
+                    <span data-tip={"Engage with the music! Bands might not like you looking at your phone."} data-for={"blurTip"}>
+                        <Styles.toolTip>
+                    <FontAwesomeIcon icon={faQuestionCircle}/>
+                        </Styles.toolTip>
+                    </span>
+
+                </Styles.infoType>
+                <Styles.infoValue>
+                    <input
+                        onClick={() => updateBlurSetting()}
+                        checked={blurSetting}
                         type={"checkbox"}
                         readOnly
                     />

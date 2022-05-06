@@ -52,6 +52,24 @@ const UserAPI = {
                 console.error(error);
             })
     },
+    updateUserBlurSetting(access_token){
+        return fetch(backendEndpoint + `update_user_blur_setting`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + access_token
+            }
+        })
+            .then(res => {
+                return res.json()
+            })
+            .catch(error => {
+                console.error(error);
+            })
+
+    },
     deleteAccount(access_token){
         return fetch(backendEndpoint + `delete_user`,{
             method: 'POST',

@@ -93,7 +93,7 @@ export default function SignUp(props) {
                             type={"checkbox"}
                         />
                     </Styles.infoValue>
-                    {isMounted && <ReactTooltip id={"mytip"} effect={"solid"} clickable={"true"}/>}
+                    {isMounted && <ReactTooltip id={"mytip"} effect={"solid"} clickable={true}/>}
                     <span data-tip={"We use your location to show you where you are in proximity to porches in your area"} data-for={"mytip"}>
                         <Styles.toolTip>
                     <FontAwesomeIcon icon={faQuestionCircle}/>

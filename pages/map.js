@@ -1,3 +1,4 @@
+export const GeoBlurScreen = process.env.Geo_Blur_Screen
 import * as React from 'react';
 import Head from 'next/head';
 import Map, {
@@ -46,6 +47,7 @@ export default function MapPage({ porchData}) {
     const [openBlurred, setOpenBlurred] = useState(false);
     const [blurred, setBlurred] = useState(false);
     const [geoTracking, setGeoTracking] = useState(false);
+    const [blurSetting, setBlurSetting] = useState(true);
     const [savedArtists, setSavedArtists] = useState("");
     const [isDataLoaded, setDataLoaded] = useState(false);
     const [filterType, setFilterType] = useState("")
@@ -68,6 +70,7 @@ export default function MapPage({ porchData}) {
         if(data && !isDataLoaded){
             UserAPI.getUserProfile(data).then((resp) => {
                 setGeoTracking(resp.trackLocation)
+                //setBlurSetting(resp.blurSetting)
             })
             UserAPI.getUserSavedArtists(data).then((saved) => {
                 setSavedArtists(JSON.stringify(saved))
@@ -202,7 +205,9 @@ export default function MapPage({ porchData}) {
             }
         }
         if (porchIdx !== -1){
-            if(dist < 0.008 && porchData[3][porchIdx] === hours ){ //within 8 meters and is playing in current time slot
+            //within 8 meters, playing in current time slot, blur is enabled in amplify, blur is enabled by user
+            let doBlur = dist < 0.008 && porchData[3][porchIdx] === hours && GeoBlurScreen && blurSetting
+            if( doBlur ){
                 setBlurred(true);
                 openModal(porchIdx, "blurred");
             }

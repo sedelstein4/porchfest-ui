@@ -94,3 +94,18 @@ export const signoutTwo = styled.button`
 export const buttonDiv = styled.div`
     text-align: center;
     `
+export const toolTip = styled.div`
+  display:inline-block;
+  text-align: center;
+  color: var(--main);
+  margin-left:10px;
+  margin-top:8px;
+  margin-bottom:-4px;
+  svg{
+    display:block;
+    margin:auto;
+    width:30px !important;
+    height:30px !important;
+    
+  }
+`
